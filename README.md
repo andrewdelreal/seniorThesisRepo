@@ -31,150 +31,149 @@ I have added a ```main.cpp``` file to get you started. Feel free to remove it.
 
 If you have any questions feel free to ask me! I'll answer professor questions, customer questions, and give advice if asked.
 
-# Sample Spec
+# Project Specification
 
-Below is an example of a project specification.  
-
-## Software Requirements Specification for the Mahoney University Registration System
+## Software Requirements Specification for the [INSERT PROJECT NAME]
 
 ## Introduction
 
 ### Purpose
-The purpose of this document is to outline the functional and non-functional requirements of Mahoney University’s new online registration system. The system is designed to streamline the registration process for students and faculty, replacing the outdated manual system. This specification serves as a contract between the system stakeholders and the developers to ensure that the system meets the needs of its users while adhering to university policies and technical constraints.
+The purpose of this document is to outline the functional and non-functional requirements of [INSERT PROJECT NAME]. The system is designed to provide a personal finance stock evaluator that is more geared torward individual rather than business use. 
 
 The key goals of the new system are:
-- To improve the efficiency of the course registration process for students.
-- To provide staff in the Registrar’s Office with tools to manage course offerings, schedules, and student records.
-- To enhance the accuracy and accessibility of student academic information, such as grades and enrollment history.
-- To support the university’s transition to digital infrastructure while maintaining compatibility with legacy systems during a transitional period.
+- To provide a real-time stock explorering application with the most recent information possible
+
+- To provide an evaluation of a financial portfolio using machine learning along with standard portfolio data visuals.
+
+- To provide predictive information on stocks and portfolios using machine learning.
+
+- To provide customized notifications of certain stock or portfolio updates.
 
 ### Scope
-This system is intended to support the registration process for all students at Mahoney University, including undergraduates, graduate students, and non-degree-seeking students. The system will handle:
-- Student authentication and secure access to personal records.
-- Course search and registration.
-- Enrollment validation, including prerequisite checks and course availability.
-- Management of student schedules, including the ability to add, drop, or modify course enrollments.
-- Grade viewing and transcript requests.
+This system is intended to help anyone interested in investing in the stock market, no matter the scale of the investments, by providing prediction measures to boost the confidence in investments. The system will handle:
+- Secure user login through google login services (To avoid handling of login services).
+- Stock searching and evaluating.
+- Portfolio visualizer
+- Investment risk analyzer
+- Stock Predictions
+- Other market insights
 
-The scope of the system also includes administrative tools for the Registrar’s Office to:
-- Create and modify course offerings for each academic term.
-- Manage enrollment caps, waitlists, and course prerequisites.
-- Track student progress and generate reports for academic performance.
+#### Things that would be nice to have:
+- Export portfolio/statements
+- import statements to upload investments and profiles.
 
 ### Definitions, Acronyms, and Abbreviations
-- **Registrar**: The official responsible for maintaining student records, managing course schedules, and overseeing the registration process.
-- **Student Information System (SIS)**: A university-wide database that stores student records, course information, and academic data.
-- **GPA**: Grade Point Average, a numerical representation of a student's academic performance.
-- **Semester**: A division of the academic year, typically consisting of a Fall and Spring term, in which courses are offered and completed.
-- **Waitlist**: A system that allows students to reserve a spot in a full course, subject to availability if another student drops the course.
-- **Prerequisite**: A course or requirement that must be completed before a student can enroll in a more advanced course.
-- **User Role**: A designation for system access levels, such as student, registrar, or faculty member, each with different permissions within the system.
-- **Concurrent Enrollment**: The ability for students to be enrolled in multiple courses during the same academic term.
+- **Ticker Symbol**: Unique series of letter designated to a publicly traded stock (e.g., Microsoft Corporation (MSFT)).
+- **Index**: A benchmasrk that represents a group of stocks (e.g., S&P 500, NASDAQ).
+- **Market Capitalization** (Market Cap): The total value of a company’s outstanding shares (Price × Shares Outstanding).
+- **Dividend**: A portion of a company’s earnings distributed to shareholders.
+- **Dividend Yield**: A financial ratio showing dividend income relative to the stock price.
+- **Earnings Per Share** (EPS): A company’s profit divided by the number of outstanding shares.
+- **P/E Ratio** (Price-to-Earnings Ratio): A valuation measure comparing share price to earnings per share.
+- **Volatility**: A measure of how much a stock’s price fluctuates over time.
+- **Beta**: A measure of how much a stock's price fluctuates over time.
+- **Portfolio**: A collection of stocks or finaincial assets owned by an individual.
+- **Diversification**: The practice of spreading investments across assets to reduce risk.
+- **Benchmark**: A standard used to compare portfolio performance.
 
 ## Overview
-The Mahoney University Registration System is a web-based platform designed to automate the course registration process for students and faculty. It serves as the primary interface for students to manage their academic schedules and for university staff to oversee the course offerings and registration workflows.
+The [INSERT PROJECT NAME] is an application-based platform designed to assist in the management of investment portfolios. It serves as tool to help predict the market and provide confidence on investments. [INSERT PROJECT NAME] also provides standard portfolio viewing such as history, trends, visualizations,  etc.
 
 ### System Features:
-1. **Secure Login**: Ensures that only authorized users (students, faculty, and staff) have access to the system, with user authentication based on university credentials.
-2. **Course Search**: Allows students to browse available courses by department, term, and subject, with filtering options based on course availability, schedule, and prerequisites.
-3. **Course Registration**: Students can add or drop courses, view class schedules, and receive notifications of any conflicts or unmet prerequisites.
-4. **Grades and Transcripts**: Provides students with access to their grades from current and past semesters, as well as the ability to request official transcripts.
-5. **Registrar Management Tools**: The Registrar’s Office can create, modify, and delete course sections, set enrollment limits, and manage waitlists.
+1. **Secure Google Login**: Ensures each user has a secure login and access to their private portfolio data.
+2. **Stock Search**: Allows users to look up different stocks by ticker symbol or name of company. The search when selected will pull recent stock data along with a menu to view stock options, such as evaluations and predictions.
+3. **Stock Predicter**: When viewing a stock, a custom ML model will be used to predict the direction of a certain stock.
+4. **Portfolio Viewer**: Provides user with a visually pleasing portfolio data, such as value, holdings, trend, etc.
+5. **Send Notifications About Stock and Portfolio Updates**: 
+Allow for custom notifications to decide when to be notified of a certain stock event (e.g., share price drop/increase).
 
-The system is designed with scalability in mind, allowing it to handle thousands of students registering simultaneously during peak periods. It will integrate with the university’s existing Student Information System (SIS) and is built using modern web technologies to ensure ease of use, reliability, and performance.
+The system is designed with personal use in mind, meant to enhance personal envestments in a easy and helpfulway by providing built in stock predicters through the use of machine learning.
 
-The following sections detail the specific use cases that the system will support, describing how students and staff will interact with the system during typical operations.
+The following sections detail the specific use cases that the system will support, describing how users will interact with the system during typical use.
 
 ## Use Cases
 
 ### Use Case 1.1: Secure Login
-- **Actors**: Student or registrar
-- **Overview**: Actor uses password to verify their identity.
+- **Actors**: User
+- **Overview**: User logs in with their Google email to provide a secure login system.
 
 **Typical Course of Events**:
-1. Page prompts for username and password.
-2. User enters their username and password and hits enter/login.
-3. System verifies that the username and password are correct.
+1. System prompts user to login with a Google account.
+2. User selects their google account and provides credentials if required.
+3. System verifies credentials with Google.
+4. System redirects user to their personal homepage.
 
 **Alternative Courses**:
-- **Step 3**: User and/or password are not correct.
-  1. Displays error.
-  2. Go back to step 1.
+- **Step 3 - invalid credentials**: User and/or password are not correct.
+  
+  - 3a Displays error.
+  - 3b Go back to step 1.
 
-### Use Case 1.2: Find a Course
-- **Actors**: Student
-- **Overview**: Student finds a desired class.
+### Use Case 1.2: Find a Stock/Fund
+- **Actors**: User
+- **Overview**: User searches for a stock and the recent stock data is retrieved for the user.
 
 **Typical Course of Events**:
 1. Run Use Case 1.1, *Secure Login*.
-2. Displays list of current and upcoming semesters.
-3. Student selects a semester.
-4. Displays departments actively offering courses in that semester.
-5. Student selects a department.
-6. Displays courses of that department from that semester that are currently offered.
-7. Student selects a course.
-8. Displays course details.
+2. From the home page a "Stocks" tab is selected and redirects user to stocks page.
+3. User searches for a stock by name/ticker symbol by clicking the search bar.
+4. Displays general stock info and viewing options.
 
 **Alternative Courses**:
-- Any step: Student can start a new search at any time
-  1. Student clicks "start new search."
-  2. Go back to step 2.
+- **From step 2 (Browse instead of search)**: User can scroll through the top ticker sybols or sort the ticker symbols by different metrics instead of directly searching.
+  - 2a. User scrolls through top tickers or sorts by metrics
+  - 2b. User selects a ticker symbol.
+  - 2c. System displays stock details.
+  - 2d. Return to Step 4.
 
-### Use Case 1.3: Register for a Course
-- **Actors**: Student
-- **Overview**: Student registers for a course.
+### Use Case 1.3: Evaluate Stock
+- **Actors**: User
+- **Overview**: User evaluates a stock option using a model to predict and evaluate the stock option.
 
 **Typical Course of Events**:
-1. Run Use Case 1.2, *Find a Course*.
-2. Student clicks on "register for course" button.
-3. Verify that student can take the course.
-4. Display "You have successfully registered for 'insert course name here'."
+1. Run Use Case 1.2, *Find a Stock/Fund*.
+2. From the stock details page, user clicks on evaluations and chooses an option (e.g., predict or analyze risk)
+3. Display stock evaluations request.
 
 **Alternative Courses**:
-- **Step 4**: Student can't take course
-  1. Displays "You cannot take this course, please contact the registrar for further information."
+- **From step 2**: User selects a different evaluation method (e.g., user wants to evaluate the Beta instead of the risk).
+  - 2a. User selects a different evaluation method.
+  - 2b. Return to step 3.
 
-### Use Case 1.4: Check Grades
-- **Actors**: Student
-- **Overview**: Student checks grades.
+### Use Case 1.4: View Portfolio
+- **Actors**: User
+- **Overview**: User gets a visual and data about their stock portfolio.
 
 **Typical Course of Events**:
 1. Run Use Case 1.1, *Secure Login*.
-2. Display previous semesters in which the student took course(s).
-3. Student selects semester.
-4. Displays courses and grades.
+2. Display home page, which will hold their personal investment visuals.
 
-### Use Case 1.5: Registrar Creates Sections
-- **Actors**: Registrar
-- **Overview**: Registrar creates section.
+### Use Case 1.5: Analyze Portfolio
+- **Actors**: User
+- **Overview**: calculate and display analytics of the user's portfolio
+
+**Typical Course of Events**:
+1. Run Use Case 1.4, *View Portfolio*
+2. From the portfolio page, user clicks on evaluations and chooses an option (e.g., change timeframe, display holdings)
+3. Display portfolio options
+
+**Alternative Courses**:
+- **From step 2**: User selects a different evaluation method (e.g., user wants to evaluate the risk of their portfolio instead of viewing their portfolio).
+  - 2a. USer chooses a different analysis option.
+  - 2b. Return to Step 3.
+
+### Use Case 1.6: Modify Notifications
+- **Actors**: User
+- **Overview**: Update notification settings.
 
 **Typical Course of Events**:
 1. Run Use Case 1.1, *Secure Login*.
-2. Registrar selects "Create Section."
-3. Display "Create Section" form.
-4. Registrar submits form.
-5. System verifies valid entry (no overlapping schedules/times).
-6. Displays section details and successfully added.
+2. From the home page, user selects the notifications tab.
+3. The user selects which notification options they want.
+4. System saves notification settings.
 
 **Alternative Courses**:
-- **Step 6**: Entry invalid
-  1. Display error.
-  2. Go back to step 3.
-
-### Use Case 1.6: Registrar Modifies Section
-- **Actors**: Registrar
-- **Overview**: Registrar modifies existing sections.
-
-**Typical Course of Events**:
-1. Run Use Case 1.1, *Secure Login*.
-2. Registrar selects "Modify section."
-3. Displays all sections (with order options).
-4. Choose section.
-5. Display "Edit Form" with filled-in data.
-6. Submit/verify data.
-7. Display "Section successfully edited."
-
-**Alternative Courses**:
-- **Step 7**: Invalid Data
-  1. Display Error.
-  2. Go back to step 5.
+- **From Step 1**: User adds stock to notification pool.
+  - 1a. Run Use Case 1.2, *Find a Stock/Fund*.
+  - 1b. While viewing the details of any stock, there user can click on an option to add stock to notifications.
+  - 1c. System updates notification preferences accordingly.
