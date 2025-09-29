@@ -64,7 +64,7 @@ This system is intended to help anyone interested in investing in the stock mark
 
 ### Definitions, Acronyms, and Abbreviations
 - **Ticker Symbol**: Unique series of letter designated to a publicly traded stock (e.g., Microsoft Corporation (MSFT)).
-- **Index**: A benchmasrk that represents a group of stocks (e.g., S&P 500, NASDAQ).
+- **Index**: A benchmark that represents a group of stocks (e.g., S&P 500, NASDAQ).
 - **Market Capitalization** (Market Cap): The total value of a company’s outstanding shares (Price × Shares Outstanding).
 - **Dividend**: A portion of a company’s earnings distributed to shareholders.
 - **Dividend Yield**: A financial ratio showing dividend income relative to the stock price.

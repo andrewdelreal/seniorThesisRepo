@@ -1,58 +1,58 @@
-## Week 1 Summary (MM/DD/YYYY)
+## Week 1 Summary (09/15/2025)
 
 ### This week I worked on:
 
-[Your answer here]
+Looking for different project ideas for my senior project.
 
 ### This week I learned:
 
-[Your answer here]
+I explored project ideas like a different minesweeper game, a tennis related professional stats visualizer, and a stock portfolio manager.
 
 ### My successes this week were:
 
-[Your answer here]
+I was able to find different resources and ideas of projects that I was interested in.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+It is hard to find a project to work on.
 
 ---
 
-## Week 2 Summary (MM/DD/YYYY)
+## Week 2 Summary (09/22/2025)
 ### This week I worked on:
 
-[Your answer here]
+Finializing an idea for my senior project. I will be making a stock portfolio related application and trying to make it more insightful for users.
 
 ### This week I learned:
 
-[Your answer here]
+About some of the framework to use for my project, like ReactNative, a backend database like SQlite to hold user portfolio data, and the API/s that I will be using to pull stock data from.
 
 ### My successes this week were:
 
-[Your answer here]
+Finding the right framework and materials to use.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+Finding the right API was pretty challenging. I took quite a bit of research to find the right one for what I want to accomplish in the app.
 
 ---
 
-## Week 3 Summary (MM/DD/YYYY)
+## Week 3 Summary (09/29/2025)
 ### This week I worked on:
 
-[Your answer here]
+Finding use cases for my project.
 
 ### This week I learned:
 
-[Your answer here]
+What my use cases will be, but also what I need to ammend/change to my use cases.
 
 ### My successes this week were:
 
-[Your answer here]
+Making the use cases and having a good idea for what I can do to start my project, specifically with the setup stuff, like with logins and starting to be able to pull data from the API.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+Finding the right use cases was challenging, especially with trying to incorporate machine learning into the application. I need to revise what I want to accomplish with machine learning to be something much more reasonable and specific.
 
 ---
 
