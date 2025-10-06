@@ -56,22 +56,22 @@ Finding the right use cases was challenging, especially with trying to incorpora
 
 ---
 
-## Week 4 Summary (MM/DD/YYYY)
+## Week 4 Summary (10/06/2025)
 ### This week I worked on:
 
-[Your answer here]
+I have a modified version of how I want to use Machine Learning. So I found a few things I can do to narrow my scope of my machine learning.
 
 ### This week I learned:
 
-[Your answer here]
+Some of the more narrow tasks that are much more feasable are whether a stock will close higher tommorrow than yesterday, clustering stocks to help with diversification, and maybe ranking stocks (out of a group of n stocks, which k are most likely to do best) So I won't be trying to beat the game, just try and add a little more insight into a stock.
 
 ### My successes this week were:
 
-[Your answer here]
+Narrowing the machine learning scope.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+Trying to narrow down the machine learning aspect of the project has been tricky.
 
 ---
 
