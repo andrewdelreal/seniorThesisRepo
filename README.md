@@ -126,19 +126,21 @@ The following sections detail the specific use cases that the system will suppor
   - 2c. System displays stock details.
   - 2d. Return to Step 4.
 
-### Use Case 1.3: Evaluate Stock
+### Use Case 1.3: Cluster Stocks
 - **Actors**: User
-- **Overview**: User evaluates a stock option using a model to predict and evaluate the stock option.
+- **Overview**: User evaluates a stock options by providing dimensions to cluster by. A visual will be provided to display stock clusters for better diversification.
 
 **Typical Course of Events**:
-1. Run Use Case 1.2, *Find a Stock/Fund*.
-2. From the stock details page, user clicks on evaluations and chooses an option (e.g., predict or analyze risk)
-3. Display stock evaluations request.
+1. Run Use Case 1.1, *Secure Login*.
+2. From the stock details page, user clicks on "Cluster Stocks"
+3. Display cluster stocks page and present dimensions to cluster by and other parameters (e.g., which stocks to cluster).
+4. User selects cluster stock options
+5. Cluster visual is displayed.
 
 **Alternative Courses**:
-- **From step 2**: User selects a different evaluation method (e.g., user wants to evaluate the Beta instead of the risk).
-  - 2a. User selects a different evaluation method.
-  - 2b. Return to step 3.
+- **From step 4**: User selects a different cluster options
+  - 4a. User selects a different cluster options.
+  - 4b. Return to step 5.
 
 ### Use Case 1.4: View Portfolio
 - **Actors**: User
