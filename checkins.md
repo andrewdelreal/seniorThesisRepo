@@ -75,22 +75,23 @@ Trying to narrow down the machine learning aspect of the project has been tricky
 
 ---
 
-## Week 5 Summary (MM/DD/YYYY)
+## Week 5 Summary (10/12/2025)
 ### This week I worked on:
 
-[Your answer here]
+My elevator pitch and starting to get ready for the first sprint.
 
 ### This week I learned:
 
-[Your answer here]
+What I want to include for my clustering use case.
 
 ### My successes this week were:
 
-[Your answer here]
+Being able make the pitch but also fixing my use cases to be more descriptive with the clustering
+I plan to do.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+Nothing really
 
 ---
 
