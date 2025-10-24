@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import './App.css'
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import './css/App.css'
 
 function App() {
-  const [count, setCount] = useState<number>(0);
-
   // useEffect(() => {
   //   const loadCount = async () => {
   //     // try {
@@ -17,21 +18,46 @@ function App() {
   // }, [count]);
 
   return (
-    <div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <BrowserRouter>
+      <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+        <div className="container">
+          <NavLink className="navbar-brand fw-bold text-purple" to="/">
+            MyApp
+          </NavLink>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <NavLink className="nav-link text-purple-hover" to="/">
+                  Home
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link text-purple-hover" to="/login">
+                  Login
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <main className="container py-5">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
+  );
 }
 
 export default App;

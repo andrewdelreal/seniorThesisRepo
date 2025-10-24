@@ -1,0 +1,29 @@
+.login {
+  margin-top: 4rem;
+}
+
+.loginCard {
+  background-color: white;
+  border-radius: 1rem;
+  border-top: 4px solid var(--purple-main);
+}
+
+.title {
+  color: var(--purple-main);
+  font-weight: 700;
+}
+
+.label {
+  color: var(--purple-dark);
+  font-weight: 500;
+}
+
+.input {
+  border: 1px solid var(--purple-light);
+  border-radius: 0.5rem;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+  border-color: var(--purple-main);
+}

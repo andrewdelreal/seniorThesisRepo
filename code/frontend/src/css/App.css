@@ -1,0 +1,67 @@
+/* === Global App Theme === */
+
+/* Color palette */
+:root {
+  --purple-main: #6f42c1;
+  --purple-dark: #5b2ea6;
+  --purple-light: #ede3ff;
+  --text-color: #2d2d2d;
+  --background-color: #f8f9fa;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* === Navbar === */
+.navbar {
+  background: white;
+  border-bottom: 2px solid var(--purple-light);
+  box-shadow: 0 1px 6px rgba(111, 66, 193, 0.08);
+}
+
+.navbar-brand {
+  color: var(--purple-main) !important;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  color: var(--purple-main) !important;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--purple-dark) !important;
+}
+
+.nav-link.active {
+  color: var(--purple-dark) !important;
+  font-weight: 600;
+  border-bottom: 2px solid var(--purple-dark);
+}
+
+/* === Buttons === */
+.btn-purple {
+  background-color: var(--purple-main);
+  color: #fff !important;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-purple:hover {
+  background-color: var(--purple-dark);
+}
+
+/* === Utility classes === */
+.bg-purple-light {
+  background-color: var(--purple-light);
+}
+
+.text-purple {
+  color: var(--purple-main) !important;
+}
