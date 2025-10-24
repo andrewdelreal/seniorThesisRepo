@@ -2,11 +2,11 @@
 
 /* Color palette */
 :root {
-  --purple-main: #6f42c1;
-  --purple-dark: #5b2ea6;
+  --purple-main: #5b2db1;
+  --purple-dark: #5b2db1;
   --purple-light: #ede3ff;
   --text-color: #2d2d2d;
-  --background-color: #f8f9fa;
+  --background-color: #181b1d13;
 }
 
 body {
