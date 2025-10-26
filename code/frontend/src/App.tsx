@@ -16,6 +16,9 @@ function App() {
 
   //   loadCount();
   // }, [count]);
+  console.log(localStorage.getItem("token"));
+  console.log(localStorage.getItem("googleId"));
+  console.log(localStorage.getItem("googleName"));
 
   return (
     <BrowserRouter>

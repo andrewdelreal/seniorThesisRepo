@@ -11,12 +11,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "google-auth-library": "^10.4.2",
+    "jsonwebtoken": "^9.0.2",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.4",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/sqlite3": "^3.1.11",
     "cors": "^2.8.5",
