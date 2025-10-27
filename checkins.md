@@ -75,7 +75,7 @@ Trying to narrow down the machine learning aspect of the project has been tricky
 
 ---
 
-## Week 5 Summary (10/12/2025)
+## Week 5 Summary (10/13/2025)
 ### This week I worked on:
 
 My elevator pitch and starting to get ready for the first sprint.
@@ -95,41 +95,41 @@ Nothing really
 
 ---
 
-## Week 6 Summary (MM/DD/YYYY)
+## Week 6 Summary (10/20/2025)
 ### This week I worked on:
 
-[Your answer here]
+I started looking into the setup of the project and looking into how I can make an IOS application
 
 ### This week I learned:
 
-[Your answer here]
+I learned it is very hard to try and make an IOS app and not free if I don't have a mac. I may 
 
 ### My successes this week were:
 
-[Your answer here]
+I learned more about my setp, but also learned that I may need to change my technologies I plan to use.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+Using the IOS software is a pain and it seems to be hard to develop with.
 
 ---
 
-## Week 7 Summary (MM/DD/YYYY)
+## Week 7 Summary (10/27/2025)
 ### This week I worked on:
 
-[Your answer here]
+Making a Web application for my Stock Learning Web App. I changed the scope of my project (with Dr. Mahoney's approval). I started with the basic front and backend. Once I got most of the boiler plate code for my front and backend, I completed the first use case of my project, logging in with Google's OAuth.
 
 ### This week I learned:
 
-[Your answer here]
+How to use Google OAuth but also how to tie it in with typescript
 
 ### My successes this week were:
 
-[Your answer here]
+Finally getting to really start with programming. After the hastle of trying to use an IOS app, it feels good to be able to program more than just setup.
 
 ### The challenges I faced this week were:
 
-[Your answer here]
+Google OAuth was a bit challenging to get working, mainly with linking the client ID (the app's id to talk to OAuth).
 
 ---
 
