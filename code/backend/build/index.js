@@ -45,14 +45,14 @@ function verifyGoogleToken(token) {
 app.post("/api/auth/google", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token } = req.body;
     try {
-        const payload = yield verifyGoogleToken(token);
+        const payload = yield verifyGoogleToken(token); // Google verigies credentials
         if (!payload)
             return res.status(401).json({ error: "Invalid token" });
-        const { sub } = payload; // Google’s unique user ID
+        const sub = payload.sub; // Google’s unique user ID
         if (!sub)
             return res.status(400).json({ error: "Missing user ID" });
-        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: "7d" });
-        // Send it back to frontend
+        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: "7d" }); // create token valid for 7 days
+        // Send user token that is valid for 7days
         res.json({ appToken });
     }
     catch (err) {

@@ -1,6 +1,24 @@
 import '../css/Home.module.css';
+import { JSX } from 'react';
+import { useEffect, useState } from 'react';
+import Graph from '../components/Graph';
 
-function Home() {
+function Home(): JSX.Element {
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
+
+  useEffect(() => {
+    const tokenChange = async () => {
+      if (token) {
+        localStorage.setItem("token", token)
+        // setToken(localStorage.getItem("token"));
+      } else {
+        localStorage.removeItem("token");
+      }
+    };
+
+    tokenChange();
+  }, [token]);
+
   return (
     <div className="text-center">
       <h1 className="display-5 fw-bold text-purple mb-3">Welcome Home {localStorage.getItem('googleName')}</h1>
@@ -10,6 +28,14 @@ function Home() {
       <button className="btn btn-purple px-4 py-2 rounded-pill">
         Get Started
       </button>
+
+      <div>
+        {localStorage.getItem("token") === null ? (
+          <div/>
+        ): (
+          <Graph/>
+        )}
+      </div>
     </div>
   );
 }

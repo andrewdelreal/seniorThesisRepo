@@ -3,6 +3,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { JSX } from "react";
 
 type GoogleUser = {
   sub: string;
@@ -10,7 +11,7 @@ type GoogleUser = {
   name: string;
 };
 
-function Login() {
+function Login(): JSX.Element {
   const navigate = useNavigate();
 
   const handleSuccess = async (credentialResponse: any) => {
