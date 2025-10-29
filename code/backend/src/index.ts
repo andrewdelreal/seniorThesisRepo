@@ -25,7 +25,7 @@ app.use(express.static('public'))
 const GOOGLE_CLIENT_ID: string = process.env.GOOGLE_CLIENT_ID!;
 const client: OAuth2Client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-const APP_JWT_SECRET = process.env.APP_JWT_SECRET!;
+const APP_JWT_SECRET: string = process.env.APP_JWT_SECRET!;
 
 // Verify Google token
 async function verifyGoogleToken(token: string) {
