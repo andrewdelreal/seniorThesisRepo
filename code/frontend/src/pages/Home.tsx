@@ -2,9 +2,16 @@ import '../css/Home.module.css';
 import { JSX } from 'react';
 import { useEffect, useState } from 'react';
 import Graph from '../components/Graph';
+import StockData from '../hooks/StockData';
 
 function Home(): JSX.Element {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
+  const [symbol, setSymbol] = useState("AAPL");
+  const [interval, setInterval] = useState("daily");
+  const [start, setStart] = useState("2020-01-02");
+  const [end, setEnd] = useState("2020-01-03");
+
+  const { data, loading, error } = StockData({ symbol, interval, start, end });
 
   useEffect(() => {
     const tokenChange = async (): Promise<void> =>  {
@@ -33,7 +40,9 @@ function Home(): JSX.Element {
         {localStorage.getItem("token") === null ? (
           <div/>
         ): (
-          <Graph/>
+          <div>
+            <Graph/>
+          </div>
         )}
       </div>
     </div>

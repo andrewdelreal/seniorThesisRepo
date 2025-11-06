@@ -63,8 +63,10 @@ app.post("/api/auth/google", (req, res) => __awaiter(void 0, void 0, void 0, fun
 app.post("/api/tradier/markets/history", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const options = { method: 'GET',
         headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN } };
+    const { symbol, interval, start, end } = req.body;
     try {
-        const response = yield fetch('https://api.tradier.com/v1/markets/history?symbol=AAPL&interval=daily&start=2020-01-02&end=2020-01-03', options);
+        console.log('here');
+        const response = yield fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options);
         const data = yield response.json();
         res.status(200).json(data);
     }
