@@ -56,6 +56,21 @@ app.post("/api/auth/google", async (req: Request<{}, {}, {token: string}>, res: 
   }
 });
 
+app.post("/api/tradier/markets/history", async (req: Request, res: Response) => {
+  const  options  = {method: 'GET',
+  headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}};
+
+  try {
+    const response = await fetch('https://api.tradier.com/v1/markets/history?symbol=AAPL&interval=daily&start=2020-01-02&end=2020-01-03', options );
+
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Tradier API error:", err);
+    res.status(500).json({ error: "Failed to fetch market history" });  
+  }
+});
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello World!');
 });
