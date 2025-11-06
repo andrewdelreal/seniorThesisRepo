@@ -7,7 +7,7 @@ function Home(): JSX.Element {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
 
   useEffect(() => {
-    const tokenChange = async () => {
+    const tokenChange = async (): Promise<void> =>  {
       if (token) {
         localStorage.setItem("token", token)
         // setToken(localStorage.getItem("token"));
