@@ -3,6 +3,7 @@ import path from 'path';
 import DBAbstraction from './DBAbstraction';
 import cors from 'cors';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 import jwt from "jsonwebtoken";
 import { LoginTicket, OAuth2Client, TokenPayload } from "google-auth-library";
 import { Request, Response, NextFunction } from "express";
@@ -20,6 +21,7 @@ const db: DBAbstraction = new DBAbstraction(dbPath);
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 const GOOGLE_CLIENT_ID: string = process.env.GOOGLE_CLIENT_ID!;
@@ -63,7 +65,6 @@ app.post("/api/tradier/markets/history", async (req: Request<{}, {}, {symbol: st
   const { symbol, interval, start, end } = req.body;
 
   try {
-    console.log('here');
     const response = await fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options );
 
     const data = await response.json();

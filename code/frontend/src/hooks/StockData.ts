@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 interface StockHistoryParams {
   symbol: string;
@@ -13,7 +13,7 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!symbol || !interval || !start || !end) {
+        if (!symbol || !interval || !start || !end) {  // check all parameters are provided
             setError("All parameters (symbol, interval, start, end) are required.");
             return;
         }

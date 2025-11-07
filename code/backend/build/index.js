@@ -17,6 +17,7 @@ const path_1 = __importDefault(require("path"));
 const DBAbstraction_1 = __importDefault(require("./DBAbstraction"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const google_auth_library_1 = require("google-auth-library");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -28,6 +29,7 @@ const db = new DBAbstraction_1.default(dbPath);
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
+app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.static('public'));
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
@@ -65,7 +67,6 @@ app.post("/api/tradier/markets/history", (req, res) => __awaiter(void 0, void 0,
         headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN } };
     const { symbol, interval, start, end } = req.body;
     try {
-        console.log('here');
         const response = yield fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options);
         const data = yield response.json();
         res.status(200).json(data);

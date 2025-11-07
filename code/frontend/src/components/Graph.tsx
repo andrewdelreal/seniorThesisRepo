@@ -1,25 +1,46 @@
-import { JSX } from "react";
+import { JSX, useState, useEffect } from "react";
 import styles from "../css/Graph.module.css";
 import Plot from "react-plotly.js";
+import ParseStockData from "../hooks/ParseStockData";
 
-function Graph(): JSX.Element {
-    const x: number[] = [1, 2, 3, 4, 5];
-    const y: number[] = [10, 15, 13, 17, 12];
+function Graph({ data }: {data: any}): JSX.Element {
+    const [x, setX] = useState<number[]>([1, 2, 3, 4, 5]);
+    const [y, setY] = useState<number[]>([1, 2, 3, 4, 5]);
+    const [color, setColor] = useState<string>("green");
 
-    const data = [
+    useEffect(() => {
+         if (!data) return; // if no data, do nothing
+
+        const updateXY = async () => {  // parse data in the right format for plotly
+            const parsedData = await ParseStockData(data);
+            setX(parsedData.xValues);
+            setY(parsedData.yValues);
+
+            if (parsedData.yValues.length >= 2) {
+                const trend = parsedData.yValues[parsedData.yValues.length - 1] - parsedData.yValues[0];
+                setColor(trend >= 0 ? "green" : "red"); // green for uptrend, red for downtrend
+                // future: could add color for each up and down segment, make this an option as it will be slower.
+            }
+        }
+
+        updateXY();
+    }, [data]);
+
+    const graphData = [ // define data for plotly graph
         {
             x: x,
             y: y,
             mode: 'lines',
             name: 'Line Chart',
-            line: { color: 'blue' }, // change this to be on trend of time frame dependent.
+            line: { color: color }, // change this to be on trend of time frame dependent.
         },
     ];
-
+    
+    // may need to add this to the useEffect and state to change the arrow annotations.
     const layout = {
-        title: {text: 'Sample Line Chart'},
-        xaxis: { title: {text: 'X Axis' }},
-        yaxis: { title: {text: 'Y Axis' }},
+        title: {text: 'Trend of [TICKER] from [START DATE] to [END DATE] by [INTERVAL]'},
+        xaxis: { title: {text: '' }},
+        yaxis: { title: {text: '' }, tickprefix: '$', tickformat: ',.2f' },
         color: {text: 'blue'},
          annotations: [ // used for the arrow at the e
             {
@@ -36,17 +57,17 @@ function Graph(): JSX.Element {
                 arrowhead: 3,
                 arrowsize: 2,
                 arrowwidth: 2,
-                arrowcolor: "blue",
+                arrowcolor: color,
             },
         ],
     };
 
     return (
         <div className={styles.graphContainer}>
-            <h2 className={styles.graphTitle}>Sample Graph</h2>
+            <h2 className={styles.graphTitle}>Stock Viewer</h2>
             <div className={styles.graphPlaceholder}>
                 <Plot
-                    data={data}
+                    data={graphData}
                     layout={{title: layout.title, xaxis: layout.xaxis, yaxis: layout.yaxis, autosize: true, annotations: layout.annotations}}
                     style={{ width: '100%', height: '100%' }}
                     config={{ responsive: true }}

@@ -5,9 +5,9 @@ import Login from "./pages/Login";
 import './css/App.css'
 
 function App(): JSX.Element {
-  console.log(localStorage.getItem("token"));
-  console.log(localStorage.getItem("googleId"));
-  console.log(localStorage.getItem("googleName"));
+  // console.log(localStorage.getItem("token"));
+  // console.log(localStorage.getItem("googleId"));
+  // console.log(localStorage.getItem("googleName"));
 
   return (
     <div className='contaner my-5 px-3'>
