@@ -1,0 +1,65 @@
+
+.stock-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border: 1px solid var(--purple-light);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(91, 45, 177, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+/* Dropdowns and date inputs */
+.stock-controls select,
+.stock-controls input[type="date"] {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background-color: var(--purple-light);
+  border: 1px solid var(--purple-main);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Hover and focus styles */
+.stock-controls select:hover,
+.stock-controls input[type="date"]:hover {
+  background-color: #fff;
+  border-color: var(--purple-main);
+  box-shadow: 0 0 0 3px rgba(91, 45, 177, 0.15);
+}
+
+.stock-controls select:focus,
+.stock-controls input[type="date"]:focus {
+  background-color: #fff;
+  border-color: var(--purple-dark);
+  box-shadow: 0 0 0 3px rgba(91, 45, 177, 0.25);
+}
+
+/* Label styles (optional, if you add labels above inputs) */
+.stock-controls label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--purple-main);
+  margin-right: 0.25rem;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .stock-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .stock-controls select,
+  .stock-controls input[type="date"] {
+    width: 100%;
+  }
+}

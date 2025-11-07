@@ -3,7 +3,7 @@ import styles from "../css/Graph.module.css";
 import Plot from "react-plotly.js";
 import ParseStockData from "../hooks/ParseStockData";
 
-function Graph({ data }: {data: any}): JSX.Element {
+function Graph({ data, symbol, interval, start, end }: {data: any, symbol: string, interval: string, start: string, end: string}): JSX.Element {
     const [x, setX] = useState<number[]>([1, 2, 3, 4, 5]);
     const [y, setY] = useState<number[]>([1, 2, 3, 4, 5]);
     const [color, setColor] = useState<string>("green");
@@ -26,6 +26,17 @@ function Graph({ data }: {data: any}): JSX.Element {
         updateXY();
     }, [data]);
 
+    function formatDateToMonthNameDayYear(dateString: string): string {
+        const date = new Date(dateString);
+
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+    }
     const graphData = [ // define data for plotly graph
         {
             x: x,
@@ -38,7 +49,8 @@ function Graph({ data }: {data: any}): JSX.Element {
     
     // may need to add this to the useEffect and state to change the arrow annotations.
     const layout = {
-        title: {text: 'Trend of [TICKER] from [START DATE] to [END DATE] by [INTERVAL]'},
+        title: {text: `${interval.charAt(0).toUpperCase() + interval.slice(1).toLowerCase()}` + 
+            `Trend of ${symbol} from ${formatDateToMonthNameDayYear(start)} - ${formatDateToMonthNameDayYear(end)}`},
         xaxis: { title: {text: '' }},
         yaxis: { title: {text: '' }, tickprefix: '$', tickformat: ',.2f' },
         color: {text: 'blue'},
