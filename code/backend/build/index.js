@@ -38,9 +38,9 @@ const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
 const APP_JWT_SECRET = process.env.APP_JWT_SECRET;
 ;
 const ExchangeSources = {
-    nasdaq: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nasdaq/nasdaq_full_tickers.json',
-    nyse: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nyse/nyse_full_tickers.json',
-    amex: 'https://github.com/rreichel3/US-Stock-Symbols/tree/main/amex'
+    nasdaq: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nasdaq/nasdaq_full_tickers.json',
+    nyse: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nyse/nyse_full_tickers.json',
+    amex: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/amex/amex_full_tickers.json'
 };
 // Verify Google token
 function verifyGoogleToken(token) {
@@ -104,7 +104,7 @@ function authenticate(req, res, next) {
 }
 const parseTickers = (data) => {
     return data.map((item) => ({
-        name: item.name,
+        name: `${item.name} (${item.symbol})`,
         symbol: item.symbol
     }));
 };
@@ -113,9 +113,12 @@ function updateTickers() {
         for (const [exchange, url] of Object.entries(ExchangeSources)) {
             try {
                 const response = yield fetch(url);
-                const data = response.json();
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                }
+                const data = yield response.json();
                 const parsed = parseTickers(data);
-                fs_1.default.writeFileSync(`../cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
+                fs_1.default.writeFileSync(`./cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
                 console.log(`Cached ${exchange} successfully`);
             }
             catch (err) {

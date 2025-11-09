@@ -2,43 +2,66 @@ import { JSX } from "react";
 import '../css/StockControls.module.css';
 
 interface StockControlsProps {
-  symbol: string;
-  setSymbol: (value: string) => void;
-  interval: string;
-  setInterval: (value: string) => void;
-  start: string;
-  setStart: (value: string) => void;
-  end: string;
-  setEnd: (value: string) => void;
+    exchange: string;
+    setExchange: (value: string) => void;
+    symbol: string;
+    setSymbol: (value: string) => void;
+    interval: string;
+    setInterval: (value: string) => void;
+    start: string;
+    setStart: (value: string) => void;
+    end: string;
+    setEnd: (value: string) => void;
 }
 
+const exchangeOptions = [
+    { label: "NASDAQ", value: "nasdaq" },
+    { label: "NYSE", value: "nyse" },
+    { label: "AMEX", value: "amex" },
+];
+
 const intervalOptions = [
-  { label: "Daily", value: "daily" },
-  { label: "Weekly", value: "weekly" },
-  { label: "Monthly", value: "monthly" },
+    { label: "Daily", value: "daily" },
+    { label: "Weekly", value: "weekly" },
+    { label: "Monthly", value: "monthly" },
 ];
 
 const tickerOptions = [
-  { label: "Apple (AAPL)", value: "AAPL" },
-  { label: "Microsoft (MSFT)", value: "MSFT" },
-  { label: "Amazon (AMZN)", value: "AMZN" },
-  { label: "Google (GOOG)", value: "GOOG" },
-  { label: "NVIDIA (NVDA)", value: "NVDA" },
-  { label: "Tesla (TSLA)", value: "TSLA" },
+    { label: "Apple (AAPL)", value: "AAPL" },
+    { label: "Microsoft (MSFT)", value: "MSFT" },
+    { label: "Amazon (AMZN)", value: "AMZN" },
+    { label: "Google (GOOG)", value: "GOOG" },
+    { label: "NVIDIA (NVDA)", value: "NVDA" },
+    { label: "Tesla (TSLA)", value: "TSLA" },
 ];
 
 function StockControls({
-  symbol,
-  setSymbol,
-  interval,
-  setInterval,
-  start,
-  setStart,
-  end,
-  setEnd,
+    exchange,
+    setExchange,
+    symbol,
+    setSymbol,
+    interval,
+    setInterval,
+    start,
+    setStart,
+    end,
+    setEnd,
 }: StockControlsProps): JSX.Element {
     return (
         <div className="stock-controls">
+            {/* Exchange dropdown */}
+            <select
+                value={exchange}
+                onChange={(e) => setExchange(e.target.value)}
+                className="select"
+            >
+                {exchangeOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                </option>
+                ))}
+            </select>
+
             {/* Symbol dropdown */}
             <select
                 value={symbol}

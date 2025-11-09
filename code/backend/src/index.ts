@@ -4,14 +4,14 @@ import DBAbstraction from './DBAbstraction';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import jwt from "jsonwebtoken";
-import { LoginTicket, OAuth2Client, TokenPayload } from "google-auth-library";
-import { Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
+import { LoginTicket, OAuth2Client, TokenPayload } from 'google-auth-library';
+import { Request, Response, NextFunction } from 'express';
+import dotenv from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
 
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app: Application = express();
 
@@ -36,9 +36,9 @@ interface ExchangeItems {
 };
 
 const ExchangeSources = {
-  nasdaq: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nasdaq/nasdaq_full_tickers.json',
-  nyse: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nyse/nyse_full_tickers.json',
-  amex: 'https://github.com/rreichel3/US-Stock-Symbols/tree/main/amex'
+  nasdaq: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nasdaq/nasdaq_full_tickers.json',
+  nyse: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nyse/nyse_full_tickers.json',
+  amex: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/amex/amex_full_tickers.json'
 };
 
 // Verify Google token
@@ -50,27 +50,27 @@ async function verifyGoogleToken(token: string) {
   return ticket.getPayload();
 }
 
-app.post("/api/auth/google", async (req: Request<{}, {}, {token: string}>, res: Response) => {
+app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: Response) => {
   const { token } = req.body;
 
   try {
     const payload: TokenPayload | undefined = await verifyGoogleToken(token); // Google verigies credentials
-    if (!payload) return res.status(401).json({ error: "Invalid token" });
+    if (!payload) return res.status(401).json({ error: 'Invalid token' });
 
     const sub: string = payload.sub; // Google’s unique user ID
-    if (!sub) return res.status(400).json({ error: "Missing user ID" });
+    if (!sub) return res.status(400).json({ error: 'Missing user ID' });
 
-    const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: "7d" });  // create token valid for 7 days
+    const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });  // create token valid for 7 days
 
     // Send user token that is valid for 7days
     res.json({ appToken });
   } catch (err) {
-    console.error("Login error:", err);
-    res.status(500).json({ error: "Authentication failed" });
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Authentication failed' });
   }
 });
 
-app.post("/api/tradier/markets/history", async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
+app.post('/api/tradier/markets/history', async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
   const  options  = {method: 'GET',
   headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}};
 
@@ -82,9 +82,20 @@ app.post("/api/tradier/markets/history", async (req: Request<{}, {}, {symbol: st
     const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
-    console.error("Tradier API error:", err);
-    res.status(500).json({ error: "Failed to fetch market history" });  
+    console.error('Tradier API error:', err);
+    res.status(500).json({ error: 'Failed to fetch market history' });  
   }
+});
+
+app.post('/api/tickers', (req: Request, res: Response) => {
+  const { exchange } = req.body;
+
+  const filePath = `./cache/${exchange}.json`;
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+  if (!data) return res.status(500).json({'error': 'Failed to read from echange cache'});
+
+  res.json(data);
 });
 
 app.get('/', (req: Request, res: Response) => {
@@ -94,15 +105,15 @@ app.get('/', (req: Request, res: Response) => {
 //middleware for pretected routes
 function authenticate(req: Request, res: Response, next: NextFunction) {
   const authHeader: string | undefined = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ error: "Missing token" });
+  if (!authHeader) return res.status(401).json({ error: 'Missing token' });
 
-  const token: string = authHeader.split(" ")[1];
+  const token: string = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, APP_JWT_SECRET) as { googleId: string };
     (req as any).googleId = decoded.googleId;
     next();
   } catch {
-    return res.status(403).json({ error: "Invalid token" });
+    return res.status(403).json({ error: 'Invalid token' });
   }
 }
 
@@ -117,11 +128,16 @@ async function updateTickers() {
   for (const [exchange, url] of Object.entries(ExchangeSources)) {
     try {
       const response = await fetch(url);
-      const data: any = response.json();
+
+      if (!response.ok) {
+        throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data: any = await response.json();
 
       const parsed = parseTickers(data);
 
-      fs.writeFileSync(`../cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
+      fs.writeFileSync(`./cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
       console.log(`Cached ${exchange} successfully`);
     } catch (err) {
       console.log(`Failed to cache ${exchange} data:`, err);
