@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, useState, useEffect } from "react";
 import '../css/StockControls.module.css';
 
 interface StockControlsProps {
@@ -14,6 +14,10 @@ interface StockControlsProps {
     setEnd: (value: string) => void;
 }
 
+interface ExchangeItems {
+  [key: string]: string;
+};
+
 const exchangeOptions = [
     { label: "NASDAQ", value: "nasdaq" },
     { label: "NYSE", value: "nyse" },
@@ -26,14 +30,14 @@ const intervalOptions = [
     { label: "Monthly", value: "monthly" },
 ];
 
-const tickerOptions = [
-    { label: "Apple (AAPL)", value: "AAPL" },
-    { label: "Microsoft (MSFT)", value: "MSFT" },
-    { label: "Amazon (AMZN)", value: "AMZN" },
-    { label: "Google (GOOG)", value: "GOOG" },
-    { label: "NVIDIA (NVDA)", value: "NVDA" },
-    { label: "Tesla (TSLA)", value: "TSLA" },
-];
+// const tickerOptions = [
+//     { label: "Apple (AAPL)", value: "AAPL" },
+//     { label: "Microsoft (MSFT)", value: "MSFT" },
+//     { label: "Amazon (AMZN)", value: "AMZN" },
+//     { label: "Google (GOOG)", value: "GOOG" },
+//     { label: "NVIDIA (NVDA)", value: "NVDA" },
+//     { label: "Tesla (TSLA)", value: "TSLA" },
+// ];
 
 function StockControls({
     exchange,
@@ -47,6 +51,29 @@ function StockControls({
     end,
     setEnd,
 }: StockControlsProps): JSX.Element {
+    const [tickers, setTickers] = useState<ExchangeItems[]>([]);
+
+    useEffect(() => {
+        const getTickers = async () => {
+            const response = await fetch('http://localhost:3000/api/tickers', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({exchange})
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error fetching ticker data: ${response.statusText}`);
+            }
+
+            const tickerData = await response.json();
+            setTickers(tickerData);
+        };
+
+        getTickers();
+    }, [exchange]);
+
     return (
         <div className="stock-controls">
             {/* Exchange dropdown */}
@@ -68,9 +95,9 @@ function StockControls({
                 onChange={(e) => setSymbol(e.target.value)}
                 className="select"
             >
-                {tickerOptions.map((t) => (
-                <option key={t.value} value={t.value}>
-                    {t.label}
+                {tickers.map((t) => (
+                <option key={t.symbol} value={t.symbol}>
+                    {t.name}
                 </option>
                 ))}
             </select>

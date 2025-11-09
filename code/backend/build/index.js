@@ -23,7 +23,7 @@ const google_auth_library_1 = require("google-auth-library");
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
-dotenv_1.default.config({ path: path_1.default.resolve(__dirname, "../.env") });
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
 const PORT = 3000;
 const dbPath = path_1.default.join(__dirname, '..', 'data', 'database.db');
@@ -52,25 +52,25 @@ function verifyGoogleToken(token) {
         return ticket.getPayload();
     });
 }
-app.post("/api/auth/google", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/api/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token } = req.body;
     try {
         const payload = yield verifyGoogleToken(token); // Google verigies credentials
         if (!payload)
-            return res.status(401).json({ error: "Invalid token" });
+            return res.status(401).json({ error: 'Invalid token' });
         const sub = payload.sub; // Google’s unique user ID
         if (!sub)
-            return res.status(400).json({ error: "Missing user ID" });
-        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: "7d" }); // create token valid for 7 days
+            return res.status(400).json({ error: 'Missing user ID' });
+        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' }); // create token valid for 7 days
         // Send user token that is valid for 7days
         res.json({ appToken });
     }
     catch (err) {
-        console.error("Login error:", err);
-        res.status(500).json({ error: "Authentication failed" });
+        console.error('Login error:', err);
+        res.status(500).json({ error: 'Authentication failed' });
     }
 }));
-app.post("/api/tradier/markets/history", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/api/tradier/markets/history', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const options = { method: 'GET',
         headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN } };
     const { symbol, interval, start, end } = req.body;
@@ -80,10 +80,18 @@ app.post("/api/tradier/markets/history", (req, res) => __awaiter(void 0, void 0,
         res.status(200).json(data);
     }
     catch (err) {
-        console.error("Tradier API error:", err);
-        res.status(500).json({ error: "Failed to fetch market history" });
+        console.error('Tradier API error:', err);
+        res.status(500).json({ error: 'Failed to fetch market history' });
     }
 }));
+app.post('/api/tickers', (req, res) => {
+    const { exchange } = req.body;
+    const filePath = `./cache/${exchange}.json`;
+    const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
+    if (!data)
+        return res.status(500).json({ 'error': 'Failed to read from echange cache' });
+    res.json(data);
+});
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
@@ -91,20 +99,20 @@ app.get('/', (req, res) => {
 function authenticate(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader)
-        return res.status(401).json({ error: "Missing token" });
-    const token = authHeader.split(" ")[1];
+        return res.status(401).json({ error: 'Missing token' });
+    const token = authHeader.split(' ')[1];
     try {
         const decoded = jsonwebtoken_1.default.verify(token, APP_JWT_SECRET);
         req.googleId = decoded.googleId;
         next();
     }
     catch (_a) {
-        return res.status(403).json({ error: "Invalid token" });
+        return res.status(403).json({ error: 'Invalid token' });
     }
 }
 const parseTickers = (data) => {
     return data.map((item) => ({
-        name: `${item.name} (${item.symbol})`,
+        name: `${item.name.slice(0, 50).trimEnd()} (${item.symbol})`,
         symbol: item.symbol
     }));
 };

@@ -119,7 +119,7 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
 
 const parseTickers = (data: any) => {
   return data.map((item: ExchangeItems) => ({
-    name: `${item.name} (${item.symbol})`,
+    name: `${item.name.slice(0, 50).trimEnd()} (${item.symbol})`,
     symbol: item.symbol
   }));
 }
