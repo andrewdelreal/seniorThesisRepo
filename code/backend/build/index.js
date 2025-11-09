@@ -21,6 +21,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const google_auth_library_1 = require("google-auth-library");
 const dotenv_1 = __importDefault(require("dotenv"));
+const fs_1 = __importDefault(require("fs"));
+const node_cron_1 = __importDefault(require("node-cron"));
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, "../.env") });
 const app = (0, express_1.default)();
 const PORT = 3000;
@@ -34,6 +36,12 @@ app.use(express_1.default.static('public'));
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
 const APP_JWT_SECRET = process.env.APP_JWT_SECRET;
+;
+const ExchangeSources = {
+    nasdaq: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nasdaq/nasdaq_full_tickers.json',
+    nyse: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nyse/nyse_full_tickers.json',
+    amex: 'https://github.com/rreichel3/US-Stock-Symbols/tree/main/amex'
+};
 // Verify Google token
 function verifyGoogleToken(token) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -94,9 +102,33 @@ function authenticate(req, res, next) {
         return res.status(403).json({ error: "Invalid token" });
     }
 }
+const parseTickers = (data) => {
+    return data.map((item) => ({
+        name: item.name,
+        symbol: item.symbol
+    }));
+};
+function updateTickers() {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (const [exchange, url] of Object.entries(ExchangeSources)) {
+            try {
+                const response = yield fetch(url);
+                const data = response.json();
+                const parsed = parseTickers(data);
+                fs_1.default.writeFileSync(`../cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
+                console.log(`Cached ${exchange} successfully`);
+            }
+            catch (err) {
+                console.log(`Failed to cache ${exchange} data:`, err);
+            }
+        }
+    });
+}
+node_cron_1.default.schedule('0 0 * * *', updateTickers);
 db.init()
     .then(() => {
     app.listen(PORT, () => {
+        updateTickers();
         console.log(`Server is running on http://localhost:${PORT}`);
     });
 }).catch((err) => {

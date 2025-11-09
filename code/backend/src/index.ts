@@ -8,6 +8,8 @@ import jwt from "jsonwebtoken";
 import { LoginTicket, OAuth2Client, TokenPayload } from "google-auth-library";
 import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
+import fs from 'fs';
+import cron from 'node-cron';
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
@@ -28,6 +30,16 @@ const GOOGLE_CLIENT_ID: string = process.env.GOOGLE_CLIENT_ID!;
 const client: OAuth2Client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 const APP_JWT_SECRET: string = process.env.APP_JWT_SECRET!;
+
+interface ExchangeItems {
+  [key: string]: string;
+};
+
+const ExchangeSources = {
+  nasdaq: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nasdaq/nasdaq_full_tickers.json',
+  nyse: 'https://github.com/rreichel3/US-Stock-Symbols/blob/main/nyse/nyse_full_tickers.json',
+  amex: 'https://github.com/rreichel3/US-Stock-Symbols/tree/main/amex'
+};
 
 // Verify Google token
 async function verifyGoogleToken(token: string) {
@@ -94,9 +106,35 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+const parseTickers = (data: any) => {
+  return data.map((item: ExchangeItems) => ({
+    name: `${item.name} (${item.symbol})`,
+    symbol: item.symbol
+  }));
+}
+
+async function updateTickers() {
+  for (const [exchange, url] of Object.entries(ExchangeSources)) {
+    try {
+      const response = await fetch(url);
+      const data: any = response.json();
+
+      const parsed = parseTickers(data);
+
+      fs.writeFileSync(`../cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
+      console.log(`Cached ${exchange} successfully`);
+    } catch (err) {
+      console.log(`Failed to cache ${exchange} data:`, err);
+    }
+  }
+}
+
+cron.schedule('0 0 * * *', updateTickers);
+
 db.init()
     .then(() => {
         app.listen(PORT, () => {
+            updateTickers();
             console.log(`Server is running on http://localhost:${PORT}`);
         });
     }).catch((err) => {
