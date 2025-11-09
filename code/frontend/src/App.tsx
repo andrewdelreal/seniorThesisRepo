@@ -15,7 +15,7 @@ function App(): JSX.Element {
         <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
           <div className="container">
             <NavLink className="navbar-brand fw-bold text-purple" to="/">
-              MyApp
+              Stock Learning
             </NavLink>
             <button
               className="navbar-toggler"

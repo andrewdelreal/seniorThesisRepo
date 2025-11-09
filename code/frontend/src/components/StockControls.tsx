@@ -43,7 +43,7 @@ function StockControls({
             <select
                 value={symbol}
                 onChange={(e) => setSymbol(e.target.value)}
-                className="p-2 rounded-xl border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="select"
             >
                 {tickerOptions.map((t) => (
                 <option key={t.value} value={t.value}>
@@ -56,7 +56,7 @@ function StockControls({
             <select
                 value={interval}
                 onChange={(e) => setInterval(e.target.value)}
-                className="p-2 rounded-xl border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="select"
             >
                 {intervalOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -70,7 +70,7 @@ function StockControls({
                 type="date"
                 value={start}
                 onChange={(e) => setStart(e.target.value)}
-                className="p-2 rounded-xl border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="imput"
             />
 
             {/* End date */}
@@ -78,7 +78,7 @@ function StockControls({
                 type="date"
                 value={end}
                 onChange={(e) => setEnd(e.target.value)}
-                className="p-2 rounded-xl border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="input"
             />
         </div>
     );
