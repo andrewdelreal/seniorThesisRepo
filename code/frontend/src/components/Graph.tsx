@@ -50,7 +50,7 @@ function Graph({ data, symbol, interval, start, end }: {data: any, symbol: strin
     // may need to add this to the useEffect and state to change the arrow annotations.
     const layout = {
         title: {text: `${interval.charAt(0).toUpperCase() + interval.slice(1).toLowerCase()}` + 
-            `Trend of ${symbol} from ${formatDateToMonthNameDayYear(start)} - ${formatDateToMonthNameDayYear(end)}`},
+            ` trend of ${symbol} from ${formatDateToMonthNameDayYear(start)} - ${formatDateToMonthNameDayYear(end)}`},
         xaxis: { title: {text: '' }},
         yaxis: { title: {text: '' }, tickprefix: '$', tickformat: ',.2f' },
         color: {text: 'blue'},
