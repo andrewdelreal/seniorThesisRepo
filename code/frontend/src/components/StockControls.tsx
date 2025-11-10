@@ -69,6 +69,7 @@ function StockControls({
 
             const tickerData = await response.json();
             setTickers(tickerData);
+            setSymbol(tickerData[0].symbol);
         };
 
         getTickers();

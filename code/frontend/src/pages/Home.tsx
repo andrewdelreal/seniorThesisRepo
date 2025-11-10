@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 import Graph from '../components/Graph';
 import StockData from '../hooks/StockData';
 import StockControls from '../components/StockControls';
-import { UNSAFE_getTurboStreamSingleFetchDataStrategy } from 'react-router-dom';
-import { toFormData } from 'axios';
-import { stringify } from 'querystring';
 
 function getTodayAndWeekBefore() {
     const today = new Date();
@@ -54,11 +51,8 @@ function Home(): JSX.Element {
     <div className='text-center'>
       <h1 className='display-5 fw-bold text-purple mb-3'>Welcome Home {localStorage.getItem('googleName')}</h1>
       <p className='lead text-muted mb-4'>
-        {/* This is your dashboard — clean, simple, and modern. */}
+        {/*Center text */}
       </p>
-      {/* <button className='btn btn-purple px-4 py-2 rounded-pill'>
-        Get Started
-      </button> */}
 
       <div>
         <StockControls
