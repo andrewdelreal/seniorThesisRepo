@@ -1,5 +1,6 @@
 import { JSX, useState, useEffect } from "react";
-import '../css/StockControls.module.css';
+import Select from 'react-select';
+import styles from '../css/StockControls.module.css';
 
 interface StockControlsProps {
     exchange: string;
@@ -30,14 +31,10 @@ const intervalOptions = [
     { label: "Monthly", value: "monthly" },
 ];
 
-// const tickerOptions = [
-//     { label: "Apple (AAPL)", value: "AAPL" },
-//     { label: "Microsoft (MSFT)", value: "MSFT" },
-//     { label: "Amazon (AMZN)", value: "AMZN" },
-//     { label: "Google (GOOG)", value: "GOOG" },
-//     { label: "NVIDIA (NVDA)", value: "NVDA" },
-//     { label: "Tesla (TSLA)", value: "TSLA" },
-// ];
+interface OptionType {
+  value: string;
+  label: string;
+}
 
 function StockControls({
     exchange,
@@ -69,52 +66,49 @@ function StockControls({
 
             const tickerData = await response.json();
             setTickers(tickerData);
-            setSymbol(tickerData[0].symbol);
         };
 
         getTickers();
     }, [exchange]);
 
     return (
-        <div className="stock-controls">
+        <div className={styles.stockControls}>
             {/* Exchange dropdown */}
-            <select
-                value={exchange}
-                onChange={(e) => setExchange(e.target.value)}
-                className="select"
-            >
-                {exchangeOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                </option>
-                ))}
-            </select>
+             <Select
+                value={exchangeOptions.find((opt) => opt.value === exchange)}
+                onChange={(selected) => setExchange(selected ? selected.value : "")}
+                options={exchangeOptions}
+                classNamePrefix="select"
+                className={styles.select}
+                isSearchable={false}
+            />
 
-            {/* Symbol dropdown */}
-            <select
-                value={symbol}
-                onChange={(e) => setSymbol(e.target.value)}
-                className="select"
-            >
-                {tickers.map((t) => (
-                <option key={t.symbol} value={t.symbol}>
-                    {t.name}
-                </option>
-                ))}
-            </select>
+            <Select
+                value={
+                tickers
+                    .map((t) => ({ value: t.symbol, label: `${t.name} (${t.symbol})` }))
+                    .find((opt) => opt.value === symbol) || null
+                }
+                onChange={(selected) => setSymbol(selected ? selected.value : "")}
+                options={tickers.map((t) => ({
+                value: t.symbol,
+                label: `${t.name} (${t.symbol})`,
+                }))}
+                classNamePrefix="select"
+                className={styles.select}
+                placeholder="Search ticker..."
+                isSearchable
+            />      
 
             {/* Interval dropdown */}
-            <select
-                value={interval}
-                onChange={(e) => setInterval(e.target.value)}
-                className="select"
-            >
-                {intervalOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                </option>
-                ))}
-            </select>
+            <Select
+                value={intervalOptions.find((opt) => opt.value === interval)}
+                onChange={(selected) => setInterval(selected ? selected.value : "")}
+                options={intervalOptions}
+                classNamePrefix="select"
+                className={styles.select}
+                isSearchable={false}
+            />
 
             {/* Start date */}
             <input

@@ -1,65 +1,69 @@
-
-.stock-controls {
+.stockControls {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.5rem;
-  background-color: #fff;
-  border: 1px solid var(--purple-light);
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(91, 45, 177, 0.08);
-  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-/* Dropdowns and date inputs */
-.stock-controls select,
-.stock-controls input[type="date"] {
+/* === React Select Styles === */
+.select {
+  width: 220px;
+  font-size: 0.95rem;
+}
+
+/* Prefix styles to target react-select internal elements */
+.select__control {
+  border-radius: 12px !important;
+  border: 1px solid #ccc !important;
+  min-height: 40px !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.select__control:hover {
+  border-color: var(--purple-main) !important;
+}
+
+.select__menu {
+  border-radius: 10px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+  z-index: 9999 !important;
+}
+
+.select__option {
+  cursor: pointer !important;
+  color: var(--text-color) !important;
+}
+
+.select__option--is-focused {
+  background-color: var(--purple-light) !important;
+}
+
+.select__option--is-selected {
+  background-color: var(--purple-main) !important;
+  color: #fff !important;
+}
+
+.select__single-value {
+  color: var(--text-color) !important;
+}
+
+/* === Date Inputs === */
+.input {
+  border-radius: 12px;
+  border: 1px solid #ccc;
   padding: 0.5rem 0.75rem;
   font-size: 0.95rem;
   color: var(--text-color);
-  background-color: var(--purple-light);
-  border: 1px solid var(--purple-main);
-  border-radius: 0.75rem;
-  outline: none;
-  transition: all 0.2s ease;
+  background-color: white;
+  transition: border-color 0.2s ease;
 }
 
-/* Hover and focus styles */
-.stock-controls select:hover,
-.stock-controls input[type="date"]:hover {
-  background-color: #fff;
+.input:hover,
+.input:focus {
   border-color: var(--purple-main);
-  box-shadow: 0 0 0 3px rgba(91, 45, 177, 0.15);
-}
-
-.stock-controls select:focus,
-.stock-controls input[type="date"]:focus {
-  background-color: #fff;
-  border-color: var(--purple-dark);
-  box-shadow: 0 0 0 3px rgba(91, 45, 177, 0.25);
-}
-
-/* Label styles (optional, if you add labels above inputs) */
-.stock-controls label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--purple-main);
-  margin-right: 0.25rem;
-}
-
-/* Responsive layout */
-@media (max-width: 768px) {
-  .stock-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-    padding: 1rem;
-  }
-
-  .stock-controls select,
-  .stock-controls input[type="date"] {
-    width: 100%;
-  }
+  outline: none;
 }
