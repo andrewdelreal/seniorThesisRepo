@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 interface StockHistoryParams {
   symbol: string;
@@ -14,7 +14,7 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
 
     useEffect(() => {
         if (!symbol || !interval || !start || !end) {  // check all parameters are provided
-            setError("All parameters (symbol, interval, start, end) are required.");
+            setError('All parameters (symbol, interval, start, end) are required.');
             return;
         }
 
@@ -38,7 +38,7 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
                 const json = await response.json();
                 setData(json);
             } catch (err: any) {
-                setError(err.message || "Unknown error occurred");
+                setError(err.message || 'Unknown error occurred');
             } finally {
                 setLoading(false);
             }

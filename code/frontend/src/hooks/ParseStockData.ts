@@ -4,7 +4,7 @@ function ParseStockData(data: {history: {day: Object[]}}): Promise<{xValues: num
 
     // check data validity
     if (!data || !data.history || !data.history.day) {
-        console.error("Invalid data format or missing history/day:", data);
+        console.error('Invalid data format or missing history/day:', data);
         return Promise.resolve({ xValues: [], yValues: [] });
     }
 

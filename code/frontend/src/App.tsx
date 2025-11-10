@@ -1,40 +1,40 @@
 import { JSX, useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
 import './css/App.css'
 
 function App(): JSX.Element {
-  // console.log(localStorage.getItem("token"));
-  // console.log(localStorage.getItem("googleId"));
-  // console.log(localStorage.getItem("googleName"));
+  // console.log(localStorage.getItem('token'));
+  // console.log(localStorage.getItem('googleId'));
+  // console.log(localStorage.getItem('googleName'));
 
   return (
     <div className='contaner my-5 px-3'>
       <BrowserRouter>
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-          <div className="container">
-            <NavLink className="navbar-brand fw-bold text-purple" to="/">
+        <nav className='navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3'>
+          <div className='container'>
+            <NavLink className='navbar-brand fw-bold text-purple' to='/'>
               Stock Learning
             </NavLink>
             <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
+              className='navbar-toggler'
+              type='button'
+              data-bs-toggle='collapse'
+              data-bs-target='#navbarNav'
             >
-              <span className="navbar-toggler-icon"></span>
+              <span className='navbar-toggler-icon'></span>
             </button>
 
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav ms-auto">
-                <li className="nav-item">
-                  <NavLink className="nav-link text-purple-hover" to="/">
+            <div className='collapse navbar-collapse' id='navbarNav'>
+              <ul className='navbar-nav ms-auto'>
+                <li className='nav-item'>
+                  <NavLink className='nav-link text-purple-hover' to='/'>
                     Home
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link text-purple-hover" to="/login">
+                <li className='nav-item'>
+                  <NavLink className='nav-link text-purple-hover' to='/login'>
                     Login
                   </NavLink>
                 </li>
@@ -43,10 +43,10 @@ function App(): JSX.Element {
           </div>
         </nav>
 
-        <main className="container py-5">
+        <main className='container py-5'>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
           </Routes>
         </main>
       </BrowserRouter>
