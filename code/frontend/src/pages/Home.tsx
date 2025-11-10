@@ -4,13 +4,33 @@ import { useEffect, useState } from 'react';
 import Graph from '../components/Graph';
 import StockData from '../hooks/StockData';
 import StockControls from '../components/StockControls';
+import { UNSAFE_getTurboStreamSingleFetchDataStrategy } from 'react-router-dom';
+import { toFormData } from 'axios';
+import { stringify } from 'querystring';
+
+function getTodayAndWeekBefore() {
+    const today = new Date();
+    const todayYear = today.getFullYear();
+    const todayMonth = String(today.getMonth() + 1).padStart(2, '0');
+    const todayDay = String(today.getDate()).padStart(2, '0');
+
+    const lastWeekDate = new Date(today)
+    lastWeekDate.setDate(today.getDate() - 60);
+    const lastWeekYear = lastWeekDate.getFullYear();
+    const lastWeekMonth = String(lastWeekDate.getMonth() + 1).padStart(2, '0');
+    const lastWeekDay = String(lastWeekDate.getDate()).padStart(2, '0');
+
+    return {today: `${todayYear}-${todayMonth}-${todayDay}`, lastWeek: `${lastWeekYear}-${lastWeekMonth}-${lastWeekDay}`};
+  }
 
 function Home(): JSX.Element {
+  const { today, lastWeek } = getTodayAndWeekBefore();
+  
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
   const [symbol, setSymbol] = useState('AAPL');
   const [interval, setInterval] = useState('daily');
-  const [start, setStart] = useState('2020-01-02');
-  const [end, setEnd] = useState('2021-01-02');
+  const [start, setStart] = useState(lastWeek);
+  const [end, setEnd] = useState(today);
   const [exchange, setExchange] = useState('nasdaq')
 
   const { data, loading, error } = StockData({ symbol, interval, start, end });
@@ -27,6 +47,8 @@ function Home(): JSX.Element {
 
     tokenChange();
   }, [token]);
+
+  
 
   return (
     <div className='text-center'>
