@@ -172,6 +172,10 @@
     "symbol": "CIK"
   },
   {
+    "name": "General Enterprise Ventures Inc. Common Stock (CITR)",
+    "symbol": "CITR"
+  },
+  {
     "name": "CompX International Inc. Common Stock (CIX)",
     "symbol": "CIX"
   },
@@ -284,6 +288,10 @@
     "symbol": "ECF^A"
   },
   {
+    "name": "Enigmatig Limited Class A Ordinary Shares (EGG)",
+    "symbol": "EGG"
+  },
+  {
     "name": "Eaton Vance Municipal Bond Fund Common Shares of B (EIM)",
     "symbol": "EIM"
   },
@@ -298,10 +306,6 @@
   {
     "name": "Electromed Inc. Common Stock (ELMD)",
     "symbol": "ELMD"
-  },
-  {
-    "name": "EMX Royalty Corporation Common Shares (Canada) (EMX)",
-    "symbol": "EMX"
   },
   {
     "name": "EON Resources Inc. Class A Common Stock (EONR)",
@@ -406,6 +410,10 @@
   {
     "name": "Gabelli Global Utility Common Shares of Beneficial (GLU)",
     "symbol": "GLU"
+  },
+  {
+    "name": "The Gabelli Global Utility and Income Trust Series (GLU^B)",
+    "symbol": "GLU^B"
   },
   {
     "name": "Clough Global Dividend and Income Fund Common Shar (GLV)",
@@ -554,10 +562,6 @@
   {
     "name": "Legato Merger Corp. III Ordinary Shares (LEGT)",
     "symbol": "LEGT"
-  },
-  {
-    "name": "Centrus Energy Corp. Class A Common Stock (LEU)",
-    "symbol": "LEU"
   },
   {
     "name": "Legacy Education Inc. Common Stock (LGCY)",
@@ -760,6 +764,10 @@
     "symbol": "OSTX"
   },
   {
+    "name": "Off The Hook YS Inc. Common Stock (OTH)",
+    "symbol": "OTH"
+  },
+  {
     "name": "Belpointe PREP LLC Class A Units (OZ)",
     "symbol": "OZ"
   },
@@ -832,12 +840,20 @@
     "symbol": "PMNT"
   },
   {
+    "name": "Phaos Technology Holdings (Cayman) Limited Class A (POAS)",
+    "symbol": "POAS"
+  },
+  {
     "name": "Park National Corporation Common Stock (PRK)",
     "symbol": "PRK"
   },
   {
     "name": "Pelthos Therapeutics Inc. Common Stock (PTHS)",
     "symbol": "PTHS"
+  },
+  {
+    "name": "Palatin Technologies Inc. Common Stock (PTN)",
+    "symbol": "PTN"
   },
   {
     "name": "Power REIT (MD) Common Stock (PW)",
@@ -856,12 +872,20 @@
     "symbol": "RCG"
   },
   {
+    "name": "Reed's Inc. Common Stock (REED)",
+    "symbol": "REED"
+  },
+  {
     "name": "Ring Energy Inc. Common Stock (REI)",
     "symbol": "REI"
   },
   {
     "name": "Riley Exploration Permian Inc. Common Stock (REPX)",
     "symbol": "REPX"
+  },
+  {
+    "name": "Regentis Biomaterials Ltd. Ordinary Shares (RGNT)",
+    "symbol": "RGNT"
   },
   {
     "name": "Radiant Logistics Inc. Common Stock (RLGT)",
@@ -912,10 +936,6 @@
     "symbol": "SEB"
   },
   {
-    "name": "Senseonics Holdings Inc. Common Stock (SENS)",
-    "symbol": "SENS"
-  },
-  {
     "name": "Serina Therapeutics Inc. Common Stock (SER)",
     "symbol": "SER"
   },
@@ -942,6 +962,10 @@
   {
     "name": "Solaris Resources Inc. Common Shares (SLSR)",
     "symbol": "SLSR"
+  },
+  {
+    "name": "SMJ International Holdings Inc. Class A Ordinary S (SMJF)",
+    "symbol": "SMJF"
   },
   {
     "name": "Volato Group Inc. Class A Common Stock (SOAR)",
@@ -982,6 +1006,10 @@
   {
     "name": "International Tower Hill Mines Ltd. Ordinary Share (THM)",
     "symbol": "THM"
+  },
+  {
+    "name": "Titan Mining Corporation Common Shares (TII)",
+    "symbol": "TII"
   },
   {
     "name": "TMD Energy Limited Ordinary Shares (TMDE)",

@@ -1,6 +1,7 @@
 import { JSX, useState, useEffect } from 'react';
-import Select from 'react-select';
+import Select from "react-select";
 import styles from '../css/StockControls.module.css';
+import { VirtualizedMenuList } from './VirtualizedMenuList';
 
 interface StockControlsProps {
     exchange: string;
@@ -31,7 +32,7 @@ const intervalOptions = [
     { label: 'Monthly', value: 'monthly' },
 ];
 
-interface OptionType {
+interface Option {
   value: string;
   label: string;
 }
@@ -65,6 +66,14 @@ function StockControls({
             }
 
             const tickerData = await response.json();
+
+            // const formatted = tickerData.map((t: ExchangeItems) => ({
+            //     value: t.symbol,
+            //     label: `${t.name} (${t.symbol})`,
+            // }));
+
+            // setTickers(formatted);
+
             setTickers(tickerData);
         };
 
@@ -83,7 +92,7 @@ function StockControls({
                 isSearchable={false}
             />
 
-            <Select
+            {/* <Select
                 value={
                 tickers
                     .map((t) => ({ value: t.symbol, label: `${t.name} (${t.symbol})` }))
@@ -98,7 +107,25 @@ function StockControls({
                 className={styles.select}
                 placeholder='Search ticker...'
                 isSearchable
-            />      
+            />      */}
+
+            <Select<Option>
+                components={{ MenuList: VirtualizedMenuList }}
+                value={
+                    tickers
+                    .map(t => ({ value: t.symbol, label: `${t.name} (${t.symbol})` }))
+                    .find(o => o.value === symbol) || null
+                }
+                onChange={(selected) => {
+                    setSymbol(selected?.value ?? "");
+                }}
+                options={tickers.map(t => ({
+                    value: t.symbol,
+                    label: `${t.name} (${t.symbol})`
+                }))}
+                className={styles.select}
+                isSearchable
+            />  
 
             {/* Interval dropdown */}
             <Select

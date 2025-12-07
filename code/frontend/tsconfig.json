@@ -10,6 +10,9 @@
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    }
   },
   "include": ["src"]
 }
