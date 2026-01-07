@@ -16,6 +16,10 @@
     "symbol": "AEON"
   },
   {
+    "name": "Abundia Global Impact Group Inc. Common stock (AGIG)",
+    "symbol": "AGIG"
+  },
+  {
     "name": "AIM ImmunoTech Inc. Common Stock (AIM)",
     "symbol": "AIM"
   },
@@ -144,7 +148,7 @@
     "symbol": "BURU"
   },
   {
-    "name": "Can-Fite Biopharma Ltd Sponsored ADR (Israel) (CANF)",
+    "name": "Can-Fite Biopharma Ltd American Depositary Shares (CANF)",
     "symbol": "CANF"
   },
   {
@@ -238,10 +242,6 @@
   {
     "name": "CPI Aerostructures Inc. Common Stock (CVU)",
     "symbol": "CVU"
-  },
-  {
-    "name": "Cybin Inc. Common Shares (CYBN)",
-    "symbol": "CYBN"
   },
   {
     "name": "Dakota Gold Corp. Common Stock (DC)",
@@ -356,6 +356,10 @@
     "symbol": "FCO"
   },
   {
+    "name": "Starfighters Space Inc. Common Stock (FJET)",
+    "symbol": "FJET"
+  },
+  {
     "name": "flyExclusive Inc. Class A Common Stock (FLYX)",
     "symbol": "FLYX"
   },
@@ -412,6 +416,10 @@
     "symbol": "GLU"
   },
   {
+    "name": "The Gabelli Global Utility and Income Trust Series (GLU^A)",
+    "symbol": "GLU^A"
+  },
+  {
     "name": "The Gabelli Global Utility and Income Trust Series (GLU^B)",
     "symbol": "GLU^B"
   },
@@ -458,14 +466,6 @@
   {
     "name": "Healthy Choice Wellness Corp. Class A Common Stock (HCWC)",
     "symbol": "HCWC"
-  },
-  {
-    "name": "Houston American Energy Corporation Common Stock (HUSA)",
-    "symbol": "HUSA"
-  },
-  {
-    "name": "Howmet Aerospace Inc. $3.75 Preferred Stock (HWM^)",
-    "symbol": "HWM^"
   },
   {
     "name": "Hyliion Holdings Corp. Class A Common Stock (HYLN)",
@@ -540,6 +540,10 @@
     "symbol": "ITRG"
   },
   {
+    "name": "JM Group Limited Ordinary Shares (JMG)",
+    "symbol": "JMG"
+  },
+  {
     "name": "GEE Group Inc. Common Stock (JOB)",
     "symbol": "JOB"
   },
@@ -600,7 +604,7 @@
     "symbol": "MAIA"
   },
   {
-    "name": "Micropolis Holding Company Ordinary Shares (MCRP)",
+    "name": "Micropolis AI Robotics Ordinary Shares (MCRP)",
     "symbol": "MCRP"
   },
   {
@@ -652,7 +656,7 @@
     "symbol": "MTNB"
   },
   {
-    "name": "Multi Ways Holdings Limited Ordinary Shares (MWG)",
+    "name": "Multi Ways Holdings Limited Class A Ordinary Share (MWG)",
     "symbol": "MWG"
   },
   {
@@ -672,7 +676,7 @@
     "symbol": "NAK"
   },
   {
-    "name": "Neuberger Berman Municipal Fund Inc. Common Stock (NBH)",
+    "name": "Neuberger Municipal Fund Inc. Common Stock (NBH)",
     "symbol": "NBH"
   },
   {
@@ -708,11 +712,11 @@
     "symbol": "NHC"
   },
   {
-    "name": "Neuberger Berman High Yield Strategies Fund (NHS)",
+    "name": "Neuberger High Yield Strategies Fund Inc. Common S (NHS)",
     "symbol": "NHS"
   },
   {
-    "name": "Neuberger Berman Energy Infrastructure and Income (NML)",
+    "name": "Neuberger Energy Infrastructure and Income Fund In (NML)",
     "symbol": "NML"
   },
   {
@@ -720,7 +724,7 @@
     "symbol": "NNVC"
   },
   {
-    "name": "Neuberger Berman Real Estate Securities Income Fun (NRO)",
+    "name": "Neuberger Real Estate Securities Income Fund Inc. (NRO)",
     "symbol": "NRO"
   },
   {

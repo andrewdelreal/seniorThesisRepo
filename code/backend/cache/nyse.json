@@ -72,6 +72,14 @@
     "symbol": "ABT"
   },
   {
+    "name": "Abacus Global Management Inc. Class A Common Stock (ABX)",
+    "symbol": "ABX"
+  },
+  {
+    "name": "Abacus Global Management Inc. 9.875% Fixed Rate Se (ABXL)",
+    "symbol": "ABXL"
+  },
+  {
     "name": "Arcosa Inc. Common Stock (ACA)",
     "symbol": "ACA"
   },
@@ -82,6 +90,10 @@
   {
     "name": "Accel Entertainment Inc. (ACEL)",
     "symbol": "ACEL"
+  },
+  {
+    "name": "Accendra Health Inc. Common Stock (ACH)",
+    "symbol": "ACH"
   },
   {
     "name": "Archer Aviation Inc. Class A Common Stock (ACHR)",
@@ -420,10 +432,6 @@
     "symbol": "ALC"
   },
   {
-    "name": "Allete Inc. (ALE)",
-    "symbol": "ALE"
-  },
-  {
     "name": "Alexander & Baldwin Inc. Common Stock REIT Holding (ALEX)",
     "symbol": "ALEX"
   },
@@ -482,6 +490,10 @@
   {
     "name": "Alta Equipment Group Inc. Depositary Shares (each (ALTG^A)",
     "symbol": "ALTG^A"
+  },
+  {
+    "name": "Alussa Energy Acquisition Corp. II (ALUB)",
+    "symbol": "ALUB"
   },
   {
     "name": "Allurion Technologies Inc. Common Stock (ALUR)",
@@ -590,6 +602,10 @@
   {
     "name": "AutoNation Inc. Common Stock (AN)",
     "symbol": "AN"
+  },
+  {
+    "name": "Andersen Group Inc. Class A Common Stock (ANDG)",
+    "symbol": "ANDG"
   },
   {
     "name": "Arista Networks Inc. Common Stock (ANET)",
@@ -964,8 +980,12 @@
     "symbol": "AXIA"
   },
   {
-    "name": "AXIA Energia American Depositary Shares (Each repr (AXIA^)",
+    "name": "AXIA Energia AXIA Energia American Depositary Shar (AXIA^)",
     "symbol": "AXIA^"
+  },
+  {
+    "name": "AXIA Energia American Depositary Shares each repre (AXIA^C)",
+    "symbol": "AXIA^C"
   },
   {
     "name": "American Axle & Manufacturing Holdings Inc. Common (AXL)",
@@ -1226,10 +1246,6 @@
   {
     "name": "Bloom Energy Corporation Class A Common Stock (BE)",
     "symbol": "BE"
-  },
-  {
-    "name": "Bright Scholar Education Holdings Limited American (BEDU)",
-    "symbol": "BEDU"
   },
   {
     "name": "KE Holdings Inc American Depositary Shares (each r (BEKE)",
@@ -1640,6 +1656,10 @@
     "symbol": "BP"
   },
   {
+    "name": "Bluerock Private Real Estate Fund Common Shares of (BPRE)",
+    "symbol": "BPRE"
+  },
+  {
     "name": "Broadridge Financial Solutions Inc. Common Stock (BR)",
     "symbol": "BR"
   },
@@ -1802,10 +1822,6 @@
   {
     "name": "Babcock & Wilcox Enterprises Inc. 6.50% Senior Not (BWNB)",
     "symbol": "BWNB"
-  },
-  {
-    "name": "Babcock & Wilcox Enterprises Inc. 8.125% Senior No (BWSN)",
-    "symbol": "BWSN"
   },
   {
     "name": "BWX Technologies Inc. Common Stock (BWXT)",
@@ -2692,10 +2708,6 @@
     "symbol": "CUBI"
   },
   {
-    "name": "Customers Bancorp Inc Fixed-to-Floating Rate Non-C (CUBI^F)",
-    "symbol": "CUBI^F"
-  },
-  {
     "name": "Carnival Plc ADS ADS (CUK)",
     "symbol": "CUK"
   },
@@ -3088,10 +3100,6 @@
     "symbol": "DRD"
   },
   {
-    "name": "Diamondrock Hospitality Company 8.250% Series A Cu (DRH^A)",
-    "symbol": "DRH^A"
-  },
-  {
     "name": "Darden Restaurants Inc. Common Stock (DRI)",
     "symbol": "DRI"
   },
@@ -3352,6 +3360,14 @@
     "symbol": "EG"
   },
   {
+    "name": "Eldorado Gold Corporation Ordinary Shares (EGO)",
+    "symbol": "EGO"
+  },
+  {
+    "name": "EastGroup Properties Inc. Common Stock (EGP)",
+    "symbol": "EGP"
+  },
+  {
     "name": "VAALCO Energy Inc.  Common Stock (EGY)",
     "symbol": "EGY"
   },
@@ -3374,10 +3390,6 @@
   {
     "name": "Eagle Point Income Company Inc. 5.00% Series A Ter (EICA)",
     "symbol": "EICA"
-  },
-  {
-    "name": "Eagle Point Income Company Inc. 7.75% Series B Ter (EICB)",
-    "symbol": "EICB"
   },
   {
     "name": "Eagle Point Income Company Inc. 8.00% Series C Ter (EICC)",
@@ -3414,10 +3426,6 @@
   {
     "name": "Elme Communities Common Stock (ELME)",
     "symbol": "ELME"
-  },
-  {
-    "name": "Companhia Paranaense de Energia (COPEL) American D (ELP)",
-    "symbol": "ELP"
   },
   {
     "name": "Companhia Paranaense de Energia (COPEL) American D (ELPC)",
@@ -4084,10 +4092,6 @@
     "symbol": "FSK"
   },
   {
-    "name": "Fastly Inc. Class A Common Stock (FSLY)",
-    "symbol": "FSLY"
-  },
-  {
     "name": "Fortuna Mining Corp. Common Shares (FSM)",
     "symbol": "FSM"
   },
@@ -4360,20 +4364,12 @@
     "symbol": "GJH"
   },
   {
-    "name": "Synthetic Fixed-Income Securities Inc. on behalf o (GJO)",
-    "symbol": "GJO"
-  },
-  {
-    "name": "Synthetic Fixed-Income Securities Inc. on behalf o (GJP)",
-    "symbol": "GJP"
-  },
-  {
-    "name": "Synthetic Fixed-Income Securities Inc. STRATS Trus (GJR)",
-    "symbol": "GJR"
-  },
-  {
     "name": "Goldman Sachs Group Securities STRATS Trust for Go (GJS)",
     "symbol": "GJS"
+  },
+  {
+    "name": "Synthetic Fixed-Income Securities Inc. Floating Ra (GJT)",
+    "symbol": "GJT"
   },
   {
     "name": "Glaukos Corporation Common Stock (GKOS)",
@@ -4614,10 +4610,6 @@
   {
     "name": "Chart Industries Inc. Common Stock (GTLS)",
     "symbol": "GTLS"
-  },
-  {
-    "name": "Chart Industries Inc. Depositary Shares each Repre (GTLS^B)",
-    "symbol": "GTLS^B"
   },
   {
     "name": "Gray Media Inc. Common Stock (GTN)",
@@ -4980,6 +4972,10 @@
     "symbol": "HTH"
   },
   {
+    "name": "High Templar Tech Limited American depositary shar (HTT)",
+    "symbol": "HTT"
+  },
+  {
     "name": "Hubbell Inc Common Stock (HUBB)",
     "symbol": "HUBB"
   },
@@ -5304,6 +5300,10 @@
     "symbol": "JBI"
   },
   {
+    "name": "Lehman ABS 3.50 3.50% Adjustable Corp Backed Tr Ce (JBK)",
+    "symbol": "JBK"
+  },
+  {
     "name": "Jabil Inc. Common Stock (JBL)",
     "symbol": "JBL"
   },
@@ -5452,16 +5452,8 @@
     "symbol": "JXN^A"
   },
   {
-    "name": "Kellanova Common Stock (K)",
-    "symbol": "K"
-  },
-  {
     "name": "Kadant Inc Common Stock (KAI)",
     "symbol": "KAI"
-  },
-  {
-    "name": "OPENLANE Inc. Common Stock (KAR)",
-    "symbol": "KAR"
   },
   {
     "name": "KB Financial Group Inc (KB)",
@@ -6268,6 +6260,10 @@
     "symbol": "MIAX"
   },
   {
+    "name": "The Magnum Ice Cream Company N.V. Ordinary Shares (MICC)",
+    "symbol": "MICC"
+  },
+  {
     "name": "MFS Intermediate Income Trust Common Stock (MIN)",
     "symbol": "MIN"
   },
@@ -6276,27 +6272,27 @@
     "symbol": "MIR"
   },
   {
-    "name": "AG Mortgage Investment Trust Inc. 9.500% Senior No (MITN)",
+    "name": "TPG Mortgage Investment Trust Inc. 9.500% Senior N (MITN)",
     "symbol": "MITN"
   },
   {
-    "name": "AG Mortgage Investment Trust Inc. 9.500% Senior No (MITP)",
+    "name": "TPG Mortgage Investment Trust Inc. 9.500% Senior N (MITP)",
     "symbol": "MITP"
   },
   {
-    "name": "AG Mortgage Investment Trust Inc. Common Stock (MITT)",
+    "name": "TPG Mortgage Investment Trust Inc. Common Stock (MITT)",
     "symbol": "MITT"
   },
   {
-    "name": "AG Mortgage Investment Trust Inc. 8.25% Preferred (MITT^A)",
+    "name": "TPG Mortgage Investment Trust Inc. 8.25% Series A (MITT^A)",
     "symbol": "MITT^A"
   },
   {
-    "name": "AG Mortgage Investment Trust Inc. Preferred Series (MITT^B)",
+    "name": "TPG Mortgage Investment Trust Inc. 8.00% Series B (MITT^B)",
     "symbol": "MITT^B"
   },
   {
-    "name": "AG Mortgage Investment Trust Inc. 8.00% Series C F (MITT^C)",
+    "name": "TPG Mortgage Investment Trust Inc. 8.00% Series C (MITT^C)",
     "symbol": "MITT^C"
   },
   {
@@ -6704,7 +6700,7 @@
     "symbol": "NBR"
   },
   {
-    "name": "Neuberger Berman Next Generation Connectivity Fund (NBXG)",
+    "name": "Neuberger Next Generation Connectivity Fund Inc. C (NBXG)",
     "symbol": "NBXG"
   },
   {
@@ -7316,10 +7312,6 @@
     "symbol": "OMF"
   },
   {
-    "name": "Owens & Minor Inc. Common Stock (OMI)",
-    "symbol": "OMI"
-  },
-  {
     "name": "Onity Group Inc. Common Stock (ONIT)",
     "symbol": "ONIT"
   },
@@ -7350,6 +7342,10 @@
   {
     "name": "OppFi Inc. Class A Common Stock (OPFI)",
     "symbol": "OPFI"
+  },
+  {
+    "name": "OPENLANE Inc. Common Stock (OPLN)",
+    "symbol": "OPLN"
   },
   {
     "name": "RiverNorth/DoubleLine Strategic Opportunity Fund I (OPP)",
@@ -7688,10 +7684,6 @@
     "symbol": "PGR"
   },
   {
-    "name": "Paramount Group Inc. Common Stock (PGRE)",
-    "symbol": "PGRE"
-  },
-  {
     "name": "Principal Real Estate Income Fund Common Shares of (PGZ)",
     "symbol": "PGZ"
   },
@@ -7840,6 +7832,22 @@
     "symbol": "PNC"
   },
   {
+    "name": "Pinnacle Financial Partners Inc. Common stock (PNFP)",
+    "symbol": "PNFP"
+  },
+  {
+    "name": "Pinnacle Financial Partners Inc. Fixed-to-Floating (PNFP^A)",
+    "symbol": "PNFP^A"
+  },
+  {
+    "name": "Pinnacle Financial Partners Inc. Fixed-to-Floating (PNFP^B)",
+    "symbol": "PNFP^B"
+  },
+  {
+    "name": "Pinnacle Financial Partners Inc. Fixed-to-Floating (PNFP^C)",
+    "symbol": "PNFP^C"
+  },
+  {
     "name": "Pimco New York Municipal Income Fund II Common Sha (PNI)",
     "symbol": "PNI"
   },
@@ -7934,10 +7942,6 @@
   {
     "name": "Primo Brands Corporation Class A Common Stock (PRMB)",
     "symbol": "PRMB"
-  },
-  {
-    "name": "PROS Holdings Inc. Common Stock (PRO)",
-    "symbol": "PRO"
   },
   {
     "name": "Prudential Financial Inc. 5.625% Junior Subordinat (PRS)",
@@ -8104,16 +8108,8 @@
     "symbol": "QBTS"
   },
   {
-    "name": "Qudian Inc. American Depositary Shares each repres (QD)",
-    "symbol": "QD"
-  },
-  {
     "name": "Qiagen N.V. Common Shares (QGEN)",
     "symbol": "QGEN"
-  },
-  {
-    "name": "QuantumScape Corporation Class A Common Stock (QS)",
-    "symbol": "QS"
   },
   {
     "name": "Restaurant Brands International Inc. Common Shares (QSR)",
@@ -8382,10 +8378,6 @@
   {
     "name": "Raymond James Financial Inc. Common Stock (RJF)",
     "symbol": "RJF"
-  },
-  {
-    "name": "Raymond James Financial Inc. Depositary Shares eac (RJF^B)",
-    "symbol": "RJF^B"
   },
   {
     "name": "Rocket Companies Inc. Class A Common Stock (RKT)",
@@ -8716,10 +8708,6 @@
     "symbol": "SCE^G"
   },
   {
-    "name": "Southern California Edison Company 5.375% Fixed-to (SCE^J)",
-    "symbol": "SCE^J"
-  },
-  {
     "name": "Southern California Edison Company 5.45% Fixed-to- (SCE^K)",
     "symbol": "SCE^K"
   },
@@ -8758,10 +8746,6 @@
   {
     "name": "Stellus Capital Investment Corporation Common Stoc (SCM)",
     "symbol": "SCM"
-  },
-  {
-    "name": "Steelcase Inc. Common Stock (SCS)",
-    "symbol": "SCS"
   },
   {
     "name": "SandRidge Energy Inc. Common Stock (SD)",
@@ -9060,18 +9044,6 @@
     "symbol": "SNOW"
   },
   {
-    "name": "Synovus Financial Corp. Common Stock (SNV)",
-    "symbol": "SNV"
-  },
-  {
-    "name": "Synovus Financial Corp. Fixed-to-Floating Rate Non (SNV^D)",
-    "symbol": "SNV^D"
-  },
-  {
-    "name": "Synovus Financial Corp. 5.875% Fixed-Rate Reset No (SNV^E)",
-    "symbol": "SNV^E"
-  },
-  {
     "name": "TD SYNNEX Corporation Common Stock (SNX)",
     "symbol": "SNX"
   },
@@ -9102,10 +9074,6 @@
   {
     "name": "Southern Company (The) Series 2025A 6.50% Junior S (SOJF)",
     "symbol": "SOJF"
-  },
-  {
-    "name": "Emeren Group Ltd American Depositary Shares each r (SOL)",
-    "symbol": "SOL"
   },
   {
     "name": "Solventum Corporation Common Stock (SOLV)",
@@ -9198,10 +9166,6 @@
   {
     "name": "Spotify Technology S.A. Ordinary Shares (SPOT)",
     "symbol": "SPOT"
-  },
-  {
-    "name": "Spirit Aerosystems Holdings Inc. Common Stock (SPR)",
-    "symbol": "SPR"
   },
   {
     "name": "Spruce Power Holding Corporation Class A Common St (SPRU)",
@@ -9900,7 +9864,7 @@
     "symbol": "TTC"
   },
   {
-    "name": "TotalEnergies SE (TTE)",
+    "name": "TotalEnergies SE Ordinary Shares (TTE)",
     "symbol": "TTE"
   },
   {
@@ -10060,7 +10024,7 @@
     "symbol": "UIS"
   },
   {
-    "name": "Unilever PLC Common Stock (UL)",
+    "name": "Unilever PLC American Depositary Shares (each repr (UL)",
     "symbol": "UL"
   },
   {
@@ -10412,10 +10376,6 @@
     "symbol": "VTEX"
   },
   {
-    "name": "Vital Energy Inc. Common Stock par value $0.01 per (VTLE)",
-    "symbol": "VTLE"
-  },
-  {
     "name": "Corporacion Inmobiliaria Vesta S.A.B de C.V. Ameri (VTMX)",
     "symbol": "VTMX"
   },
@@ -10648,10 +10608,6 @@
     "symbol": "WMS"
   },
   {
-    "name": "Walmart Inc. Common Stock (WMT)",
-    "symbol": "WMT"
-  },
-  {
     "name": "Wabash National Corporation Common Stock (WNC)",
     "symbol": "WNC"
   },
@@ -10662,10 +10618,6 @@
   {
     "name": "Worthington Enterprises Inc. Common Shares (WOR)",
     "symbol": "WOR"
-  },
-  {
-    "name": "WideOpenWest Inc. Common Stock (WOW)",
-    "symbol": "WOW"
   },
   {
     "name": "W. P. Carey Inc. REIT (WPC)",
@@ -10800,6 +10752,10 @@
     "symbol": "XPRO"
   },
   {
+    "name": "Twenty One Capital Inc. Class A Common Stock (XXI)",
+    "symbol": "XXI"
+  },
+  {
     "name": "X Financial American Depositary Shares each repres (XYF)",
     "symbol": "XYF"
   },
@@ -10890,10 +10846,6 @@
   {
     "name": "ZipRecruiter Inc. Class A Common Stock (ZIP)",
     "symbol": "ZIP"
-  },
-  {
-    "name": "ZEEKR Intelligent Technology Holding Limited Ameri (ZK)",
-    "symbol": "ZK"
   },
   {
     "name": "ZKH Group Limited American Depositary Shares each (ZKH)",

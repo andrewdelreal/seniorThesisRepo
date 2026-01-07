@@ -2,6 +2,7 @@ import { JSX, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Clustering from './pages/Clustering';
 import './css/App.css'
 
 function App(): JSX.Element {
@@ -34,6 +35,11 @@ function App(): JSX.Element {
                   </NavLink>
                 </li>
                 <li className='nav-item'>
+                  <NavLink className='nav-link text-purple-hover' to='/clustering'>
+                    Clustering
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
                   <NavLink className='nav-link text-purple-hover' to='/login'>
                     Login
                   </NavLink>
@@ -47,6 +53,7 @@ function App(): JSX.Element {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/clustering' element={<Clustering />} />
           </Routes>
         </main>
       </BrowserRouter>
