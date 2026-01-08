@@ -70,7 +70,7 @@ app.post('/api/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(500).json({ error: 'Authentication failed' });
     }
 }));
-app.post('/api/tradier/markets/history', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/api/tradier/markets/history', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const options = { method: 'GET',
         headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN } };
     const { symbol, interval, start, end } = req.body;
@@ -84,7 +84,7 @@ app.post('/api/tradier/markets/history', (req, res) => __awaiter(void 0, void 0,
         res.status(500).json({ error: 'Failed to fetch market history' });
     }
 }));
-app.post('/api/tickers', (req, res) => {
+app.post('/api/tickers', authenticate, (req, res) => {
     const { exchange } = req.body;
     const filePath = `./cache/${exchange}.json`;
     const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
@@ -97,6 +97,7 @@ app.get('/', (req, res) => {
 });
 //middleware for pretected routes
 function authenticate(req, res, next) {
+    console.log('here');
     const authHeader = req.headers.authorization;
     if (!authHeader)
         return res.status(401).json({ error: 'Missing token' });

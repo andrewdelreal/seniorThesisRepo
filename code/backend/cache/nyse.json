@@ -492,7 +492,7 @@
     "symbol": "ALTG^A"
   },
   {
-    "name": "Alussa Energy Acquisition Corp. II (ALUB)",
+    "name": "Alussa Energy Acquisition Corp. II Class A Ordinar (ALUB)",
     "symbol": "ALUB"
   },
   {
@@ -4364,6 +4364,14 @@
     "symbol": "GJH"
   },
   {
+    "name": "Synthetic Fixed-Income Securities Inc. on behalf o (GJO)",
+    "symbol": "GJO"
+  },
+  {
+    "name": "Synthetic Fixed-Income Securities Inc. STRATS Trus (GJR)",
+    "symbol": "GJR"
+  },
+  {
     "name": "Goldman Sachs Group Securities STRATS Trust for Go (GJS)",
     "symbol": "GJS"
   },
@@ -8150,6 +8158,10 @@
   {
     "name": "Rithm Acquisition Corp. Class A Ordinary Shares (RAC)",
     "symbol": "RAC"
+  },
+  {
+    "name": "Rithm Acquisition Corp. (RAC/WS)",
+    "symbol": "RAC/WS"
   },
   {
     "name": "Ferrari N.V. Common Shares (RACE)",

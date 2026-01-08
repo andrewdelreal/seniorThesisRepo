@@ -70,7 +70,7 @@ app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: 
   }
 });
 
-app.post('/api/tradier/markets/history', async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
+app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
   const  options  = {method: 'GET',
   headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}};
 
@@ -87,7 +87,7 @@ app.post('/api/tradier/markets/history', async (req: Request<{}, {}, {symbol: st
   }
 });
 
-app.post('/api/tickers', (req: Request, res: Response) => {
+app.post('/api/tickers', authenticate, (req: Request, res: Response) => {
   const { exchange } = req.body;
 
   const filePath = `./cache/${exchange}.json`;
@@ -104,6 +104,7 @@ app.get('/', (req: Request, res: Response) => {
 
 //middleware for pretected routes
 function authenticate(req: Request, res: Response, next: NextFunction) {
+  console.log('here');
   const authHeader: string | undefined = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'Missing token' });
 

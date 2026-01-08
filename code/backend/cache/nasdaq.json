@@ -536,6 +536,10 @@
     "symbol": "AIMD"
   },
   {
+    "name": "Ainos Inc. Warrants (AIMDW)",
+    "symbol": "AIMDW"
+  },
+  {
     "name": "PowerFleet Inc. Common Stock (AIOT)",
     "symbol": "AIOT"
   },
@@ -1076,10 +1080,6 @@
     "symbol": "APXT"
   },
   {
-    "name": "Apex Treasury Corporation Units (APXTU)",
-    "symbol": "APXTU"
-  },
-  {
     "name": "Apex Treasury Corporation Warrants (APXTW)",
     "symbol": "APXTW"
   },
@@ -1376,6 +1376,10 @@
     "symbol": "ATII"
   },
   {
+    "name": "Archimedes Tech SPAC Partners II Co. Unit (ATIIU)",
+    "symbol": "ATIIU"
+  },
+  {
     "name": "Archimedes Tech SPAC Partners II Co. Warrant (ATIIW)",
     "symbol": "ATIIW"
   },
@@ -1636,6 +1640,10 @@
     "symbol": "BACQR"
   },
   {
+    "name": "Inflection Point Acquisition Corp. IV Unit (BACQU)",
+    "symbol": "BACQU"
+  },
+  {
     "name": "Bridger Aerospace Group Holdings Inc. Common Stock (BAER)",
     "symbol": "BAER"
   },
@@ -1686,10 +1694,6 @@
   {
     "name": "Bayview Acquisition Corp Ordinary Shares (BAYA)",
     "symbol": "BAYA"
-  },
-  {
-    "name": "Bayview Acquisition Corp Right (BAYAR)",
-    "symbol": "BAYAR"
   },
   {
     "name": "Bayview Acquisition Corp Unit (BAYAU)",
@@ -1814,6 +1818,10 @@
   {
     "name": "Baird Medical Investment Holdings Ltd Ordinary Sha (BDMD)",
     "symbol": "BDMD"
+  },
+  {
+    "name": "Baird Medical Investment Holdings Ltd Warrant (BDMDW)",
+    "symbol": "BDMDW"
   },
   {
     "name": "Biodexa Pharmaceuticals plc American Depositary Sh (BDRX)",
@@ -1978,6 +1986,10 @@
   {
     "name": "bioAffinity Technologies Inc. Common Stock (BIAF)",
     "symbol": "BIAF"
+  },
+  {
+    "name": "bioAffinity Technologies Inc. Warrant (BIAFW)",
+    "symbol": "BIAFW"
   },
   {
     "name": "Baidu Inc. ADS (BIDU)",
@@ -2376,10 +2388,6 @@
     "symbol": "BSAA"
   },
   {
-    "name": "BEST SPAC I Acquisition Corp. Rights (BSAAR)",
-    "symbol": "BSAAR"
-  },
-  {
     "name": "Bogota Financial Corp. Common Stock (BSBK)",
     "symbol": "BSBK"
   },
@@ -2626,10 +2634,6 @@
   {
     "name": "Cayson Acquisition Corp Ordinary shares (CAPN)",
     "symbol": "CAPN"
-  },
-  {
-    "name": "Cayson Acquisition Corp Right (CAPNR)",
-    "symbol": "CAPNR"
   },
   {
     "name": "Cayson Acquisition Corp Unit (CAPNU)",
@@ -3096,10 +3100,6 @@
     "symbol": "CHARR"
   },
   {
-    "name": "Charlton Aria Acquisition Corporation Units (CHARU)",
-    "symbol": "CHARU"
-  },
-  {
     "name": "Comstock Holding Companies Inc. Class A Common Sto (CHCI)",
     "symbol": "CHCI"
   },
@@ -3146,6 +3146,10 @@
   {
     "name": "ChampionsGate Acquisition Corporation Class A Ordi (CHPG)",
     "symbol": "CHPG"
+  },
+  {
+    "name": "ChampionsGate Acquisition Corporation Rights (CHPGR)",
+    "symbol": "CHPGR"
   },
   {
     "name": "ChampionsGate Acquisition Corporation Unit (CHPGU)",
@@ -3640,10 +3644,6 @@
     "symbol": "CRAQR"
   },
   {
-    "name": "Cal Redwood Acquisition Corp. Units (CRAQU)",
-    "symbol": "CRAQU"
-  },
-  {
     "name": "Corbus Pharmaceuticals Holdings Inc. Common Stock (CRBP)",
     "symbol": "CRBP"
   },
@@ -3922,10 +3922,6 @@
   {
     "name": "CapsoVision Inc. Common Stock (CV)",
     "symbol": "CV"
-  },
-  {
-    "name": "CureVac N.V. Ordinary Shares (CVAC)",
-    "symbol": "CVAC"
   },
   {
     "name": "CVB Financial Corporation Common Stock (CVBF)",
@@ -4380,10 +4376,6 @@
     "symbol": "DRDBU"
   },
   {
-    "name": "Roman DBDR Acquisition Corp. II Warrants (DRDBW)",
-    "symbol": "DRDBW"
-  },
-  {
     "name": "Diamondrock Hospitality Company Common Stock (DRH)",
     "symbol": "DRH"
   },
@@ -4470,6 +4462,10 @@
   {
     "name": "DT Cloud Star Acquisition Corporation Ordinary Sha (DTSQ)",
     "symbol": "DTSQ"
+  },
+  {
+    "name": "DT Cloud Star Acquisition Corporation Right (DTSQR)",
+    "symbol": "DTSQR"
   },
   {
     "name": "DT Cloud Star Acquisition Corporation Units (DTSQU)",
@@ -4594,6 +4590,10 @@
   {
     "name": "ECARX Holdings Inc. Class A Ordinary shares (ECX)",
     "symbol": "ECX"
+  },
+  {
+    "name": "ECARX Holdings Inc. Warrants (ECXWW)",
+    "symbol": "ECXWW"
   },
   {
     "name": "EDAP TMS S.A. American Depositary Shares (EDAP)",
@@ -4776,10 +4776,6 @@
     "symbol": "EMIS"
   },
   {
-    "name": "Emmis Acquisition Corp. Rights (EMISR)",
-    "symbol": "EMISR"
-  },
-  {
     "name": "Eastern Company (The) Common Stock (EML)",
     "symbol": "EML"
   },
@@ -4902,10 +4898,6 @@
   {
     "name": "ESGL Holdings Limited Ordinary Shares (ESGL)",
     "symbol": "ESGL"
-  },
-  {
-    "name": "ESGL Holdings Limited Warrants (ESGLW)",
-    "symbol": "ESGLW"
   },
   {
     "name": "ESH Acquisition Corp. Class A Common Stock (ESHA)",
@@ -5138,6 +5130,10 @@
   {
     "name": "FACT II Acquisition Corp. Class A Ordinary Shares (FACT)",
     "symbol": "FACT"
+  },
+  {
+    "name": "FACT II Acquisition Corp. Unit (FACTU)",
+    "symbol": "FACTU"
   },
   {
     "name": "FACT II Acquisition Corp. Warrant (FACTW)",
@@ -5410,10 +5406,6 @@
   {
     "name": "FIGX Capital Acquisition Corp. Class A Ordinary Sh (FIGX)",
     "symbol": "FIGX"
-  },
-  {
-    "name": "FIGX Capital Acquisition Corp. Units (FIGXU)",
-    "symbol": "FIGXU"
   },
   {
     "name": "FinWise Bancorp Common Stock (FINW)",
@@ -5824,6 +5816,10 @@
     "symbol": "FVCB"
   },
   {
+    "name": "Future Vision II Acquisition Corporation Ordinary (FVN)",
+    "symbol": "FVN"
+  },
+  {
     "name": "Future Vision II Acquisition Corporation Units (FVNNU)",
     "symbol": "FVNNU"
   },
@@ -5928,10 +5924,6 @@
     "symbol": "GCL"
   },
   {
-    "name": "GCL Global Holdings Ltd Warrants (GCLWW)",
-    "symbol": "GCLWW"
-  },
-  {
     "name": "GCM Grosvenor Inc. Class A Common Stock (GCMG)",
     "symbol": "GCMG"
   },
@@ -6002,10 +5994,6 @@
   {
     "name": "Great Elm Group Inc. Common Stock (GEG)",
     "symbol": "GEG"
-  },
-  {
-    "name": "Great Elm Group Inc.  7.25% Notes due 2027 (GEGGL)",
-    "symbol": "GEGGL"
   },
   {
     "name": "GE HealthCare Technologies Inc. Common Stock (GEHC)",
@@ -6408,10 +6396,6 @@
     "symbol": "GSHR"
   },
   {
-    "name": "Gesher Acquisition Corp. II Units (GSHRU)",
-    "symbol": "GSHRU"
-  },
-  {
     "name": "Gesher Acquisition Corp. II Warrants (GSHRW)",
     "symbol": "GSHRW"
   },
@@ -6458,6 +6442,10 @@
   {
     "name": "Gores Holdings X Inc. Class A ordinary shares (GTEN)",
     "symbol": "GTEN"
+  },
+  {
+    "name": "Gores Holdings X Inc. Units (GTENU)",
+    "symbol": "GTENU"
   },
   {
     "name": "Gores Holdings X Inc. Warrants (GTENW)",
@@ -7188,10 +7176,6 @@
     "symbol": "IGAC"
   },
   {
-    "name": "Invest Green Acquisition Corporation Rights (IGACR)",
-    "symbol": "IGACR"
-  },
-  {
     "name": "Invest Green Acquisition Corporation Units (IGACU)",
     "symbol": "IGACU"
   },
@@ -7334,6 +7318,10 @@
   {
     "name": "Indigo Acquisition Corp. Ordinary Shares (INAC)",
     "symbol": "INAC"
+  },
+  {
+    "name": "Indigo Acquisition Corp. Right (INACR)",
+    "symbol": "INACR"
   },
   {
     "name": "Indigo Acquisition Corp. Unit (INACU)",
@@ -8216,6 +8204,14 @@
     "symbol": "LAES"
   },
   {
+    "name": "LaFayette Acquisition Corp. Ordinary Share (LAFA)",
+    "symbol": "LAFA"
+  },
+  {
+    "name": "LaFayette Acquisition Corp. Rights (LAFAR)",
+    "symbol": "LAFAR"
+  },
+  {
     "name": "LaFayette Acquisition Corp. Unit (LAFAU)",
     "symbol": "LAFAU"
   },
@@ -8264,10 +8260,6 @@
     "symbol": "LATAU"
   },
   {
-    "name": "Galata Acquisition Corp. II Warrant (LATAW)",
-    "symbol": "LATAW"
-  },
-  {
     "name": "Laureate Education Inc. Common Stock (LAUR)",
     "symbol": "LAUR"
   },
@@ -8308,8 +8300,8 @@
     "symbol": "LCCC"
   },
   {
-    "name": "Lakeshore Acquisition III Corp. Unit (LCCCU)",
-    "symbol": "LCCCU"
+    "name": "Lakeshore Acquisition III Corp. Rights (LCCCR)",
+    "symbol": "LCCCR"
   },
   {
     "name": "Locafy Limited Ordinary Share (LCFY)",
@@ -8556,10 +8548,6 @@
     "symbol": "LKSPR"
   },
   {
-    "name": "Lake Superior Acquisition Corp. Units (LKSPU)",
-    "symbol": "LKSPU"
-  },
-  {
     "name": "Liberty Live Holdings Inc. Series A Liberty Live G (LLYVA)",
     "symbol": "LLYVA"
   },
@@ -8640,6 +8628,10 @@
     "symbol": "LOKV"
   },
   {
+    "name": "Live Oak Acquisition Corp. V Units (LOKVU)",
+    "symbol": "LOKVU"
+  },
+  {
     "name": "Live Oak Acquisition Corp. V Warrants (LOKVW)",
     "symbol": "LOKVW"
   },
@@ -8674,10 +8666,6 @@
   {
     "name": "Launch Two Acquisition Corp. Class A Ordinary Shar (LPBB)",
     "symbol": "LPBB"
-  },
-  {
-    "name": "Launch Two Acquisition Corp. Warrant (LPBBW)",
-    "symbol": "LPBBW"
   },
   {
     "name": "Lipocine Inc. Common Stock (LPCN)",
@@ -9568,10 +9556,6 @@
     "symbol": "MRNOW"
   },
   {
-    "name": "Mersana Therapeutics Inc. Common Stock (MRSN)",
-    "symbol": "MRSN"
-  },
-  {
     "name": "Marten Transport Ltd. Common Stock (MRTN)",
     "symbol": "MRTN"
   },
@@ -9730,6 +9714,10 @@
   {
     "name": "Myseum Inc. Common Stock (MYSE)",
     "symbol": "MYSE"
+  },
+  {
+    "name": "Myseum Inc. Series A Warrant (MYSEW)",
+    "symbol": "MYSEW"
   },
   {
     "name": "My Size Inc. Common Stock (MYSZ)",
@@ -10038,6 +10026,10 @@
   {
     "name": "NewGenIvf Group Limited Class A Ordinary Shares (NIVF)",
     "symbol": "NIVF"
+  },
+  {
+    "name": "NewGenIvf Group Limited Warrants (NIVFW)",
+    "symbol": "NIVFW"
   },
   {
     "name": "Nixxy Inc. Common Stock (NIXX)",
@@ -10496,20 +10488,20 @@
     "symbol": "OACC"
   },
   {
+    "name": "Oaktree Acquisition Corp. III Life Sciences Unit (OACCU)",
+    "symbol": "OACCU"
+  },
+  {
     "name": "Oak Woods Acquisition Corporation Class A Ordinary (OAKU)",
     "symbol": "OAKU"
   },
   {
-    "name": "Oak Woods Acquisition Corporation Right (OAKUR)",
-    "symbol": "OAKUR"
-  },
-  {
-    "name": "Oak Woods Acquisition Corporation Warrant (OAKUW)",
-    "symbol": "OAKUW"
-  },
-  {
     "name": "Oxley Bridge Acquisition Limited Class A Ordinary (OBA)",
     "symbol": "OBA"
+  },
+  {
+    "name": "Oxley Bridge Acquisition Limited Unit (OBAWU)",
+    "symbol": "OBAWU"
   },
   {
     "name": "Orchestra BioMed Holdings Inc. Ordinary Shares (OBIO)",
@@ -10578,6 +10570,10 @@
   {
     "name": "Old Dominion Freight Line Inc. Common Stock (ODFL)",
     "symbol": "ODFL"
+  },
+  {
+    "name": "Osisko Development Corp. Warrant expiring 5/27/202 (ODVWZ)",
+    "symbol": "ODVWZ"
   },
   {
     "name": "Odysight.ai Inc. Common Stock (ODYS)",
@@ -10832,6 +10828,10 @@
     "symbol": "ORIQ"
   },
   {
+    "name": "Origin Investment Corp I Units (ORIQU)",
+    "symbol": "ORIQU"
+  },
+  {
     "name": "Origin Investment Corp I Warrant. (ORIQW)",
     "symbol": "ORIQW"
   },
@@ -11004,10 +11004,6 @@
     "symbol": "OYSER"
   },
   {
-    "name": "Oyster Enterprises II Acquisition Corp Units (OYSEU)",
-    "symbol": "OYSEU"
-  },
-  {
     "name": "Bank OZK Common Stock (OZK)",
     "symbol": "OZK"
   },
@@ -11026,6 +11022,10 @@
   {
     "name": "Pioneer Acquisition I Corp Class A Ordinary Shares (PACH)",
     "symbol": "PACH"
+  },
+  {
+    "name": "Pioneer Acquisition I Corp Units (PACHU)",
+    "symbol": "PACHU"
   },
   {
     "name": "Pioneer Acquisition I Corp Warrants (PACHW)",
@@ -11896,10 +11896,6 @@
     "symbol": "QSEA"
   },
   {
-    "name": "Quartzsea Acquisition Corporation Rights (QSEAR)",
-    "symbol": "QSEAR"
-  },
-  {
     "name": "Quartzsea Acquisition Corporation Units (QSEAU)",
     "symbol": "QSEAU"
   },
@@ -11936,10 +11932,6 @@
     "symbol": "QUMSR"
   },
   {
-    "name": "Quantumsphere Acquisition Corp. Units (QUMSU)",
-    "symbol": "QUMSU"
-  },
-  {
     "name": "uniQure N.V. Ordinary Shares (QURE)",
     "symbol": "QURE"
   },
@@ -11954,6 +11946,10 @@
   {
     "name": "Real Asset Acquisition Corp. Class A Ordinary Shar (RAAQ)",
     "symbol": "RAAQ"
+  },
+  {
+    "name": "Real Asset Acquisition Corp. Unit (RAAQU)",
+    "symbol": "RAAQU"
   },
   {
     "name": "Real Asset Acquisition Corp. Warrants (RAAQW)",
@@ -12280,10 +12276,6 @@
     "symbol": "RIBB"
   },
   {
-    "name": "Ribbon Acquisition Corp Rights (RIBBR)",
-    "symbol": "RIBBR"
-  },
-  {
     "name": "RCI Hospitality Holdings Inc. Common Stock (RICK)",
     "symbol": "RICK"
   },
@@ -12292,35 +12284,35 @@
     "symbol": "RIGL"
   },
   {
-    "name": "B. Riley Financial Inc. Common Stock (RILY)",
+    "name": "BRC Group Holdings Inc. Common Stock (RILY)",
     "symbol": "RILY"
   },
   {
-    "name": "B. Riley Financial Inc. 5.00% Senior Notes due 202 (RILYG)",
+    "name": "BRC Group Holdings Inc. 5.00% Senior Notes due 202 (RILYG)",
     "symbol": "RILYG"
   },
   {
-    "name": "B. Riley Financial Inc. 5.50% Senior Notes Due 202 (RILYK)",
+    "name": "BRC Group Holdings Inc. 5.50% Senior Notes Due 202 (RILYK)",
     "symbol": "RILYK"
   },
   {
-    "name": "B. Riley Financial Inc. Depositary Shares each rep (RILYL)",
+    "name": "BRC Group Holdings Inc. Depositary Shares each rep (RILYL)",
     "symbol": "RILYL"
   },
   {
-    "name": "B. Riley Financial Inc. 6.50% Senior Notes Due 202 (RILYN)",
+    "name": "BRC Group Holdings Inc. 6.50% Senior Notes Due 202 (RILYN)",
     "symbol": "RILYN"
   },
   {
-    "name": "B. Riley Financial Inc. Depositary Shares each rep (RILYP)",
+    "name": "BRC Group Holdings Inc. Depositary Shares each rep (RILYP)",
     "symbol": "RILYP"
   },
   {
-    "name": "B. Riley Financial Inc. 6.00% Senior Notes Due 202 (RILYT)",
+    "name": "BRC Group Holdings Inc. 6.00% Senior Notes Due 202 (RILYT)",
     "symbol": "RILYT"
   },
   {
-    "name": "B. Riley Financial Inc. 5.25% Senior Notes due 202 (RILYZ)",
+    "name": "BRC Group Holdings Inc. 5.25% Senior Notes due 202 (RILYZ)",
     "symbol": "RILYZ"
   },
   {
@@ -12682,10 +12674,6 @@
   {
     "name": "SAIHEAT Limited Class A Ordinary Shares (SAIH)",
     "symbol": "SAIH"
-  },
-  {
-    "name": "SAIHEAT Limited Warrant (SAIHW)",
-    "symbol": "SAIHW"
   },
   {
     "name": "SailPoint Inc. Common Stock (SAIL)",
@@ -13416,10 +13404,6 @@
     "symbol": "SOCA"
   },
   {
-    "name": "Solarius Capital Acquisition Corp. Warrant (SOCAW)",
-    "symbol": "SOCAW"
-  },
-  {
     "name": "SoFi Technologies Inc. Common Stock (SOFI)",
     "symbol": "SOFI"
   },
@@ -13476,6 +13460,10 @@
     "symbol": "SORA"
   },
   {
+    "name": "Soren Acquisition Corp. Unit (SORNU)",
+    "symbol": "SORNU"
+  },
+  {
     "name": "Sono-Tek Corporation Common Stock (SOTK)",
     "symbol": "SOTK"
   },
@@ -13506,6 +13494,10 @@
   {
     "name": "Silver Pegasus Acquisition Corp Rights. (SPEGR)",
     "symbol": "SPEGR"
+  },
+  {
+    "name": "Silver Pegasus Acquisition Corp Unit (SPEGU)",
+    "symbol": "SPEGU"
   },
   {
     "name": "South Plains Financial Inc. Common Stock (SPFI)",
@@ -13622,10 +13614,6 @@
   {
     "name": "Summit State Bank Common Stock (SSBI)",
     "symbol": "SSBI"
-  },
-  {
-    "name": "Starry Sea Acquisition Corp\tOrdinary Shares (SSEA)",
-    "symbol": "SSEA"
   },
   {
     "name": "Starry Sea Acquisition Corp Rights (SSEAR)",
@@ -13844,10 +13832,6 @@
     "symbol": "SVAC"
   },
   {
-    "name": "Spring Valley Acquisition Corp. III Unit (SVACU)",
-    "symbol": "SVACU"
-  },
-  {
     "name": "Spring Valley Acquisition Corp. III Warrant (SVACW)",
     "symbol": "SVACW"
   },
@@ -13980,6 +13964,10 @@
     "symbol": "TACH"
   },
   {
+    "name": "Titan Acquisition Corp. Units (TACHU)",
+    "symbol": "TACHU"
+  },
+  {
     "name": "Titan Acquisition Corp. Warrants (TACHW)",
     "symbol": "TACHW"
   },
@@ -14038,6 +14026,10 @@
   {
     "name": "Tavia Acquisition Corp. Ordinary Shares (TAVI)",
     "symbol": "TAVI"
+  },
+  {
+    "name": "Tavia Acquisition Corp. Right (TAVIR)",
+    "symbol": "TAVIR"
   },
   {
     "name": "Taylor Devices Inc. Common Stock (TAYD)",
@@ -14136,10 +14128,6 @@
     "symbol": "TDAC"
   },
   {
-    "name": "Translational Development Acquisition Corp. Warran (TDACW)",
-    "symbol": "TDACW"
-  },
-  {
     "name": "Dreamland Limited Class A Ordinary Shares (TDIC)",
     "symbol": "TDIC"
   },
@@ -14158,10 +14146,6 @@
   {
     "name": "Tailwind 2.0 Acquisition Corp. Rights (TDWDR)",
     "symbol": "TDWDR"
-  },
-  {
-    "name": "Tailwind 2.0 Acquisition Corp. Unit (TDWDU)",
-    "symbol": "TDWDU"
   },
   {
     "name": "Teads Holding Co. Common Stock (TEAD)",
@@ -14968,6 +14952,10 @@
     "symbol": "VACHU"
   },
   {
+    "name": "Voyager Acquisition Corp Warrants (VACHW)",
+    "symbol": "VACHW"
+  },
+  {
     "name": "Valneva SE American Depositary Shares (VALN)",
     "symbol": "VALN"
   },
@@ -15376,10 +15364,6 @@
     "symbol": "WALD"
   },
   {
-    "name": "Waldencast plc Warrant (WALDW)",
-    "symbol": "WALDW"
-  },
-  {
     "name": "Washington Trust Bancorp Inc. Common Stock (WASH)",
     "symbol": "WASH"
   },
@@ -15566,10 +15550,6 @@
   {
     "name": "Wearable Devices Ltd. Ordinary Share (WLDS)",
     "symbol": "WLDS"
-  },
-  {
-    "name": "Wearable Devices Ltd. Warrant (WLDSW)",
-    "symbol": "WLDSW"
   },
   {
     "name": "Willis Lease Finance Corporation Common Stock (WLFC)",
@@ -15926,10 +15906,6 @@
   {
     "name": "YHN Acquisition I Limited Ordinary Shares (YHNA)",
     "symbol": "YHNA"
-  },
-  {
-    "name": "YHN Acquisition I Limited Right (YHNAR)",
-    "symbol": "YHNAR"
   },
   {
     "name": "111 Inc. American Depositary Shares (YI)",

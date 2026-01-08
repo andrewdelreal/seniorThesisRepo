@@ -1,4 +1,5 @@
 import { JSX, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import Select from "react-select";
 import styles from '../css/StockControls.module.css';
 import { VirtualizedMenuList } from './VirtualizedMenuList';
@@ -51,28 +52,25 @@ function StockControls({
 }: StockControlsProps): JSX.Element {
     const [tickers, setTickers] = useState<ExchangeItems[]>([]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const getTickers = async () => {
             const response = await fetch('http://localhost:3000/api/tickers', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
                 body: JSON.stringify({exchange})
             });
 
             if (!response.ok) {
+                navigate('/login');
                 throw new Error(`Error fetching ticker data: ${response.statusText}`);
             }
 
             const tickerData = await response.json();
-
-            // const formatted = tickerData.map((t: ExchangeItems) => ({
-            //     value: t.symbol,
-            //     label: `${t.name} (${t.symbol})`,
-            // }));
-
-            // setTickers(formatted);
 
             setTickers(tickerData);
         };
@@ -91,23 +89,6 @@ function StockControls({
                 className={styles.select}
                 isSearchable={false}
             />
-
-            {/* <Select
-                value={
-                tickers
-                    .map((t) => ({ value: t.symbol, label: `${t.name} (${t.symbol})` }))
-                    .find((opt) => opt.value === symbol) || null
-                }
-                onChange={(selected) => setSymbol(selected ? selected.value : '')}
-                options={tickers.map((t) => ({
-                value: t.symbol,
-                label: `${t.name} (${t.symbol})`,
-                }))}
-                classNamePrefix='select'
-                className={styles.select}
-                placeholder='Search ticker...'
-                isSearchable
-            />      */}
 
             <Select<Option>
                 components={{ MenuList: VirtualizedMenuList }}

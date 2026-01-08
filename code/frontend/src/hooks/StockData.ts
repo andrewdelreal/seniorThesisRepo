@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 interface StockHistoryParams {
   symbol: string;
@@ -11,6 +14,8 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false); 
     const [error, setError] = useState<string | null>(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!symbol || !interval || !start || !end) {  // check all parameters are provided
@@ -27,6 +32,7 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'authorization': 'Bearer ' + localStorage.getItem('token'),
                     },
                     body: JSON.stringify({ symbol, interval, start, end }),  // using all desired parameters
                 });
@@ -38,7 +44,8 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
                 const json = await response.json();
                 setData(json);
             } catch (err: any) {
-                setError(err.message || 'Unknown error occurred');
+                navigate('/login');
+                console.log(err.message || 'Failed to fetch stock data');
             } finally {
                 setLoading(false);
             }
