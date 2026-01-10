@@ -71,8 +71,10 @@ app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: 
 });
 
 app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
-  const  options  = {method: 'GET',
-  headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}};
+  const  options  = {
+    method: 'GET',
+    headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}
+  };
 
   const { symbol, interval, start, end } = req.body;
 
@@ -84,6 +86,27 @@ app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {
   } catch (err) {
     console.error('Tradier API error:', err);
     res.status(500).json({ error: 'Failed to fetch market history' });  
+  }
+});
+
+app.post('/api/tradier/markets/quotes', authenticate, async (req: Request<{}, {}, {symbols: string}>, res: Response) => {
+   const options  = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
+    },
+    body: new URLSearchParams({symbols: req.body.symbols}),
+  };
+
+  try {
+    const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    console.error('Tradier Quotes API error:', err);
+    res.status(500).json({ error: 'Failed to fetch market quotes' });  
   }
 });
 
@@ -104,11 +127,11 @@ app.get('/', (req: Request, res: Response) => {
 
 //middleware for pretected routes
 function authenticate(req: Request, res: Response, next: NextFunction) {
-  console.log('here');
-  const authHeader: string | undefined = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ error: 'Missing token' });
+  const token: string | undefined = req.headers.authorization;
 
-  const token: string = authHeader.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Missing token' });
+
+  // const token: string = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, APP_JWT_SECRET) as { googleId: string };
     (req as any).googleId = decoded.googleId;

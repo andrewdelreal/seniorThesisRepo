@@ -71,8 +71,10 @@ app.post('/api/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 }));
 app.post('/api/tradier/markets/history', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const options = { method: 'GET',
-        headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN } };
+    const options = {
+        method: 'GET',
+        headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN }
+    };
     const { symbol, interval, start, end } = req.body;
     try {
         const response = yield fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options);
@@ -82,6 +84,26 @@ app.post('/api/tradier/markets/history', authenticate, (req, res) => __awaiter(v
     catch (err) {
         console.error('Tradier API error:', err);
         res.status(500).json({ error: 'Failed to fetch market history' });
+    }
+}));
+app.post('/api/tradier/markets/quotes', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
+        },
+        body: new URLSearchParams({ symbols: req.body.symbols }),
+    };
+    try {
+        const response = yield fetch('https://api.tradier.com/v1/markets/quotes', options);
+        const data = yield response.json();
+        res.status(200).json(data);
+    }
+    catch (err) {
+        console.error('Tradier Quotes API error:', err);
+        res.status(500).json({ error: 'Failed to fetch market quotes' });
     }
 }));
 app.post('/api/tickers', authenticate, (req, res) => {
@@ -97,11 +119,10 @@ app.get('/', (req, res) => {
 });
 //middleware for pretected routes
 function authenticate(req, res, next) {
-    console.log('here');
-    const authHeader = req.headers.authorization;
-    if (!authHeader)
+    const token = req.headers.authorization;
+    if (!token)
         return res.status(401).json({ error: 'Missing token' });
-    const token = authHeader.split(' ')[1];
+    // const token: string = authHeader.split(' ')[1];
     try {
         const decoded = jsonwebtoken_1.default.verify(token, APP_JWT_SECRET);
         req.googleId = decoded.googleId;

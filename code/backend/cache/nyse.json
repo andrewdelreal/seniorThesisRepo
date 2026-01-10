@@ -2212,14 +2212,6 @@
     "symbol": "CINT"
   },
   {
-    "name": "City Office REIT Inc. Common Stock (CIO)",
-    "symbol": "CIO"
-  },
-  {
-    "name": "City Office REIT Inc. 6.625% Series A Cumulative R (CIO^A)",
-    "symbol": "CIO^A"
-  },
-  {
     "name": "CION Investment Corporation Common Stock (CION)",
     "symbol": "CION"
   },
@@ -2234,10 +2226,6 @@
   {
     "name": "Core Laboratories Inc. Common Stock (CLB)",
     "symbol": "CLB"
-  },
-  {
-    "name": "Cool Company Ltd. Common Shares (CLCO)",
-    "symbol": "CLCO"
   },
   {
     "name": "Chatham Lodging Trust (REIT) Common Shares of Bene (CLDT)",
@@ -4368,16 +4356,16 @@
     "symbol": "GJO"
   },
   {
+    "name": "Synthetic Fixed-Income Securities Inc. on behalf o (GJP)",
+    "symbol": "GJP"
+  },
+  {
     "name": "Synthetic Fixed-Income Securities Inc. STRATS Trus (GJR)",
     "symbol": "GJR"
   },
   {
     "name": "Goldman Sachs Group Securities STRATS Trust for Go (GJS)",
     "symbol": "GJS"
-  },
-  {
-    "name": "Synthetic Fixed-Income Securities Inc. Floating Ra (GJT)",
-    "symbol": "GJT"
   },
   {
     "name": "Glaukos Corporation Common Stock (GKOS)",
@@ -4704,10 +4692,6 @@
     "symbol": "HCI"
   },
   {
-    "name": "Hercules Capital Inc. 6.25% Notes due 2033 (HCXY)",
-    "symbol": "HCXY"
-  },
-  {
     "name": "Home Depot Inc. (The) Common Stock (HD)",
     "symbol": "HD"
   },
@@ -4870,10 +4854,6 @@
   {
     "name": "Home BancShares Inc. Common Stock (HOMB)",
     "symbol": "HOMB"
-  },
-  {
-    "name": "Anywhere Real Estate Inc. Common Stock (HOUS)",
-    "symbol": "HOUS"
   },
   {
     "name": "Hovnanian Enterprises Inc. Class A Common Stock (HOV)",
@@ -5306,10 +5286,6 @@
   {
     "name": "Janus International Group Inc. Common Stock (JBI)",
     "symbol": "JBI"
-  },
-  {
-    "name": "Lehman ABS 3.50 3.50% Adjustable Corp Backed Tr Ce (JBK)",
-    "symbol": "JBK"
   },
   {
     "name": "Jabil Inc. Common Stock (JBL)",

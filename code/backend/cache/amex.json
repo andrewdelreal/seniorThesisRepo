@@ -144,6 +144,10 @@
     "symbol": "BTG"
   },
   {
+    "name": "Buda Juice Inc. Common Stock (BUDA)",
+    "symbol": "BUDA"
+  },
+  {
     "name": "Nuburu Inc. Common Stock (BURU)",
     "symbol": "BURU"
   },
@@ -288,10 +292,6 @@
     "symbol": "ECF^A"
   },
   {
-    "name": "Enigmatig Limited Class A Ordinary Shares (EGG)",
-    "symbol": "EGG"
-  },
-  {
     "name": "Eaton Vance Municipal Bond Fund Common Shares of B (EIM)",
     "symbol": "EIM"
   },
@@ -414,6 +414,10 @@
   {
     "name": "Gabelli Global Utility Common Shares of Beneficial (GLU)",
     "symbol": "GLU"
+  },
+  {
+    "name": "The Gabelli Global Utility and Income Trust Series (GLU^A)",
+    "symbol": "GLU^A"
   },
   {
     "name": "The Gabelli Global Utility and Income Trust Series (GLU^B)",
