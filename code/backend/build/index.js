@@ -111,7 +111,7 @@ app.post('/api/tickers', authenticate, (req, res) => {
     const filePath = `./cache/${exchange}.json`;
     const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
     if (!data)
-        return res.status(500).json({ 'error': 'Failed to read from echange cache' });
+        return res.status(500).json({ 'error': 'Failed to read from exchange cache' });
     res.json(data);
 });
 app.get('/', (req, res) => {
@@ -133,9 +133,9 @@ function authenticate(req, res, next) {
     }
 }
 const parseTickers = (data) => {
-    return data.map((item) => ({
-        name: `${item.name.slice(0, 50).trimEnd()} (${item.symbol})`,
-        symbol: item.symbol
+    return data.filter((item) => item.symbol.includes('^') === false).map((item) => ({
+        name: `${item.name.slice(0, 50).trim()} (${item.symbol.trim()})`,
+        symbol: item.symbol.trim()
     }));
 };
 function updateTickers() {
@@ -157,11 +157,62 @@ function updateTickers() {
         }
     });
 }
+function getMarketQuotes(symbols) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
+            },
+            body: new URLSearchParams({ symbols: symbols }),
+        };
+        try {
+            const response = yield fetch('https://api.tradier.com/v1/markets/quotes', options);
+            const data = yield response.json();
+            return data;
+        }
+        catch (err) {
+            console.error('Tradier Quotes API error:', err);
+            throw new Error('Failed to fetch market quotes');
+        }
+    });
+}
+function dailyStockUpdate() {
+    return __awaiter(this, void 0, void 0, function* () {
+        // Placeholder for daily stock update logic
+        // should probably remove stocks that dont work with tradier.
+        const exchange = 'nasdaq'; // Example exchange
+        const filePath = `./cache/${exchange}.json`;
+        try {
+            const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
+            const batchCount = Math.trunc(data.length / 500) + 1;
+            for (let i = 0; i < 1; i++) {
+                // const start = i * 500;
+                // const end = (i + 1) * 500;
+                // const batch = data.slice(start, end);
+                const tickers = data.map((item) => item.symbol).join(',');
+                const quotes = yield getMarketQuotes(tickers);
+                console.log(quotes['quotes']);
+                // console.log(batch);
+                // console.log(tickers);
+            }
+            console.log(data.length + ' tickers found for daily stock update');
+        }
+        catch (err) {
+            console.error('Failed to read ticker data for daily stock update');
+            return;
+        }
+        console.log('Daily stock update executed');
+    });
+}
 node_cron_1.default.schedule('0 0 * * *', updateTickers);
 db.init()
     .then(() => {
     app.listen(PORT, () => {
         updateTickers();
+        dailyStockUpdate();
         console.log(`Server is running on http://localhost:${PORT}`);
     });
 }).catch((err) => {

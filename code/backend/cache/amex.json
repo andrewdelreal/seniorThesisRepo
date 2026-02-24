@@ -52,10 +52,6 @@
     "symbol": "AREN"
   },
   {
-    "name": "Aris Mining Corporation Common Shares (ARMN)",
-    "symbol": "ARMN"
-  },
-  {
     "name": "Armata Pharmaceuticals Inc. Common Stock (ARMP)",
     "symbol": "ARMP"
   },
@@ -96,12 +92,12 @@
     "symbol": "BCV"
   },
   {
-    "name": "Bancroft Fund Limited 5.375% Series A Cumulative P (BCV^A)",
-    "symbol": "BCV^A"
-  },
-  {
     "name": "Flanigan's Enterprises Inc. Common Stock (BDL)",
     "symbol": "BDL"
+  },
+  {
+    "name": "Bimergen Energy Corporation Common Stock (BESS)",
+    "symbol": "BESS"
   },
   {
     "name": "Birks Group Inc. Common Stock (BGI)",
@@ -148,10 +144,6 @@
     "symbol": "BUDA"
   },
   {
-    "name": "Nuburu Inc. Common Stock (BURU)",
-    "symbol": "BURU"
-  },
-  {
     "name": "Can-Fite Biopharma Ltd American Depositary Shares (CANF)",
     "symbol": "CANF"
   },
@@ -180,7 +172,7 @@
     "symbol": "CIK"
   },
   {
-    "name": "General Enterprise Ventures Inc. Common Stock (CITR)",
+    "name": "CitroTech Inc. Common Stock (CITR)",
     "symbol": "CITR"
   },
   {
@@ -288,8 +280,8 @@
     "symbol": "ECF"
   },
   {
-    "name": "Ellsworth Growth and Income Fund Ltd. 5.25% Series (ECF^A)",
-    "symbol": "ECF^A"
+    "name": "Enigmatig Limited Class A Ordinary Shares (EGG)",
+    "symbol": "EGG"
   },
   {
     "name": "Eaton Vance Municipal Bond Fund Common Shares of B (EIM)",
@@ -388,16 +380,16 @@
     "symbol": "GBR"
   },
   {
+    "name": "Green Circle Decarbonize Technology Limited Ordina (GCDT)",
+    "symbol": "GCDT"
+  },
+  {
     "name": "Gencor Industries Inc. Common Stock (GENC)",
     "symbol": "GENC"
   },
   {
     "name": "GAMCO Global Gold Natural Resources & Income Trust (GGN)",
     "symbol": "GGN"
-  },
-  {
-    "name": "GAMCO Global Gold Natural Reources & Income Trust (GGN^B)",
-    "symbol": "GGN^B"
   },
   {
     "name": "GoldMining Inc. Common Shares (GLDG)",
@@ -416,14 +408,6 @@
     "symbol": "GLU"
   },
   {
-    "name": "The Gabelli Global Utility and Income Trust Series (GLU^A)",
-    "symbol": "GLU^A"
-  },
-  {
-    "name": "The Gabelli Global Utility and Income Trust Series (GLU^B)",
-    "symbol": "GLU^B"
-  },
-  {
     "name": "Clough Global Dividend and Income Fund Common Shar (GLV)",
     "symbol": "GLV"
   },
@@ -438,10 +422,6 @@
   {
     "name": "Hyperscale Data Inc. Common Stock (GPUS)",
     "symbol": "GPUS"
-  },
-  {
-    "name": "Hyperscale Data Inc. 13.00% Series D Cumulative Re (GPUS^D)",
-    "symbol": "GPUS^D"
   },
   {
     "name": "Graf Global Corp. Class A ordinary shares (GRAF)",
@@ -540,8 +520,8 @@
     "symbol": "ITRG"
   },
   {
-    "name": "JM Group Limited Ordinary Shares (JMG)",
-    "symbol": "JMG"
+    "name": "Jaguar Uranium Corp. Class A Common Shares (JAGU)",
+    "symbol": "JAGU"
   },
   {
     "name": "GEE Group Inc. Common Stock (JOB)",
@@ -618,6 +598,10 @@
   {
     "name": "NFT Limited Class A Ordinary Share (MI)",
     "symbol": "MI"
+  },
+  {
+    "name": "Mayfair Gold Corp. Common Shares (MINE)",
+    "symbol": "MINE"
   },
   {
     "name": "Moving iMage Technologies Inc. Common Stock (MITQ)",
@@ -752,10 +736,6 @@
     "symbol": "OPHC"
   },
   {
-    "name": "RiverNorth/DoubleLine Strategic Opportunity Fund I (OPP^C)",
-    "symbol": "OPP^C"
-  },
-  {
     "name": "Ocean Power Technologies Inc. Common Stock (OPTT)",
     "symbol": "OPTT"
   },
@@ -780,48 +760,12 @@
     "symbol": "PAPL"
   },
   {
-    "name": "Pacific Gas & Electric Co. 6% Preferred Stock (PCG^A)",
-    "symbol": "PCG^A"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 5 1/2% Preferred Stock (PCG^B)",
-    "symbol": "PCG^B"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 5% 1st Preferred Stock (PCG^C)",
-    "symbol": "PCG^C"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 5% 1st  Red. Preferred (PCG^D)",
-    "symbol": "PCG^D"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 5% 1st A Preferred Stoc (PCG^E)",
-    "symbol": "PCG^E"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 4.80% 1st Preferred Sto (PCG^G)",
-    "symbol": "PCG^G"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 4.50% 1st Preferred Sto (PCG^H)",
-    "symbol": "PCG^H"
-  },
-  {
-    "name": "Pacific Gas & Electric Co. 4.36% 1st Preferred Sto (PCG^I)",
-    "symbol": "PCG^I"
-  },
-  {
     "name": "Pedevco Corp. Common Stock (PED)",
     "symbol": "PED"
   },
   {
     "name": "BiomX Inc. COmmon Stock (PHGE)",
     "symbol": "PHGE"
-  },
-  {
-    "name": "Phoenix Energy One LLC Series A Cumulative Redeema (PHXE^)",
-    "symbol": "PHXE^"
   },
   {
     "name": "Planet Green Holdings Corp. Common Stock (PLAG)",
@@ -862,10 +806,6 @@
   {
     "name": "Power REIT (MD) Common Stock (PW)",
     "symbol": "PW"
-  },
-  {
-    "name": "Power REIT 7.75% Series A Cumulative Perpetual Pre (PW^A)",
-    "symbol": "PW^A"
   },
   {
     "name": "Paramount Gold Nevada Corp. Common Stock (PZG)",
@@ -910,10 +850,6 @@
   {
     "name": "Sachem Capital Corp. Common Shares (SACH)",
     "symbol": "SACH"
-  },
-  {
-    "name": "Sachem Capital Corp. 7.75% Series A Cumulative Red (SACH^A)",
-    "symbol": "SACH^A"
   },
   {
     "name": "Splash Beverage Group Inc. (NV) Common Stock (SBEV)",
@@ -996,10 +932,6 @@
     "symbol": "SYNX"
   },
   {
-    "name": "TechCreate Group Ltd. Class A Ordinary Shares (TCGL)",
-    "symbol": "TCGL"
-  },
-  {
     "name": "Taseko Mines Ltd. Common Stock (TGB)",
     "symbol": "TGB"
   },
@@ -1054,6 +986,10 @@
   {
     "name": "TRX Gold Corporation Common Stock (TRX)",
     "symbol": "TRX"
+  },
+  {
+    "name": "United Acquisition Corp. I Class A Ordinary Shares (UAC)",
+    "symbol": "UAC"
   },
   {
     "name": "United States Antimony Corporation Common Stock (UAMY)",
