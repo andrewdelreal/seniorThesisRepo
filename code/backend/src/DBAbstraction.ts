@@ -1,48 +1,113 @@
-import * as sqlite3 from 'sqlite3';
-import { inherits } from 'util';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+const POSTGRES_USER: string = process.env.POSTGRES_USER!;
+const POSTGRES_PASSWORD: string = process.env.POSTGRES_PASSWORD!;
+const POSTGRES_HOST: string = process.env.POSTGRES_HOST!;
+const POSTGRES_PORT: number = parseInt(process.env.POSTGRES_PORT!);
+const POSTGRES_DB: string = process.env.POSTGRES_DB!;
 
 class DBAbstraction {
-    filePath: string;
-    db!: sqlite3.Database;
+    pool!: Pool;
 
-    constructor(filePath: string) {
-        this.filePath = filePath;
+    constructor() {
+        this.pool = new Pool({
+            user: POSTGRES_USER,
+            host: POSTGRES_HOST,
+            password: POSTGRES_PASSWORD,
+            port: POSTGRES_PORT,
+            database: POSTGRES_DB
+        });
     }
 
-    init() {
-        return new Promise<void>((resolve, reject) => { 
-            this.db = new sqlite3.Database(this.filePath, async (err) => { 
-                if(err) { 
-                    reject(err); 
-                } else { 
-                    try { 
-                        await this.createTables(); 
-                        resolve(); 
-                    } catch (err) { 
-                        reject(err) 
-                    } 
-                } 
-            }); 
-        }); 
-    }
+    async init() {
+        let client;
+        try {
+            client = await this.pool.connect();
+            console.log('Connected to PostgreSQL database');
 
-    createTables(): Promise<void> {
-        const sql: string = `
-            CREATE TABLE IF NOT EXISTS "Test" (
-                "id" INTEGER PRIMARY KEY
-            );
-        `;
+            await client.query('BEGIN');
 
-        return new Promise<void>((resolve, reject) => { 
-            this.db.exec(sql, (err) => {                 
-                if(err) { 
-                    reject(err); 
-                } else { 
-                    resolve(); 
-                } 
-            }); 
-        }); 
+            const createTableQuery: string = `
+                CREATE TABLE IF NOT EXISTS public."DailyStockSnapshot"
+                (
+                    id integer NOT NULL,
+                    symbol text COLLATE pg_catalog."default" NOT NULL,
+                    description text COLLATE pg_catalog."default",
+                    exch text COLLATE pg_catalog."default",
+                    date date,
+                    last numeric,
+                    volume bigint,
+                    change_percent numeric,
+                    high numeric,
+                    low numeric,
+                    volatility numeric,
+                    close numeric,
+                    change numeric,
+                    average_volume numeric,
+                    CONSTRAINT "DailyStockSnapshot_pkey" PRIMARY KEY (id)
+                ) 
+                    
+                TABLESPACE pg_default;
+
+                ALTER TABLE IF EXISTS public."DailyStockSnapshot"
+                    OWNER to postgres;
+
+                COMMENT ON TABLE public."DailyStockSnapshot"
+                    IS 'Holds daily stock data as a cache';
+            `;
+                
+            await client.query(createTableQuery);
+
+            await client.query('COMMIT');
+            console.log('Ensured DailyStockSnapshot table exists');
+        } catch (err) {
+            console.error('Failed Error initializing database tables connect to PostgreSQL database:', err);
+        } finally {
+            if (client) {
+                client.release();
+                console.log('Released PostgreSQL client');
+            }
+        }
     }
 }
 
 export default DBAbstraction;
+
+/* Example of creating multiple tables in one query (for future reference)
+CREATE TABLE IF NOT EXISTS public."DailyStockSnapshot"
+    (
+        id integer NOT NULL,
+        symbol text COLLATE pg_catalog."default" NOT NULL,
+        description text COLLATE pg_catalog."default",
+        exch text COLLATE pg_catalog."default",
+        date date,
+        last numeric,
+        volume bigint,
+        change_percent numeric,
+        high numeric,
+        low numeric,
+        volatility numeric,
+        close numeric,
+        change numeric,
+        average_volume numeric,
+        CONSTRAINT "DailyStockSnapshot_pkey" PRIMARY KEY (id)
+    ) TABLESPACE pg_default;
+
+    CREATE TABLE IF NOT EXISTS public."test"
+    (
+        id integer NOT NULL,
+        name text NOT NULL,
+        CONSTRAINT "test_pkey" PRIMARY KEY (id)
+    ) TABLESPACE pg_default;
+
+    ALTER TABLE IF EXISTS public."DailyStockSnapshot"
+        OWNER to postgres;
+
+    COMMENT ON TABLE public."DailyStockSnapshot"
+        IS 'Holds daily stock data as a cache';
+`; 
+*/

@@ -18,7 +18,7 @@ const app: Application = express();
 const PORT: number = 3000;
 
 const dbPath: string = path.join(__dirname, '..', 'data', 'database.db');
-const db: DBAbstraction = new DBAbstraction(dbPath);
+const db: DBAbstraction = new DBAbstraction();
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -89,26 +89,26 @@ app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {
   }
 });
 
-app.post('/api/tradier/markets/quotes', authenticate, async (req: Request<{}, {}, {symbols: string}>, res: Response) => {
-   const options  = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json',
-      Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
-    },
-    body: new URLSearchParams({symbols: req.body.symbols}),
-  };
+// app.post('/api/tradier/markets/quotes', authenticate, async (req: Request<{}, {}, {symbols: string}>, res: Response) => {
+//    const options  = {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       Accept: 'application/json',
+//       Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
+//     },
+//     body: new URLSearchParams({symbols: req.body.symbols}),
+//   };
 
-  try {
-    const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
-    const data = await response.json();
-    res.status(200).json(data);
-  } catch (err) {
-    console.error('Tradier Quotes API error:', err);
-    res.status(500).json({ error: 'Failed to fetch market quotes' });  
-  }
-});
+//   try {
+//     const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
+//     const data = await response.json();
+//     res.status(200).json(data);
+//   } catch (err) {
+//     console.error('Tradier Quotes API error:', err);
+//     res.status(500).json({ error: 'Failed to fetch market quotes' });  
+//   }
+// });
 
 app.post('/api/tickers', authenticate, (req: Request, res: Response) => {
   const { exchange } = req.body;
@@ -183,11 +183,20 @@ async function getMarketQuotes(symbols: string) {
   try {
     const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
     const data = await response.json();
+    await storeQuotesInDB(data);
     return data;
   } catch (err) {
     console.error('Tradier Quotes API error:', err);
     throw new Error('Failed to fetch market quotes');
   }
+}
+
+async function storeQuotesInDB(data: any) {
+  // connect to pg database
+  // store quotes in a table with columns for symbol, price, timestamp, etc.
+  // this is a placeholder function, implement as needed
+
+
 }
 
 async function dailyStockUpdate() {
@@ -198,7 +207,7 @@ async function dailyStockUpdate() {
   const filePath = `./cache/${exchange}.json`;
   try { 
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const batchCount = Math.trunc(data.length / 500) + 1;
+    const batchCount = Math.trunc(data.length / 500) + 1; // Dont need to batch, this is fast enought still
     const tickers = data.map((item: any) => item.symbol).join(',');
 
     const quotes = await getMarketQuotes(tickers);
