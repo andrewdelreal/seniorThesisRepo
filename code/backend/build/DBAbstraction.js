@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
+const pg_copy_streams_1 = require("pg-copy-streams");
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const POSTGRES_USER = process.env.POSTGRES_USER;
 const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD;
@@ -41,7 +43,7 @@ class DBAbstraction {
                 const createTableQuery = `
                 CREATE TABLE IF NOT EXISTS public."DailyStockSnapshot"
                 (
-                    id integer NOT NULL,
+                    id BIGSERIAL NOT NULL PRIMARY KEY,
                     symbol text COLLATE pg_catalog."default" NOT NULL,
                     description text COLLATE pg_catalog."default",
                     exch text COLLATE pg_catalog."default",
@@ -54,8 +56,7 @@ class DBAbstraction {
                     volatility numeric,
                     close numeric,
                     change numeric,
-                    average_volume numeric,
-                    CONSTRAINT "DailyStockSnapshot_pkey" PRIMARY KEY (id)
+                    average_volume numeric
                 ) 
                     
                 TABLESPACE pg_default;
@@ -72,6 +73,41 @@ class DBAbstraction {
             }
             catch (err) {
                 console.error('Failed Error initializing database tables connect to PostgreSQL database:', err);
+            }
+            finally {
+                if (client) {
+                    client.release();
+                    console.log('Released PostgreSQL client');
+                }
+            }
+        });
+    }
+    addDailyStockSnapshot() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let client;
+            try {
+                client = yield this.pool.connect();
+                console.log("Connected to PostgreSQL");
+                yield client.query("BEGIN");
+                const copyQuery = `
+                COPY public."DailyStockSnapshot"
+                (symbol, description, exch, last, volume, high, low, close, change, average_volume, volatility, date)
+                FROM STDIN WITH (FORMAT CSV, HEADER true);
+            `;
+                const fileStream = fs_1.default.createReadStream("./cache/dailyquotes.csv");
+                const dbStream = client.query((0, pg_copy_streams_1.from)(copyQuery));
+                // Wait for stream to finish
+                yield new Promise((resolve, reject) => {
+                    fileStream
+                        .pipe(dbStream)
+                        .on("finish", resolve)
+                        .on("error", reject);
+                });
+                yield client.query("COMMIT");
+                console.log('Inserted daily stock snapshot into database');
+            }
+            catch (err) {
+                console.error('Error adding daily stock snapshot to database:', err);
             }
             finally {
                 if (client) {

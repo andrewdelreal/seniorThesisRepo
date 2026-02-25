@@ -23,10 +23,10 @@ const google_auth_library_1 = require("google-auth-library");
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
+const json_2_csv_1 = require("json-2-csv");
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
 const PORT = 3000;
-const dbPath = path_1.default.join(__dirname, '..', 'data', 'database.db');
 const db = new DBAbstraction_1.default();
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('dev'));
@@ -169,9 +169,12 @@ function getMarketQuotes(symbols) {
         };
         try {
             const response = yield fetch('https://api.tradier.com/v1/markets/quotes', options);
-            const data = yield response.json();
-            yield storeQuotesInDB(data);
-            return data;
+            let jsondata = (yield response.json())['quotes']['quote'];
+            jsondata = yield cleanQuotes(jsondata);
+            jsondata = yield addVolatilityAndDateToQuotes(jsondata);
+            const data = (0, json_2_csv_1.json2csv)(jsondata);
+            fs_1.default.writeFileSync('./cache/dailyquotes.csv', data);
+            yield db.addDailyStockSnapshot();
         }
         catch (err) {
             console.error('Tradier Quotes API error:', err);
@@ -179,11 +182,35 @@ function getMarketQuotes(symbols) {
         }
     });
 }
-function storeQuotesInDB(data) {
+function cleanQuotes(data) {
     return __awaiter(this, void 0, void 0, function* () {
-        // connect to pg database
-        // store quotes in a table with columns for symbol, price, timestamp, etc.
-        // this is a placeholder function, implement as needed
+        function isValidEquity(quote) {
+            return (quote.type === "stock" &&
+                quote.close !== null &&
+                quote.high !== null &&
+                quote.low !== null &&
+                quote.volume > 10000);
+        }
+        data = data.filter(isValidEquity);
+        const keysToKeep = ["symbol", "description", "exch", "last", "volume", "change_percent", "high", "low", "close", "change", "average_volume"];
+        const filteredData = data.map((item) => {
+            const newItem = {};
+            keysToKeep.forEach(key => {
+                if (item.hasOwnProperty(key)) {
+                    newItem[key] = item[key];
+                }
+            });
+            return newItem;
+        });
+        return filteredData;
+    });
+}
+function addVolatilityAndDateToQuotes(data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return data.map((quote) => {
+            const volatility = (quote.high - quote.low) / quote.last;
+            return Object.assign(Object.assign({}, quote), { volatility, date: new Date().toLocaleDateString('en-CA') });
+        });
     });
 }
 function dailyStockUpdate() {
@@ -194,9 +221,8 @@ function dailyStockUpdate() {
         const filePath = `./cache/${exchange}.json`;
         try {
             const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
-            const batchCount = Math.trunc(data.length / 500) + 1; // Dont need to batch, this is fast enought still
             const tickers = data.map((item) => item.symbol).join(',');
-            const quotes = yield getMarketQuotes(tickers);
+            yield getMarketQuotes(tickers);
             // add quotes to database or process as needed
             console.log(data.length + ' tickers found for daily stock update');
         }

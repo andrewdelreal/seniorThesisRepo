@@ -1,6 +1,8 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
+import { from as copyFrom} from 'pg-copy-streams';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -34,7 +36,7 @@ class DBAbstraction {
             const createTableQuery: string = `
                 CREATE TABLE IF NOT EXISTS public."DailyStockSnapshot"
                 (
-                    id integer NOT NULL,
+                    id BIGSERIAL NOT NULL PRIMARY KEY,
                     symbol text COLLATE pg_catalog."default" NOT NULL,
                     description text COLLATE pg_catalog."default",
                     exch text COLLATE pg_catalog."default",
@@ -47,8 +49,7 @@ class DBAbstraction {
                     volatility numeric,
                     close numeric,
                     change numeric,
-                    average_volume numeric,
-                    CONSTRAINT "DailyStockSnapshot_pkey" PRIMARY KEY (id)
+                    average_volume numeric
                 ) 
                     
                 TABLESPACE pg_default;
@@ -72,6 +73,46 @@ class DBAbstraction {
                 console.log('Released PostgreSQL client');
             }
         }
+    }
+
+    async addDailyStockSnapshot() {
+        let client;
+        try { 
+            client = await this.pool.connect();
+            console.log("Connected to PostgreSQL");
+
+            await client.query("BEGIN");
+
+            const copyQuery = `
+                COPY public."DailyStockSnapshot"
+                (symbol, description, exch, last, volume, high, low, close, change, average_volume, volatility, date)
+                FROM STDIN WITH (FORMAT CSV, HEADER true);
+            `;
+
+            const fileStream = fs.createReadStream("./cache/dailyquotes.csv");
+            const dbStream = client.query(copyFrom(copyQuery));
+
+            // Wait for stream to finish
+            await new Promise((resolve, reject) => {
+                fileStream
+                    .pipe(dbStream)
+                    .on("finish", resolve)
+                    .on("error", reject);
+            });
+
+            await client.query("COMMIT");
+
+            console.log('Inserted daily stock snapshot into database');
+
+        } catch (err) {
+            console.error('Error adding daily stock snapshot to database:', err);
+        } finally {
+            if (client) {
+                client.release();
+                console.log('Released PostgreSQL client');
+            }
+        }
+
     }
 }
 

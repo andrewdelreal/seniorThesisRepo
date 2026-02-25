@@ -3,13 +3,14 @@ import path from 'path';
 import DBAbstraction from './DBAbstraction';
 import cors from 'cors';
 import morgan from 'morgan';
-import bodyParser from 'body-parser';
+import bodyParser, { json } from 'body-parser';
 import jwt from 'jsonwebtoken';
 import { LoginTicket, OAuth2Client, TokenPayload } from 'google-auth-library';
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
+import { json2csv } from 'json-2-csv';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -17,7 +18,6 @@ const app: Application = express();
 
 const PORT: number = 3000;
 
-const dbPath: string = path.join(__dirname, '..', 'data', 'database.db');
 const db: DBAbstraction = new DBAbstraction();
 
 app.use(cors());
@@ -182,21 +182,52 @@ async function getMarketQuotes(symbols: string) {
 
   try {
     const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
-    const data = await response.json();
-    await storeQuotesInDB(data);
-    return data;
+    let jsondata = (await response.json())['quotes']['quote'];
+    jsondata = await cleanQuotes(jsondata);
+    jsondata = await addVolatilityAndDateToQuotes(jsondata);
+
+    const data = json2csv(jsondata);
+    fs.writeFileSync('./cache/dailyquotes.csv', data);
+    await db.addDailyStockSnapshot();
   } catch (err) {
     console.error('Tradier Quotes API error:', err);
     throw new Error('Failed to fetch market quotes');
   }
 }
 
-async function storeQuotesInDB(data: any) {
-  // connect to pg database
-  // store quotes in a table with columns for symbol, price, timestamp, etc.
-  // this is a placeholder function, implement as needed
+async function cleanQuotes(data: any) {
+  function isValidEquity(quote: any) {
+    return (
+      quote.type === "stock" &&
+      quote.close !== null &&
+      quote.high !== null &&
+      quote.low !== null &&
+      quote.volume > 10000
+    );
+  }
 
+  data = data.filter(isValidEquity);
 
+  const keysToKeep = ["symbol", "description", "exch", "last", "volume", "change_percent", "high", "low", "close", "change", "average_volume"];
+
+  const filteredData = data.map((item: any) => {
+      const newItem: any = {};
+      keysToKeep.forEach(key => {
+          if (item.hasOwnProperty(key)) {
+              newItem[key] = item[key];
+          }
+      });
+      return newItem;
+  });
+
+  return filteredData;
+}
+
+async function addVolatilityAndDateToQuotes(data: any) {
+  return data.map((quote: any) => {
+    const volatility = (quote.high - quote.low) / quote.last;
+    return { ...quote, volatility, date: new Date().toLocaleDateString('en-CA') };
+  });
 }
 
 async function dailyStockUpdate() {
@@ -207,10 +238,9 @@ async function dailyStockUpdate() {
   const filePath = `./cache/${exchange}.json`;
   try { 
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const batchCount = Math.trunc(data.length / 500) + 1; // Dont need to batch, this is fast enought still
     const tickers = data.map((item: any) => item.symbol).join(',');
 
-    const quotes = await getMarketQuotes(tickers);
+    await getMarketQuotes(tickers);
 
     // add quotes to database or process as needed
     console.log(data.length + ' tickers found for daily stock update');
@@ -235,4 +265,3 @@ db.init()
     }).catch((err) => {
         console.error('Failed to initialize database:', err);
     });
-
