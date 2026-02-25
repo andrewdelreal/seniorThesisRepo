@@ -11,6 +11,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
 import { json2csv } from 'json-2-csv';
+import DailyStockUpdate from './DailyStockUpdate';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -89,27 +90,6 @@ app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {
   }
 });
 
-// app.post('/api/tradier/markets/quotes', authenticate, async (req: Request<{}, {}, {symbols: string}>, res: Response) => {
-//    const options  = {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//       Accept: 'application/json',
-//       Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
-//     },
-//     body: new URLSearchParams({symbols: req.body.symbols}),
-//   };
-
-//   try {
-//     const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
-//     const data = await response.json();
-//     res.status(200).json(data);
-//   } catch (err) {
-//     console.error('Tradier Quotes API error:', err);
-//     res.status(500).json({ error: 'Failed to fetch market quotes' });  
-//   }
-// });
-
 app.post('/api/tickers', authenticate, (req: Request, res: Response) => {
   const { exchange } = req.body;
 
@@ -169,97 +149,13 @@ async function updateTickers() {
   }
 }
 
-async function getMarketQuotes(symbols: string) {
-   const options  = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json',
-      Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
-    },
-    body: new URLSearchParams({symbols: symbols}),
-  };
-
-  try {
-    const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
-    let jsondata = (await response.json())['quotes']['quote'];
-    jsondata = await cleanQuotes(jsondata);
-    jsondata = await addVolatilityAndDateToQuotes(jsondata);
-
-    const data = json2csv(jsondata);
-    fs.writeFileSync('./cache/dailyquotes.csv', data);
-    await db.addDailyStockSnapshot();
-  } catch (err) {
-    console.error('Tradier Quotes API error:', err);
-    throw new Error('Failed to fetch market quotes');
-  }
-}
-
-async function cleanQuotes(data: any) {
-  function isValidEquity(quote: any) {
-    return (
-      quote.type === "stock" &&
-      quote.close !== null &&
-      quote.high !== null &&
-      quote.low !== null &&
-      quote.volume > 10000
-    );
-  }
-
-  data = data.filter(isValidEquity);
-
-  const keysToKeep = ["symbol", "description", "exch", "last", "volume", "change_percent", "high", "low", "close", "change", "average_volume"];
-
-  const filteredData = data.map((item: any) => {
-      const newItem: any = {};
-      keysToKeep.forEach(key => {
-          if (item.hasOwnProperty(key)) {
-              newItem[key] = item[key];
-          }
-      });
-      return newItem;
-  });
-
-  return filteredData;
-}
-
-async function addVolatilityAndDateToQuotes(data: any) {
-  return data.map((quote: any) => {
-    const volatility = (quote.high - quote.low) / quote.last;
-    return { ...quote, volatility, date: new Date().toLocaleDateString('en-CA') };
-  });
-}
-
-async function dailyStockUpdate() {
-  // Placeholder for daily stock update logic
-  // should probably remove stocks that dont work with tradier.
-  const exchange = 'nasdaq'; // Example exchange
-
-  const filePath = `./cache/${exchange}.json`;
-  try { 
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const tickers = data.map((item: any) => item.symbol).join(',');
-
-    await getMarketQuotes(tickers);
-
-    // add quotes to database or process as needed
-    console.log(data.length + ' tickers found for daily stock update');
-  }
-  catch (err) {
-    console.error('Failed to read ticker data for daily stock update');
-    return;
-  }
-
-  console.log('Daily stock update executed');
-}
-
 cron.schedule('0 0 * * *', updateTickers);
 
 db.init()
     .then(() => {
-        app.listen(PORT, () => {
+        app.listen(PORT, async () => {
             updateTickers();
-            dailyStockUpdate()
+            await DailyStockUpdate(db);
             console.log(`Server is running on http://localhost:${PORT}`);
         });
     }).catch((err) => {
