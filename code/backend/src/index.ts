@@ -10,8 +10,12 @@ import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
-import { json2csv } from 'json-2-csv';
 import DailyStockUpdate from './DailyStockUpdate';
+
+// Add rest of stock exchanges
+// add cron job for the update
+// make sure to only so it once a day even on server restarts
+
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
