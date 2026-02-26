@@ -25,8 +25,6 @@ const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
 // Add rest of stock exchanges
-// add cron job for the update
-// make sure to only so it once a day even on server restarts
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
 const PORT = 3000;

@@ -20,10 +20,11 @@ async function DailyStockUpdate(db: DBAbstraction) {
     }
 
     console.log('Running daily stock update...');
-    const exchange = 'nasdaq'; // Example exchange
+    const exchanges = ['nasdaq', 'nyse', 'amex'];
     
-      const filePath = `./cache/${exchange}.json`;
+    for (const exchange of exchanges) {
       try { 
+        const filePath = `./cache/${exchange}.json`;
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         const tickers = data.map((item: any) => item.symbol).join(',');
     
@@ -36,7 +37,7 @@ async function DailyStockUpdate(db: DBAbstraction) {
         console.error('Failed to read ticker data for daily stock update');
         return;
       }
-    
+    }
       console.log('Daily stock update executed');
 }
 
@@ -82,6 +83,9 @@ async function cleanQuotes(data: any) {
       quote.close !== null &&
       quote.high !== null &&
       quote.low !== null &&
+      quote.last !== null &&
+      quote.change !== null &&
+      quote.average_volume !== null &&
       quote.volume > 10000
     );
   }

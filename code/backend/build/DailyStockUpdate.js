@@ -16,9 +16,6 @@ const fs_1 = __importDefault(require("fs"));
 const json_2_csv_1 = require("json-2-csv");
 function DailyStockUpdate(db) {
     return __awaiter(this, void 0, void 0, function* () {
-        // On server reset, if today is not in the database, add it
-        // otherwise cron job will handle it.
-        // When the backend goes online, we don't have to worry about the timing of the cron job, we just need to make sure we have the latest data in the database.
         // check if today is already in the database
         if (yield db.areTodaysQuotesInDatabase()) {
             console.log('Today\'s stock data is already in the database, skipping update');
@@ -33,18 +30,20 @@ function DailyStockUpdate(db) {
             return;
         }
         console.log('Running daily stock update...');
-        const exchange = 'nasdaq'; // Example exchange
-        const filePath = `./cache/${exchange}.json`;
-        try {
-            const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
-            const tickers = data.map((item) => item.symbol).join(',');
-            yield getMarketQuotes(tickers, db);
-            // add quotes to database or process as needed
-            console.log(data.length + ' tickers found for daily stock update');
-        }
-        catch (err) {
-            console.error('Failed to read ticker data for daily stock update');
-            return;
+        const exchanges = ['nasdaq', 'nyse', 'amex'];
+        for (const exchange of exchanges) {
+            try {
+                const filePath = `./cache/${exchange}.json`;
+                const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
+                const tickers = data.map((item) => item.symbol).join(',');
+                yield getMarketQuotes(tickers, db);
+                // add quotes to database or process as needed
+                console.log(data.length + ' tickers found for daily stock update');
+            }
+            catch (err) {
+                console.error('Failed to read ticker data for daily stock update');
+                return;
+            }
         }
         console.log('Daily stock update executed');
     });
@@ -89,6 +88,9 @@ function cleanQuotes(data) {
                 quote.close !== null &&
                 quote.high !== null &&
                 quote.low !== null &&
+                quote.last !== null &&
+                quote.change !== null &&
+                quote.average_volume !== null &&
                 quote.volume > 10000);
         }
         data = data.filter(isValidEquity);
