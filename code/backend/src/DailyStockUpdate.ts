@@ -3,8 +3,22 @@ import fs from 'fs';
 import { json2csv } from 'json-2-csv';
 
 async function DailyStockUpdate(db: DBAbstraction) {
-    // This function will be scheduled to run at the end of each trading day
-    // It will fetch the latest stock data and store it in the database
+    // check if today is already in the database
+    if (await db.areTodaysQuotesInDatabase()) {
+      console.log('Today\'s stock data is already in the database, skipping update');
+      return;
+    }
+
+    // if the time is before 3:30 pm local time, don't run this
+    const now = new Date();
+    const marketCloseTime = new Date();
+    marketCloseTime.setHours(15, 30, 0, 0); // Set to 3:30 PM local time
+
+    if (now < marketCloseTime) {
+      console.log('Market is not yet closed, skipping daily stock update');
+      return;
+    }
+
     console.log('Running daily stock update...');
     const exchange = 'nasdaq'; // Example exchange
     
@@ -39,12 +53,21 @@ async function getMarketQuotes(symbols: string, db: DBAbstraction) {
 
   try {
     const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
-    let jsondata = (await response.json())['quotes']['quote'];
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("Tradier error:", response.status, text);
+      throw new Error("Tradier API failed");
+    }
+
+    let jsondata = await response.json();
+    jsondata = jsondata.quotes.quote; // Extract the array of quotes from the response
     jsondata = await cleanQuotes(jsondata);
     jsondata = await addVolatilityAndDateToQuotes(jsondata);
+    console.log(jsondata.length + ' quotes fetched from Tradier API');
 
-    const data = json2csv(jsondata);
-    fs.writeFileSync('./cache/dailyquotes.csv', data);
+    const data = await json2csv(jsondata);
+    await fs.writeFileSync('./cache/dailyquotes.csv', data);
     await db.addDailyStockSnapshot();
   } catch (err) {
     console.error('Tradier Quotes API error:', err);

@@ -256,10 +256,6 @@
     "symbol": "AHH"
   },
   {
-    "name": "Aspen Insurance Holdings Limited Class A Ordinary (AHL)",
-    "symbol": "AHL"
-  },
-  {
     "name": "American Healthcare REIT Inc. Common Stock (AHR)",
     "symbol": "AHR"
   },
@@ -706,10 +702,6 @@
   {
     "name": "A10 Networks Inc. Common Stock (ATEN)",
     "symbol": "ATEN"
-  },
-  {
-    "name": "Adtalem Global Education Inc. Common Stock (ATGE)",
-    "symbol": "ATGE"
   },
   {
     "name": "Autohome Inc. American Depositary Shares each repr (ATHM)",
@@ -2304,6 +2296,10 @@
     "symbol": "CVS"
   },
   {
+    "name": "Covista Inc. Common Shares (CVSA)",
+    "symbol": "CVSA"
+  },
+  {
     "name": "Chevron Corporation Common Stock (CVX)",
     "symbol": "CVX"
   },
@@ -2846,10 +2842,6 @@
   {
     "name": "Everest Group Ltd. Common Stock (EG)",
     "symbol": "EG"
-  },
-  {
-    "name": "Eldorado Gold Corporation Ordinary Shares (EGO)",
-    "symbol": "EGO"
   },
   {
     "name": "EastGroup Properties Inc. Common Stock (EGP)",
@@ -4490,6 +4482,10 @@
   {
     "name": "Ingersoll Rand Inc. Common Stock (IR)",
     "symbol": "IR"
+  },
+  {
+    "name": "Iris Acquisition Corp II Class A Ordinary Shares (IRAB)",
+    "symbol": "IRAB"
   },
   {
     "name": "Iron Mountain Incorporated (Delaware)Common Stock (IRM)",
@@ -7344,12 +7340,12 @@
     "symbol": "RYAN"
   },
   {
-    "name": "Ryerson Holding Corporation Common Stock (RYI)",
-    "symbol": "RYI"
-  },
-  {
     "name": "Rayonier Inc. REIT Common Stock (RYN)",
     "symbol": "RYN"
+  },
+  {
+    "name": "Ryerson Holding Corporation Common Stock (RYZ)",
+    "symbol": "RYZ"
   },
   {
     "name": "Reinsurance Group of America Incorporated 5.75% Fi (RZB)",
@@ -9120,6 +9116,10 @@
     "symbol": "WOR"
   },
   {
+    "name": "White Pearl Acquisition Corp. Class A Ordinary Sha (WPAC)",
+    "symbol": "WPAC"
+  },
+  {
     "name": "W. P. Carey Inc. REIT (WPC)",
     "symbol": "WPC"
   },
@@ -9236,7 +9236,7 @@
     "symbol": "XPRO"
   },
   {
-    "name": "Chiron Real Estate Inc. (XRN)",
+    "name": "Chiron Real Estate Inc. Common Stock (XRN)",
     "symbol": "XRN"
   },
   {

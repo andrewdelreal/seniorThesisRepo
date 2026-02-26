@@ -16,8 +16,22 @@ const fs_1 = __importDefault(require("fs"));
 const json_2_csv_1 = require("json-2-csv");
 function DailyStockUpdate(db) {
     return __awaiter(this, void 0, void 0, function* () {
-        // This function will be scheduled to run at the end of each trading day
-        // It will fetch the latest stock data and store it in the database
+        // On server reset, if today is not in the database, add it
+        // otherwise cron job will handle it.
+        // When the backend goes online, we don't have to worry about the timing of the cron job, we just need to make sure we have the latest data in the database.
+        // check if today is already in the database
+        if (yield db.areTodaysQuotesInDatabase()) {
+            console.log('Today\'s stock data is already in the database, skipping update');
+            return;
+        }
+        // if the time is before 3:30 pm local time, don't run this
+        const now = new Date();
+        const marketCloseTime = new Date();
+        marketCloseTime.setHours(15, 30, 0, 0); // Set to 3:30 PM local time
+        if (now < marketCloseTime) {
+            console.log('Market is not yet closed, skipping daily stock update');
+            return;
+        }
         console.log('Running daily stock update...');
         const exchange = 'nasdaq'; // Example exchange
         const filePath = `./cache/${exchange}.json`;
@@ -48,11 +62,18 @@ function getMarketQuotes(symbols, db) {
         };
         try {
             const response = yield fetch('https://api.tradier.com/v1/markets/quotes', options);
-            let jsondata = (yield response.json())['quotes']['quote'];
+            if (!response.ok) {
+                const text = yield response.text();
+                console.error("Tradier error:", response.status, text);
+                throw new Error("Tradier API failed");
+            }
+            let jsondata = yield response.json();
+            jsondata = jsondata.quotes.quote; // Extract the array of quotes from the response
             jsondata = yield cleanQuotes(jsondata);
             jsondata = yield addVolatilityAndDateToQuotes(jsondata);
-            const data = (0, json_2_csv_1.json2csv)(jsondata);
-            fs_1.default.writeFileSync('./cache/dailyquotes.csv', data);
+            console.log(jsondata.length + ' quotes fetched from Tradier API');
+            const data = yield (0, json_2_csv_1.json2csv)(jsondata);
+            yield fs_1.default.writeFileSync('./cache/dailyquotes.csv', data);
             yield db.addDailyStockSnapshot();
         }
         catch (err) {

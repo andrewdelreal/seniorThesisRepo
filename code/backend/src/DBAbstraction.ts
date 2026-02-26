@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
-import path from 'path';
+import path, { resolve } from 'path';
 import fs from 'fs';
 import { from as copyFrom} from 'pg-copy-streams';
 
@@ -25,94 +25,120 @@ class DBAbstraction {
         });
     }
 
-    async init() {
-        let client;
-        try {
-            client = await this.pool.connect();
-            console.log('Connected to PostgreSQL database');
+    async init(): Promise<void> {
+        return new Promise(async (resolve, reject) => {
+            let client;
+            try {
+                client = await this.pool.connect();
+                console.log('Connected to PostgreSQL database');
 
-            await client.query('BEGIN');
+                await client.query('BEGIN');
 
-            const createTableQuery: string = `
-                CREATE TABLE IF NOT EXISTS public."DailyStockSnapshot"
-                (
-                    id BIGSERIAL NOT NULL PRIMARY KEY,
-                    symbol text COLLATE pg_catalog."default" NOT NULL,
-                    description text COLLATE pg_catalog."default",
-                    exch text COLLATE pg_catalog."default",
-                    date date,
-                    last numeric,
-                    volume bigint,
-                    change_percent numeric,
-                    high numeric,
-                    low numeric,
-                    volatility numeric,
-                    close numeric,
-                    change numeric,
-                    average_volume numeric
-                ) 
+                const createTableQuery: string = `
+                    CREATE TABLE IF NOT EXISTS public."DailyStockSnapshot"
+                    (
+                        id BIGSERIAL NOT NULL PRIMARY KEY,
+                        symbol text COLLATE pg_catalog."default" NOT NULL,
+                        description text COLLATE pg_catalog."default",
+                        exch text COLLATE pg_catalog."default",
+                        date date,
+                        last numeric,
+                        volume bigint,
+                        change_percent numeric,
+                        high numeric,
+                        low numeric,
+                        volatility numeric,
+                        close numeric,
+                        change numeric,
+                        average_volume numeric
+                    ) 
+                        
+                    TABLESPACE pg_default;
+
+                    ALTER TABLE IF EXISTS public."DailyStockSnapshot"
+                        OWNER to postgres;
+
+                    COMMENT ON TABLE public."DailyStockSnapshot"
+                        IS 'Holds daily stock data as a cache';
+                `;
                     
-                TABLESPACE pg_default;
+                await client.query(createTableQuery);
 
-                ALTER TABLE IF EXISTS public."DailyStockSnapshot"
-                    OWNER to postgres;
-
-                COMMENT ON TABLE public."DailyStockSnapshot"
-                    IS 'Holds daily stock data as a cache';
-            `;
-                
-            await client.query(createTableQuery);
-
-            await client.query('COMMIT');
-            console.log('Ensured DailyStockSnapshot table exists');
-        } catch (err) {
-            console.error('Failed Error initializing database tables connect to PostgreSQL database:', err);
-        } finally {
-            if (client) {
-                client.release();
-                console.log('Released PostgreSQL client');
+                await client.query('COMMIT');
+                console.log('Ensured DailyStockSnapshot table exists');
+                resolve();
+            } catch (err) {
+                console.error('Failed Error initializing database tables connect to PostgreSQL database:', err);
+                reject(err);
+            } finally {
+                if (client) {
+                    client.release();
+                    console.log('Released PostgreSQL client');
+                }
             }
-        }
+        });
     }
 
-    async addDailyStockSnapshot() {
-        let client;
-        try { 
-            client = await this.pool.connect();
-            console.log("Connected to PostgreSQL");
+    async addDailyStockSnapshot(): Promise<void> {
+        return new Promise(async (resolve, reject) => {
+            let client;
+            try { 
+                client = await this.pool.connect();
+                console.log("Connected to PostgreSQL");
 
-            await client.query("BEGIN");
+                await client.query("BEGIN");
 
-            const copyQuery = `
-                COPY public."DailyStockSnapshot"
-                (symbol, description, exch, last, volume, high, low, close, change, average_volume, volatility, date)
-                FROM STDIN WITH (FORMAT CSV, HEADER true);
-            `;
+                const copyQuery = `
+                    COPY public."DailyStockSnapshot"
+                    (symbol, description, exch, last, volume, high, low, close, change, average_volume, volatility, date)
+                    FROM STDIN WITH (FORMAT CSV, HEADER true);
+                `;
 
-            const fileStream = fs.createReadStream("./cache/dailyquotes.csv");
-            const dbStream = client.query(copyFrom(copyQuery));
+                const fileStream = fs.createReadStream("./cache/dailyquotes.csv");
+                const dbStream = client.query(copyFrom(copyQuery));
 
-            // Wait for stream to finish
-            await new Promise((resolve, reject) => {
-                fileStream
-                    .pipe(dbStream)
-                    .on("finish", resolve)
-                    .on("error", reject);
-            });
+                // Wait for stream to finish
+                await new Promise((resolve, reject) => {
+                    fileStream
+                        .pipe(dbStream)
+                        .on("finish", resolve)
+                        .on("error", reject);
+                });
 
-            await client.query("COMMIT");
+                await client.query("COMMIT");
 
-            console.log('Inserted daily stock snapshot into database');
-
-        } catch (err) {
-            console.error('Error adding daily stock snapshot to database:', err);
-        } finally {
-            if (client) {
-                client.release();
-                console.log('Released PostgreSQL client');
+                console.log('Inserted daily stock snapshot into database');
+                resolve();
+            } catch (err) {
+                console.error('Error adding daily stock snapshot to database:', err);
+                reject(err); // Resolve even on error to prevent blocking future updates
+            } finally {
+                if (client) {
+                    client.release();
+                    console.log('Released PostgreSQL client');
+                }
             }
-        }
+        });
+    }
 
+    async areTodaysQuotesInDatabase(): Promise<boolean> {
+        return new Promise(async (resolve, reject) => {
+            let client;
+            try {
+                client = await this.pool.connect();
+                const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
+                const query = 'SELECT COUNT(*) FROM public."DailyStockSnapshot" WHERE date = $1';
+                const result = await client.query(query, [today]);
+                resolve(result.rows[0].count > 0);
+            } catch (err) {
+                console.error('Error checking if today\'s quotes are in database:', err);
+                reject(err);
+            } finally {
+                if (client) {
+                    client.release();
+                }
+            }
+        });
     }
 }
 

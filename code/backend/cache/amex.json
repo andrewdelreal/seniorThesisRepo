@@ -280,10 +280,6 @@
     "symbol": "ECF"
   },
   {
-    "name": "Enigmatig Limited Class A Ordinary Shares (EGG)",
-    "symbol": "EGG"
-  },
-  {
     "name": "Eaton Vance Municipal Bond Fund Common Shares of B (EIM)",
     "symbol": "EIM"
   },
@@ -810,6 +806,10 @@
   {
     "name": "Paramount Gold Nevada Corp. Common Stock (PZG)",
     "symbol": "PZG"
+  },
+  {
+    "name": "Quantum eMotion Corp. Common Shares (QNC)",
+    "symbol": "QNC"
   },
   {
     "name": "RENN Fund Inc Common Stock (RCG)",

@@ -13,9 +13,6 @@ import cron from 'node-cron';
 import DailyStockUpdate from './DailyStockUpdate';
 
 // Add rest of stock exchanges
-// add cron job for the update
-// make sure to only so it once a day even on server restarts
-
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -153,12 +150,13 @@ async function updateTickers() {
   }
 }
 
-cron.schedule('0 0 * * *', updateTickers);
+cron.schedule('0 0 * * *', () => updateTickers());
+cron.schedule('30 15 * * *', () => DailyStockUpdate(db));
 
 db.init()
     .then(() => {
         app.listen(PORT, async () => {
-            updateTickers();
+            await updateTickers();
             await DailyStockUpdate(db);
             console.log(`Server is running on http://localhost:${PORT}`);
         });

@@ -24,6 +24,9 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
+// Add rest of stock exchanges
+// add cron job for the update
+// make sure to only so it once a day even on server restarts
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
 const PORT = 3000;
@@ -137,11 +140,12 @@ function updateTickers() {
         }
     });
 }
-node_cron_1.default.schedule('0 0 * * *', updateTickers);
+node_cron_1.default.schedule('0 0 * * *', () => updateTickers());
+node_cron_1.default.schedule('30 15 * * *', () => (0, DailyStockUpdate_1.default)(db));
 db.init()
     .then(() => {
     app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-        updateTickers();
+        yield updateTickers();
         yield (0, DailyStockUpdate_1.default)(db);
         console.log(`Server is running on http://localhost:${PORT}`);
     }));
