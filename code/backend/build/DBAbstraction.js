@@ -36,7 +36,7 @@ class DBAbstraction {
     init() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                let client;
+                let client = null;
                 try {
                     client = yield this.pool.connect();
                     console.log('Connected to PostgreSQL database');
@@ -89,7 +89,7 @@ class DBAbstraction {
     addDailyStockSnapshot() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                let client;
+                let client = null;
                 try {
                     client = yield this.pool.connect();
                     console.log("Connected to PostgreSQL");
@@ -128,7 +128,7 @@ class DBAbstraction {
     areTodaysQuotesInDatabase() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                let client;
+                let client = null;
                 try {
                     client = yield this.pool.connect();
                     const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
@@ -138,6 +138,43 @@ class DBAbstraction {
                 }
                 catch (err) {
                     console.error('Error checking if today\'s quotes are in database:', err);
+                    reject(err);
+                }
+                finally {
+                    if (client) {
+                        client.release();
+                    }
+                }
+            }));
+        });
+    }
+    getTickers(exchDBSymbol) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                let client = null;
+                // const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
+                // const cutoffDate = new Date();
+                // cutoffDate.setDate(cutoffDate.getDate() - 1); // Set cutoff date to 1 day ago
+                // can be used once the backend is online and we have daily snapshots in the database to ensure 
+                // we only pull tickers for stocks that have data for the current day 
+                // (prevents stale tickers from showing up if a stock was delisted or something)
+                try {
+                    client = yield this.pool.connect();
+                    const query = ` 
+                    SELECT DISTINCT symbol, description
+                    FROM public."DailyStockSnapshot"
+                    WHERE exch = $1
+                    ORDER BY symbol ASC;
+                `;
+                    const rows = yield client.query(query, [exchDBSymbol]);
+                    // format rows into a list of { name: string, symbol: string } objects
+                    const tickers = rows.rows.map((row) => {
+                        return { name: row.description.substring(0, 100), symbol: row.symbol };
+                    });
+                    resolve(tickers);
+                }
+                catch (err) {
+                    console.error('Error connecting to database to get tickers:', err);
                     reject(err);
                 }
                 finally {

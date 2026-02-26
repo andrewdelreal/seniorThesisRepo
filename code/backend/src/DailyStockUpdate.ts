@@ -9,10 +9,10 @@ async function DailyStockUpdate(db: DBAbstraction) {
       return;
     }
 
-    // if the time is before 3:30 pm local time, don't run this
+    // if the time is before 3:00 pm local time, don't run this
     const now = new Date();
     const marketCloseTime = new Date();
-    marketCloseTime.setHours(15, 30, 0, 0); // Set to 3:30 PM local time
+    marketCloseTime.setHours(15, 0, 0, 0); // Set to 3:00 PM local time
 
     if (now < marketCloseTime) {
       console.log('Market is not yet closed, skipping daily stock update');

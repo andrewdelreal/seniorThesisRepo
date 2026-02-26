@@ -91,11 +91,15 @@ app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {
   }
 });
 
-app.post('/api/tickers', authenticate, (req: Request, res: Response) => {
+app.post('/api/tickers', authenticate, async (req: Request, res: Response) => {
   const { exchange } = req.body;
+  
+  let exchDBSymbol: string; // assign exchange value to correct db symbol for query
+  if (exchange === 'nasdaq') exchDBSymbol = 'Q';
+  else if (exchange === 'nyse') exchDBSymbol = 'N';
+  else exchDBSymbol = 'A';
 
-  const filePath = `./cache/${exchange}.json`;
-  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const data = await db.getTickers(exchDBSymbol); // get tickers from database
 
   if (!data) return res.status(500).json({'error': 'Failed to read from exchange cache'});
 

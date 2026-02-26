@@ -87,14 +87,20 @@ app.post('/api/tradier/markets/history', authenticate, (req, res) => __awaiter(v
         res.status(500).json({ error: 'Failed to fetch market history' });
     }
 }));
-app.post('/api/tickers', authenticate, (req, res) => {
+app.post('/api/tickers', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { exchange } = req.body;
-    const filePath = `./cache/${exchange}.json`;
-    const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
+    let exchDBSymbol; // assign exchange value to correct db symbol for query
+    if (exchange === 'nasdaq')
+        exchDBSymbol = 'Q';
+    else if (exchange === 'nyse')
+        exchDBSymbol = 'N';
+    else
+        exchDBSymbol = 'A';
+    const data = yield db.getTickers(exchDBSymbol); // get tickers from database
     if (!data)
         return res.status(500).json({ 'error': 'Failed to read from exchange cache' });
     res.json(data);
-});
+}));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
