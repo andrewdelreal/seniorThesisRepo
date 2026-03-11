@@ -79,6 +79,11 @@ app.post('/api/tradier/markets/history', authenticate, (req, res) => __awaiter(v
     const { symbol, interval, start, end } = req.body;
     try {
         const response = yield fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options);
+        if (!response.ok) {
+            const text = yield response.text();
+            console.error("Tradier error:", response.status, text);
+            return res.status(500).json({ error: 'Failed to fetch market history' });
+        }
         const data = yield response.json();
         res.status(200).json(data);
     }

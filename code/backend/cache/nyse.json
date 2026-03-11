@@ -252,12 +252,12 @@
     "symbol": "AGX"
   },
   {
-    "name": "Armada Hoffler Properties Inc. Common Stock (AHH)",
-    "symbol": "AHH"
-  },
-  {
     "name": "American Healthcare REIT Inc. Common Stock (AHR)",
     "symbol": "AHR"
+  },
+  {
+    "name": "AH Realty Trust Inc. Common Stock (AHRT)",
+    "symbol": "AHRT"
   },
   {
     "name": "Ashford Hospitality Trust Inc Common Stock (AHT)",
@@ -382,10 +382,6 @@
   {
     "name": "Alussa Energy Acquisition Corp. II Class A Ordinar (ALUB)",
     "symbol": "ALUB"
-  },
-  {
-    "name": "Allurion Technologies Inc. Common Stock (ALUR)",
-    "symbol": "ALUR"
   },
   {
     "name": "Autoliv Inc. Common Stock (ALV)",
@@ -2256,10 +2252,6 @@
     "symbol": "CUK"
   },
   {
-    "name": "Culp Inc. Common Stock (CULP)",
-    "symbol": "CULP"
-  },
-  {
     "name": "Curbline Properties Corp. Common Stock (CURB)",
     "symbol": "CURB"
   },
@@ -2728,10 +2720,6 @@
     "symbol": "EAT"
   },
   {
-    "name": "Eventbrite Inc. Class A Common Stock (EB)",
-    "symbol": "EB"
-  },
-  {
     "name": "Ennis Inc. Common Stock (EBF)",
     "symbol": "EBF"
   },
@@ -2842,6 +2830,10 @@
   {
     "name": "Everest Group Ltd. Common Stock (EG)",
     "symbol": "EG"
+  },
+  {
+    "name": "Eldorado Gold Corporation Ordinary Shares (EGO)",
+    "symbol": "EGO"
   },
   {
     "name": "EastGroup Properties Inc. Common Stock (EGP)",
@@ -3480,10 +3472,6 @@
     "symbol": "FRA"
   },
   {
-    "name": "Forge Global Holdings Inc. Common Stock (FRGE)",
-    "symbol": "FRGE"
-  },
-  {
     "name": "Frontline Plc Ordinary Shares (FRO)",
     "symbol": "FRO"
   },
@@ -3536,7 +3524,7 @@
     "symbol": "FTV"
   },
   {
-    "name": "EQV Ventures Acquisition Corp. Class A Ordinary Sh (FTW)",
+    "name": "Presidio Production Company Class A Common Stock (FTW)",
     "symbol": "FTW"
   },
   {
@@ -3740,12 +3728,12 @@
     "symbol": "GJO"
   },
   {
-    "name": "Synthetic Fixed-Income Securities Inc. STRATS Trus (GJR)",
-    "symbol": "GJR"
+    "name": "Synthetic Fixed-Income Securities Inc. on behalf o (GJP)",
+    "symbol": "GJP"
   },
   {
-    "name": "Goldman Sachs Group Securities STRATS Trust for Go (GJS)",
-    "symbol": "GJS"
+    "name": "Synthetic Fixed-Income Securities Inc. STRATS Trus (GJR)",
+    "symbol": "GJR"
   },
   {
     "name": "Synthetic Fixed-Income Securities Inc. Floating Ra (GJT)",
@@ -4352,7 +4340,7 @@
     "symbol": "IFF"
   },
   {
-    "name": "India Fund Inc. (The) Common Stock (IFN)",
+    "name": "Aberdeen India Fund Inc. Common Stock (IFN)",
     "symbol": "IFN"
   },
   {
@@ -6800,6 +6788,10 @@
     "symbol": "PPL"
   },
   {
+    "name": "PPL Corporation Corporate Units (PPLC)",
+    "symbol": "PPLC"
+  },
+  {
     "name": "Putnam Premier Income Trust Common Stock (PPT)",
     "symbol": "PPT"
   },
@@ -6892,7 +6884,7 @@
     "symbol": "PSQH"
   },
   {
-    "name": "Pure Storage Inc. Class A Common Stock (PSTG)",
+    "name": "Everpure Inc. Class A common stock (PSTG)",
     "symbol": "PSTG"
   },
   {
@@ -6934,10 +6926,6 @@
   {
     "name": "Phoenix Education Partners Inc. Common Stock (PXED)",
     "symbol": "PXED"
-  },
-  {
-    "name": "PPlus Tr GSC-2 Tr Ctf Fltg Rate (PYT)",
-    "symbol": "PYT"
   },
   {
     "name": "Qnity Electronics Inc. Common Stock (Q)",
@@ -7010,10 +6998,6 @@
   {
     "name": "Roblox Corporation Class A Common Stock (RBLX)",
     "symbol": "RBLX"
-  },
-  {
-    "name": "Vicarious Surgical Inc. Class A Common Stock (RBOT)",
-    "symbol": "RBOT"
   },
   {
     "name": "Rubrik Inc. Class A Common Stock (RBRK)",
@@ -7292,6 +7276,10 @@
     "symbol": "RTX"
   },
   {
+    "name": "Robinhood Ventures Fund I Common Shares of Benefic (RVI)",
+    "symbol": "RVI"
+  },
+  {
     "name": "Revolve Group Inc. Class A Common Stock (RVLV)",
     "symbol": "RVLV"
   },
@@ -7454,10 +7442,6 @@
   {
     "name": "SilverBox Corp IV Class A Ordinary Shares (SBXD)",
     "symbol": "SBXD"
-  },
-  {
-    "name": "SilverBox Corp V Class A Ordinary Shares (SBXE)",
-    "symbol": "SBXE"
   },
   {
     "name": "Southern Copper Corporation Common Stock (SCCO)",
@@ -8016,6 +8000,10 @@
     "symbol": "SUN"
   },
   {
+    "name": "Sunbelt Rentals Holdings Inc. Common Stock (SUNB)",
+    "symbol": "SUNB"
+  },
+  {
     "name": "SunocoCorp LLC Common Units representing limited l (SUNC)",
     "symbol": "SUNC"
   },
@@ -8422,10 +8410,6 @@
   {
     "name": "Tenaris S.A. American Depositary Shares (TS)",
     "symbol": "TS"
-  },
-  {
-    "name": "Trinseo PLC Ordinary Shares (TSE)",
-    "symbol": "TSE"
   },
   {
     "name": "TCW Strategic Income Fund Inc. Common Stock (TSI)",
@@ -9198,6 +9182,10 @@
   {
     "name": "Weyerhaeuser Company Common Stock (WY)",
     "symbol": "WY"
+  },
+  {
+    "name": "XFLH Capital Corporation Ordinary Shares (XFLH)",
+    "symbol": "XFLH"
   },
   {
     "name": "XAI Octagon Floating Rate & Alternative Income Tru (XFLT)",
