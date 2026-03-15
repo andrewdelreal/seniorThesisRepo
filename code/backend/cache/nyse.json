@@ -340,10 +340,6 @@
     "symbol": "ALC"
   },
   {
-    "name": "Alexander & Baldwin Inc. Common Stock REIT Holding (ALEX)",
-    "symbol": "ALEX"
-  },
-  {
     "name": "Alamo Group Inc. Common Stock (ALG)",
     "symbol": "ALG"
   },
@@ -3736,6 +3732,10 @@
     "symbol": "GJR"
   },
   {
+    "name": "Goldman Sachs Group Securities STRATS Trust for Go (GJS)",
+    "symbol": "GJS"
+  },
+  {
     "name": "Synthetic Fixed-Income Securities Inc. Floating Ra (GJT)",
     "symbol": "GJT"
   },
@@ -5262,6 +5262,10 @@
   {
     "name": "Pediatrix Medical Group Inc. Common Stock (MD)",
     "symbol": "MD"
+  },
+  {
+    "name": "MDA Space Ltd. Common Shares (MDA)",
+    "symbol": "MDA"
   },
   {
     "name": "Medtronic plc. Ordinary Shares (MDT)",
@@ -6928,6 +6932,10 @@
     "symbol": "PXED"
   },
   {
+    "name": "PPlus Tr GSC-2 Tr Ctf Fltg Rate (PYT)",
+    "symbol": "PYT"
+  },
+  {
     "name": "Qnity Electronics Inc. Common Stock (Q)",
     "symbol": "Q"
   },
@@ -7442,6 +7450,10 @@
   {
     "name": "SilverBox Corp IV Class A Ordinary Shares (SBXD)",
     "symbol": "SBXD"
+  },
+  {
+    "name": "SilverBox Corp V Class A Ordinary Shares (SBXE)",
+    "symbol": "SBXE"
   },
   {
     "name": "Southern Copper Corporation Common Stock (SCCO)",
@@ -8530,6 +8542,10 @@
   {
     "name": "Under Armour Inc. Class A Common Stock (UAA)",
     "symbol": "UAA"
+  },
+  {
+    "name": "United States Antimony Corporation Common Stock (UAMY)",
+    "symbol": "UAMY"
   },
   {
     "name": "CVR Partners LP Common Units representing Limited (UAN)",

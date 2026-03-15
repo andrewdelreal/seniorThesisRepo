@@ -10,7 +10,9 @@ import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
+import pl from 'nodejs-polars';
 import DailyStockUpdate from './DailyStockUpdate';
+import ClusterStocks from './Clustering';
 
 // Add rest of stock exchanges
 
@@ -110,6 +112,30 @@ app.post('/api/tickers', authenticate, async (req: Request, res: Response) => {
   res.json(data);
 });
 
+app.post('/api/cluster', async (req: Request, res: Response) => {
+  const { date, dimensionsCSV } = req.body;
+
+  const dimensions = dimensionsCSV.split(',');
+
+  try {
+    const result = await ClusterStocks(db, date, dimensions);
+
+    if (!result) {
+      console.error('Failed to cluster stocks');
+      return res.status(500).json({ error: 'Failed to cluster stocks' });
+    }
+
+    const clusterDF: pl.DataFrame = result[0];
+    const centroids: number[] = result[1];
+
+    res.status(200).json({points: clusterDF.toRecords(), centroids: centroids});
+  } catch (err) {
+    console.error('Failed to cluster stocks');
+    res.status(500).json({ error: 'Failed to cluster stocks' });  
+  }
+
+});
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello World!');
 });
@@ -164,8 +190,9 @@ cron.schedule('30 15 * * *', () => DailyStockUpdate(db));
 db.init()
     .then(() => {
         app.listen(PORT, async () => {
-            await updateTickers();
-            await DailyStockUpdate(db);
+            // await updateTickers();
+            // await DailyStockUpdate(db);
+            // await ClusterStocks(db);
             console.log(`Server is running on http://localhost:${PORT}`);
         });
     }).catch((err) => {

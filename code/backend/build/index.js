@@ -24,6 +24,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
+const Clustering_1 = __importDefault(require("./Clustering"));
 // Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
@@ -106,6 +107,24 @@ app.post('/api/tickers', authenticate, (req, res) => __awaiter(void 0, void 0, v
         return res.status(500).json({ 'error': 'Failed to read from exchange cache' });
     res.json(data);
 }));
+app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { date, dimensionsCSV } = req.body;
+    const dimensions = dimensionsCSV.split(',');
+    try {
+        const result = yield (0, Clustering_1.default)(db, date, dimensions);
+        if (!result) {
+            console.error('Failed to cluster stocks');
+            return res.status(500).json({ error: 'Failed to cluster stocks' });
+        }
+        const clusterDF = result[0];
+        const centroids = result[1];
+        res.status(200).json({ points: clusterDF.toRecords(), centroids: centroids });
+    }
+    catch (err) {
+        console.error('Failed to cluster stocks');
+        res.status(500).json({ error: 'Failed to cluster stocks' });
+    }
+}));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
@@ -154,8 +173,9 @@ node_cron_1.default.schedule('30 15 * * *', () => (0, DailyStockUpdate_1.default
 db.init()
     .then(() => {
     app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-        yield updateTickers();
-        yield (0, DailyStockUpdate_1.default)(db);
+        // await updateTickers();
+        // await DailyStockUpdate(db);
+        // await ClusterStocks(db);
         console.log(`Server is running on http://localhost:${PORT}`);
     }));
 }).catch((err) => {

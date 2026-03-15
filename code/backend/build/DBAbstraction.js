@@ -185,6 +185,33 @@ class DBAbstraction {
             }));
         });
     }
+    getQuotes(date) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                let client = null;
+                try {
+                    client = yield this.pool.connect();
+                    // will not hard code this later
+                    const query = `
+                    SELECT * FROM public."DailyStockSnapshot"
+                    WHERE date = '2026-02-26';
+                `;
+                    const rows = yield client.query(query);
+                    resolve(rows.rows);
+                }
+                catch (err) {
+                    console.error('Error connecting to database to get quotes:', err);
+                    reject(err);
+                    return;
+                }
+                finally {
+                    if (client) {
+                        client.release();
+                    }
+                }
+            }));
+        });
+    }
 }
 exports.default = DBAbstraction;
 /* Example of creating multiple tables in one query (for future reference)

@@ -178,6 +178,33 @@ class DBAbstraction {
             }
         });
     }
+
+    async getQuotes(date: string): Promise<any[] | null> {
+        return new Promise(async (resolve, reject) => {
+            let client: PoolClient | null = null;
+
+            try { 
+                client = await this.pool.connect();
+
+                // will not hard code this later
+                const query = `
+                    SELECT * FROM public."DailyStockSnapshot"
+                    WHERE date = '2026-02-26';
+                `
+
+                const rows = await client.query(query);
+                resolve(rows.rows);
+            } catch (err) {
+                console.error('Error connecting to database to get quotes:', err);
+                reject(err);
+                return;
+            } finally {
+                if (client) {
+                    client.release();
+                }       
+            }
+        });
+    }
 }
 
 export default DBAbstraction;

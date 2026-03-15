@@ -288,10 +288,6 @@
     "symbol": "ECF"
   },
   {
-    "name": "Enigmatig Limited Class A Ordinary Shares (EGG)",
-    "symbol": "EGG"
-  },
-  {
     "name": "Eaton Vance Municipal Bond Fund Common Shares of B (EIM)",
     "symbol": "EIM"
   },
@@ -454,6 +450,10 @@
   {
     "name": "Healthy Choice Wellness Corp. Class A Common Stock (HCWC)",
     "symbol": "HCWC"
+  },
+  {
+    "name": "Highlander Silver Corp. Common Shares (HSLV)",
+    "symbol": "HSLV"
   },
   {
     "name": "Hyliion Holdings Corp. Class A Common Stock (HYLN)",
@@ -1002,10 +1002,6 @@
   {
     "name": "United Acquisition Corp. I Class A Ordinary Shares (UAC)",
     "symbol": "UAC"
-  },
-  {
-    "name": "United States Antimony Corporation Common Stock (UAMY)",
-    "symbol": "UAMY"
   },
   {
     "name": "AgEagle Aerial Systems Inc. Common Stock (UAVS)",
