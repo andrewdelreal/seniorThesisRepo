@@ -14,6 +14,7 @@ interface Point {
 function ClusterGraph({ data }: {data: any}): JSX.Element{
     const [x, setX] = useState<number[] | null>([0,1]);
     const [y, setY] = useState<number[] | null>([0,1]);
+    const [pointText, setPointText] = useState<string[] | null>(['']);
     const [colors, setColors] = useState<string[] | null>(['red']);
     // need to add colors list that will change once the data extracted
 
@@ -33,6 +34,7 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
 
             setX(xVals);
             setY(yVals);
+            setPointText(pointText);
             setColors(colors);
         };
 
@@ -49,6 +51,8 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
             marker: {
                 color: colors
             },
+            text: pointText,
+            hoverinfo: 'text'
             // line: { color: 'red'}, // change this to be on trend of time frame dependent.
         },
     ];
@@ -121,7 +125,7 @@ async function formatPoints(points: Point[], centroids: number[][]) {
     for (const point of points) {
         xVals.push(point[x] as number);
         yVals.push(point[y] as number);
-        pointText.push(`(${point['symbol']}) ${point['exch']} ${point['description']}`);
+        pointText.push(`(${point['symbol']}) ${point['exch']} ${point['description']} (${xVals.at(-1)}, ${yVals.at(-1)})`);
         colors.push(distinctColors[point['cluster']]);
     }
     console.log(colors)

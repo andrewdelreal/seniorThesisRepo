@@ -12,13 +12,10 @@ interface ClusterControlsProps {
     setIsStandardized: (value: boolean) => void; 
 }
 
+// add multi dimensions
+// check to see the no data once doing log and standardized
+// fix graph labels
 
-// make a hook to parse the data
-// if necessary, then call the setFunctions to actually change everything in the Parent
-// component
-
-// Now that standardization, log, and data handling in theory works,
-// time to actually graph it by setting the data and adding colors.
 const trueFalseOptions = [
     { label: 'True', value: 'true'},
     { label: 'False', value: 'false'}
