@@ -2,7 +2,7 @@ import DBAbstraction from './DBAbstraction';
 import skmeans from 'skmeans'
 import pl from 'nodejs-polars';
 
-async function ClusterStocks(db: DBAbstraction, date: string, dimensions: string[]): Promise<[pl.DataFrame, number[]] | null> {
+async function ClusterStocks(db: DBAbstraction, date: string, numClusters: number, dimensions: string[], isLog: boolean, isStandardized: number): Promise<[pl.DataFrame, number[]] | null> {
     return new Promise(async (resolve, reject) => {
         try {
             // get the quotes of the specified date
@@ -15,16 +15,23 @@ async function ClusterStocks(db: DBAbstraction, date: string, dimensions: string
             }
 
             console.log(quotes.length + ' quotes found for clustering');
-            // console.log(quotes[0]);
+            console.log(quotes[0]);
 
             // make a df for easy data manipulation
-            const dataFrame = pl.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'change_percent', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
-            const reducedDataFrame = dataFrame.select(dimensions);
+            const dataFrame = pl.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
+            let reducedDataFrame = dataFrame.select(dimensions);
+            
+            if (isLog) {
+                reducedDataFrame = await applyLogTransformation(reducedDataFrame);
+            }
 
+            if (isStandardized) {
+                reducedDataFrame = await applyStandardization(reducedDataFrame);
+            }
+            
             // convert the df to a format suitable for clustering
-            const data = reducedDataFrame.toRecords().map((record: any) => [Number(record.change), Number(record.volatility)]);
-            console.log(data);
-
+            const data = await reducedDataFrame.toRecords().map(row => Object.values(row).map(Number));
+            
             // clustering results
             const clusterData = await KMeans(data, 10); // cluster into 10 groups
 
@@ -35,10 +42,12 @@ async function ClusterStocks(db: DBAbstraction, date: string, dimensions: string
             }
 
             // get cluster labels and add them to the original df
-            const finalDataFrame = reducedDataFrame.withColumns(pl.Series('cluster', clusterData.idxs));
-            console.log(finalDataFrame.head(10).toString());
+            
+            reducedDataFrame = reducedDataFrame.withColumns(pl.Series('cluster', clusterData.idxs));
+            reducedDataFrame = pl.concat([reducedDataFrame, dataFrame.select(['symbol', 'description', 'exch'])], {how: 'horizontal'});
+            console.log(reducedDataFrame.head(10).toString());
 
-            resolve([finalDataFrame, clusterData.centroids]);
+            resolve([reducedDataFrame, clusterData.centroids]);
         } catch (err) {
             console.error('Error during clustering:', err);
             reject(err);
@@ -59,6 +68,18 @@ async function KMeans(data: any, k: number): Promise<any> {
             reject(err);
         }
     });
+}
+
+function applyLogTransformation(df: pl.DataFrame): pl.DataFrame {
+    return df.withColumns(
+        pl.all().add(1).log()
+    );
+}
+
+function applyStandardization(df: pl.DataFrame): pl.DataFrame {
+    return df.withColumns(
+        pl.all().sub(pl.all().mean()).div(pl.all().std())
+    );
 }
 
 export default ClusterStocks;

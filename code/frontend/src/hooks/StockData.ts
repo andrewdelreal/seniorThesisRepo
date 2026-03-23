@@ -28,7 +28,6 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
             setError(null);
 
             try {
-                console.log(localStorage.getItem('token'));
                 const response: Response = await fetch('http://localhost:3000/api/tradier/markets/history', { // get market data from backend
                     method: 'POST',
                     headers: {

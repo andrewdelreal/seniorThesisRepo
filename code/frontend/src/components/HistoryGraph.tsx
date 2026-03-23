@@ -1,9 +1,9 @@
 import { JSX, useState, useEffect } from 'react';
-import styles from '../css/Graph.module.css';
+import styles from '../css/HistoryGraph.module.css';
 import Plot from 'react-plotly.js';
 import ParseStockData from '../hooks/ParseStockData';
 
-function Graph({ data, symbol, interval, start, end }: {data: any, symbol: string, interval: string, start: string, end: string}): JSX.Element {
+function HistoryGraph({ data, symbol, interval, start, end }: {data: any, symbol: string, interval: string, start: string, end: string}): JSX.Element {
     const [x, setX] = useState<number[]>([1, 2, 3, 4, 5]);
     const [y, setY] = useState<number[]>([1, 2, 3, 4, 5]);
     const [color, setColor] = useState<string>('green');
@@ -21,13 +21,13 @@ function Graph({ data, symbol, interval, start, end }: {data: any, symbol: strin
                 setColor(trend >= 0 ? 'green' : 'red'); // green for uptrend, red for downtrend
                 // future: could add color for each up and down segment, make this an option as it will be slower.
             }
-        }
+        };
 
         updateXY();
     }, [data]);
 
     function formatDateToMonthNameDayYear(dateString: string): string {
-        const date = new Date(dateString);
+        const date = new Date(dateString+'T00:00:00');
 
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
@@ -37,6 +37,7 @@ function Graph({ data, symbol, interval, start, end }: {data: any, symbol: strin
 
         return new Intl.DateTimeFormat('en-US', options).format(date);
     }
+
     const graphData = [ // define data for plotly graph
         {
             x: x,
@@ -89,4 +90,4 @@ function Graph({ data, symbol, interval, start, end }: {data: any, symbol: strin
     );
 }
 
-export default Graph;
+export default HistoryGraph;

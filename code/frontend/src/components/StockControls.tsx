@@ -123,7 +123,7 @@ function StockControls({
                 type='date'
                 value={start}
                 onChange={(e) => setStart(e.target.value)}
-                className='imput'
+                className='input'
             />
 
             {/* End date */}

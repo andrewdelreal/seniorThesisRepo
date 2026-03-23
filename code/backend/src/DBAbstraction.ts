@@ -42,15 +42,14 @@ class DBAbstraction {
                         description text COLLATE pg_catalog."default",
                         exch text COLLATE pg_catalog."default",
                         date date,
-                        last numeric,
-                        volume bigint,
-                        change_percent numeric,
-                        high numeric,
-                        low numeric,
-                        volatility numeric,
-                        close numeric,
-                        change numeric,
-                        average_volume numeric
+                        last real,
+                        volume real,
+                        high real,
+                        low real,
+                        volatility real,
+                        close real,
+                        change real,
+                        average_volume real
                     ) 
                         
                     TABLESPACE pg_default;

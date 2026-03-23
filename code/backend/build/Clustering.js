@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const skmeans_1 = __importDefault(require("skmeans"));
 const nodejs_polars_1 = __importDefault(require("nodejs-polars"));
-function ClusterStocks(db, date, dimensions) {
+function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
@@ -26,13 +26,18 @@ function ClusterStocks(db, date, dimensions) {
                     return;
                 }
                 console.log(quotes.length + ' quotes found for clustering');
-                // console.log(quotes[0]);
+                console.log(quotes[0]);
                 // make a df for easy data manipulation
-                const dataFrame = nodejs_polars_1.default.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'change_percent', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
-                const reducedDataFrame = dataFrame.select(dimensions);
+                const dataFrame = nodejs_polars_1.default.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
+                let reducedDataFrame = dataFrame.select(dimensions);
+                if (isLog) {
+                    reducedDataFrame = yield applyLogTransformation(reducedDataFrame);
+                }
+                if (isStandardized) {
+                    reducedDataFrame = yield applyStandardization(reducedDataFrame);
+                }
                 // convert the df to a format suitable for clustering
-                const data = reducedDataFrame.toRecords().map((record) => [Number(record.change), Number(record.volatility)]);
-                console.log(data);
+                const data = yield reducedDataFrame.toRecords().map(row => Object.values(row).map(Number));
                 // clustering results
                 const clusterData = yield KMeans(data, 10); // cluster into 10 groups
                 if (!clusterData) {
@@ -41,9 +46,10 @@ function ClusterStocks(db, date, dimensions) {
                     return;
                 }
                 // get cluster labels and add them to the original df
-                const finalDataFrame = reducedDataFrame.withColumns(nodejs_polars_1.default.Series('cluster', clusterData.idxs));
-                console.log(finalDataFrame.head(10).toString());
-                resolve([finalDataFrame, clusterData.centroids]);
+                reducedDataFrame = reducedDataFrame.withColumns(nodejs_polars_1.default.Series('cluster', clusterData.idxs));
+                reducedDataFrame = nodejs_polars_1.default.concat([reducedDataFrame, dataFrame.select(['symbol', 'description', 'exch'])], { how: 'horizontal' });
+                console.log(reducedDataFrame.head(10).toString());
+                resolve([reducedDataFrame, clusterData.centroids]);
             }
             catch (err) {
                 console.error('Error during clustering:', err);
@@ -68,5 +74,11 @@ function KMeans(data, k) {
             }
         });
     });
+}
+function applyLogTransformation(df) {
+    return df.withColumns(nodejs_polars_1.default.all().add(1).log());
+}
+function applyStandardization(df) {
+    return df.withColumns(nodejs_polars_1.default.all().sub(nodejs_polars_1.default.all().mean()).div(nodejs_polars_1.default.all().std()));
 }
 exports.default = ClusterStocks;

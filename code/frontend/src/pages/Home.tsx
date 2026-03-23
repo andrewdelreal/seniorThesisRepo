@@ -1,7 +1,7 @@
 import '../css/Home.module.css';
 import { JSX } from 'react';
 import { useEffect, useState } from 'react';
-import Graph from '../components/Graph';
+import Graph from '../components/HistoryGraph';
 import StockData from '../hooks/StockData';
 import StockControls from '../components/StockControls';
 
