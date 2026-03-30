@@ -24,7 +24,12 @@ const trueFalseOptions = [
 const dimensionOptions = [
     { label: 'Change', value: 'change'},
     { label: 'Volatility', value: 'volatility'},
-    { label: 'Close', value: 'close'}
+    { label: 'Close', value: 'close'},
+    { label: 'High', value: 'high'},
+    { label: 'Low', value: 'low'},
+    { label: 'Volume', value: 'volume'},
+    { label: 'Average Volume', value: 'average_volume'},
+    { label: 'Last', value: 'last'},
 ];
 
 function ClusterControls({
@@ -39,11 +44,9 @@ function ClusterControls({
         dimensionOptions[1]
     ]);
 
-
     const now = new Date;
     now.setHours(now.getHours() - 15);
     const defaultDate = now.toLocaleDateString('en-CA');
-
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -119,48 +122,6 @@ function ClusterControls({
                 <label htmlFor={"SubmitButton"}></label>
                 <button type="submit" id="SubmitButton" name="SubmitButton">Submit</button>
             </form>
-
-            {/* <div>
-                <p>Dimensions</p>
-                <Select 
-                    name='Dimensions Select'
-                    options={dimensionOptions}
-                    isMulti
-                    classNamePrefix='select'
-                    className={styles.select}
-                    isSearchable={false}
-                    defaultValue={[dimensionOptions[0], dimensionOptions[1]]}
-                />
-            </div>
-
-            <input
-                type='date'
-                defaultValue={defaultDate}
-                className='input'
-            />
-            <div>
-                <p>Logarithmic Scale</p>
-                <Select
-                    name='IsLog'
-                    options={trueFalseOptions}
-                    classNamePrefix='select'
-                    className={styles.select}
-                    isSearchable={false}
-                    defaultValue={trueFalseOptions[0]}
-                />
-            </div>
-            
-            <div>
-                <p>Standardized</p>
-                <Select
-                    name='IsStandardized'
-                    options={trueFalseOptions}
-                    classNamePrefix='select'
-                    className={styles.select}
-                    isSearchable={false}
-                    defaultValue={trueFalseOptions[0]}
-                />
-            </div> */}
         </div>
     );
 }

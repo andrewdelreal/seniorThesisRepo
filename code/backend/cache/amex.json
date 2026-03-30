@@ -20,6 +20,10 @@
     "symbol": "AGIG"
   },
   {
+    "name": "BlockchAIn Digital Infrastructure Inc Common Share (AIB)",
+    "symbol": "AIB"
+  },
+  {
     "name": "AIM ImmunoTech Inc. Common Stock (AIM)",
     "symbol": "AIM"
   },
@@ -228,7 +232,7 @@
     "symbol": "CRF"
   },
   {
-    "name": "Contango ORE Inc. Common Stock (CTGO)",
+    "name": "Contango Silver & Gold Inc. Common Stock (CTGO)",
     "symbol": "CTGO"
   },
   {
@@ -272,10 +276,6 @@
     "symbol": "DSS"
   },
   {
-    "name": "Dolly Varden Silver Corporation Common Shares (DVS)",
-    "symbol": "DVS"
-  },
-  {
     "name": "Eason Technology Limited American Depositary Share (DXF)",
     "symbol": "DXF"
   },
@@ -286,6 +286,10 @@
   {
     "name": "Ellsworth Growth and Income Fund Ltd. (ECF)",
     "symbol": "ECF"
+  },
+  {
+    "name": "Enigmatig Limited Class A Ordinary Shares (EGG)",
+    "symbol": "EGG"
   },
   {
     "name": "Eaton Vance Municipal Bond Fund Common Shares of B (EIM)",
@@ -414,6 +418,10 @@
   {
     "name": "Clough Global Dividend and Income Fund Common Shar (GLV)",
     "symbol": "GLV"
+  },
+  {
+    "name": "Guardian Metal Resources PLC ADS (GMTL)",
+    "symbol": "GMTL"
   },
   {
     "name": "Genius Group Limited Ordinary Shares (GNS)",
@@ -550,6 +558,10 @@
   {
     "name": "Lineage Cell Therapeutics Inc. Common Stock (LCTX)",
     "symbol": "LCTX"
+  },
+  {
+    "name": "Legato Merger Corp. IV Ordinary Shares (LEGO)",
+    "symbol": "LEGO"
   },
   {
     "name": "Legato Merger Corp. III Ordinary Shares (LEGT)",
@@ -694,10 +706,6 @@
   {
     "name": "Novagold Resources Inc. (NG)",
     "symbol": "NG"
-  },
-  {
-    "name": "New Gold Inc. (NGD)",
-    "symbol": "NGD"
   },
   {
     "name": "National HealthCare Corporation Common Stock (NHC)",
@@ -890,10 +898,6 @@
   {
     "name": "Serina Therapeutics Inc. Common Stock (SER)",
     "symbol": "SER"
-  },
-  {
-    "name": "Signing Day Sports Inc. Common Stock (SGN)",
-    "symbol": "SGN"
   },
   {
     "name": "SIFCO Industries Inc. Common Stock (SIF)",

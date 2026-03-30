@@ -15,6 +15,7 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
     const [x, setX] = useState<number[] | null>([0,1]);
     const [y, setY] = useState<number[] | null>([0,1]);
     const [pointText, setPointText] = useState<string[] | null>(['']);
+    const [dimensions, setDimensions] = useState<string[] | null>(null);
     const [colors, setColors] = useState<string[] | null>(['red']);
     // need to add colors list that will change once the data extracted
 
@@ -27,8 +28,9 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
         const updateXY = async () => {
             const points = data.points;
             const centroids = data.centroids;
+            const dimensions = data.dimensions;
 
-            const { xVals, yVals, pointText, colors} = await formatPoints(points, centroids);
+            const { xVals, yVals, pointText, colors} = await formatPoints(points, centroids, dimensions);
 
             console.log(xVals.length);
 
@@ -36,6 +38,7 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
             setY(yVals);
             setPointText(pointText);
             setColors(colors);
+            setDimensions(dimensions);
         };
 
         updateXY();
@@ -90,7 +93,7 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
     );
 }
 
-async function formatPoints(points: Point[], centroids: number[][]) {
+async function formatPoints(points: Point[], centroids: number[][], dimensions: string[]) {
     let xVals: number[] = [];
     let yVals: number[] = [];
     let pointText: string[] = [];
@@ -119,8 +122,10 @@ async function formatPoints(points: Point[], centroids: number[][]) {
         '#a9a9a960'  // Grey
     ];
 
-    const x = 'change';
-    const y = 'volatility';
+    const x = dimensions[0];
+    const y = dimensions[1];
+    // eventually, the name of the dimension in the database, if over 2 dimensions, needs to change from 'change','vol'
+    // to 'x', 'y', because I will have to reduce dimensionality. Or maybe I do that right away
 
     for (const point of points) {
         xVals.push(point[x] as number);

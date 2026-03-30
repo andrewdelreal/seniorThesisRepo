@@ -118,7 +118,7 @@ app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
         const clusterDF = result[0];
         const centroids = result[1];
-        res.status(200).json({ points: clusterDF.toRecords(), centroids: centroids });
+        res.status(200).json({ points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions });
     }
     catch (err) {
         console.error('Failed to cluster stocks');

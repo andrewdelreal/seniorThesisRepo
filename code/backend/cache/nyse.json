@@ -1860,6 +1860,10 @@
     "symbol": "CLB"
   },
   {
+    "name": "Colombier Acquisition Corp. III (CLBR)",
+    "symbol": "CLBR"
+  },
+  {
     "name": "Chatham Lodging Trust (REIT) Common Shares of Bene (CLDT)",
     "symbol": "CLDT"
   },
@@ -2828,10 +2832,6 @@
     "symbol": "EG"
   },
   {
-    "name": "Eldorado Gold Corporation Ordinary Shares (EGO)",
-    "symbol": "EGO"
-  },
-  {
     "name": "EastGroup Properties Inc. Common Stock (EGP)",
     "symbol": "EGP"
   },
@@ -3262,6 +3262,10 @@
   {
     "name": "Fresh Del Monte Produce Inc. Common Stock (FDP)",
     "symbol": "FDP"
+  },
+  {
+    "name": "FactSet Research Systems Inc. Common Stock (FDS)",
+    "symbol": "FDS"
   },
   {
     "name": "FedEx Corporation Common Stock (FDX)",
@@ -4534,6 +4538,10 @@
   {
     "name": "Jackson Acquisition Company II Class A Ordinary Sh (JACS)",
     "symbol": "JACS"
+  },
+  {
+    "name": "Janus Living Inc. Class A-1 Common Stock (JAN)",
+    "symbol": "JAN"
   },
   {
     "name": "JBG SMITH Properties Common Shares (JBGS)",
@@ -5972,10 +5980,6 @@
     "symbol": "NOMD"
   },
   {
-    "name": "FiscalNote Holdings Inc. Class A common stock (NOTE)",
-    "symbol": "NOTE"
-  },
-  {
     "name": "NOV Inc. Common Stock (NOV)",
     "symbol": "NOV"
   },
@@ -6984,6 +6988,10 @@
     "symbol": "RAC"
   },
   {
+    "name": "Rithm Acquisition Corp. (RAC/WS)",
+    "symbol": "RAC/WS"
+  },
+  {
     "name": "Ferrari N.V. Common Shares (RACE)",
     "symbol": "RACE"
   },
@@ -7364,10 +7372,6 @@
     "symbol": "SABA"
   },
   {
-    "name": "Safeguard Acquisition Corp. Class A Ordinary Share (SAC)",
-    "symbol": "SAC"
-  },
-  {
     "name": "Safehold Inc. New Common Stock (SAFE)",
     "symbol": "SAFE"
   },
@@ -7450,10 +7454,6 @@
   {
     "name": "SilverBox Corp IV Class A Ordinary Shares (SBXD)",
     "symbol": "SBXD"
-  },
-  {
-    "name": "SilverBox Corp V Class A Ordinary Shares (SBXE)",
-    "symbol": "SBXE"
   },
   {
     "name": "Southern Copper Corporation Common Stock (SCCO)",
@@ -8228,10 +8228,6 @@
     "symbol": "TGLS"
   },
   {
-    "name": "TEGNA Inc (TGNA)",
-    "symbol": "TGNA"
-  },
-  {
     "name": "Transportadora de Gas del Sur SA TGS Common Stock (TGS)",
     "symbol": "TGS"
   },
@@ -8752,6 +8748,10 @@
     "symbol": "VCV"
   },
   {
+    "name": "Fundrise Innovation Fund LLC Common Shares of Limi (VCX)",
+    "symbol": "VCX"
+  },
+  {
     "name": "Veeva Systems Inc. Class A Common Stock (VEEV)",
     "symbol": "VEEV"
   },
@@ -8942,6 +8942,10 @@
   {
     "name": "NCR Voyix Corporation Common Stock (VYX)",
     "symbol": "VYX"
+  },
+  {
+    "name": "Verizon Communications Inc. Common Stock (VZ)",
+    "symbol": "VZ"
   },
   {
     "name": "Wayfair Inc. Class A Common Stock (W)",
