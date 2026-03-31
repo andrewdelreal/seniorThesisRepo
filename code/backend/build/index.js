@@ -108,10 +108,10 @@ app.post('/api/tickers', authenticate, (req, res) => __awaiter(void 0, void 0, v
     res.json(data);
 }));
 app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized } = req.body;
+    const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges } = req.body;
     const dimensions = dimensionsCSV.split(',');
     try {
-        const result = yield (0, ClusterStocks_1.default)(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized);
+        const result = yield (0, ClusterStocks_1.default)(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges);
         if (!result) {
             console.error('Failed to cluster stocks');
             return res.status(500).json({ error: 'Failed to cluster stocks' });

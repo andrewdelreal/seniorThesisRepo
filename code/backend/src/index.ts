@@ -113,12 +113,12 @@ app.post('/api/tickers', authenticate, async (req: Request, res: Response) => {
 });
 
 app.post('/api/cluster', async (req: Request, res: Response) => {
-  const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized } = req.body;
+  const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges } = req.body;
 
   const dimensions = dimensionsCSV.split(',');
 
   try {
-    const result = await ClusterStocks(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized);
+    const result = await ClusterStocks(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges);
 
     if (!result) {
       console.error('Failed to cluster stocks');

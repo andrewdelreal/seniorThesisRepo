@@ -184,7 +184,7 @@ class DBAbstraction {
             }));
         });
     }
-    getQuotes(date) {
+    getQuotes(date, exchanges) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
                 let client = null;
@@ -193,9 +193,10 @@ class DBAbstraction {
                     // will not hard code this later
                     const query = `
                     SELECT * FROM public."DailyStockSnapshot"
-                    WHERE date = '2026-02-26';
+                    WHERE date = '2026-02-26'
+                    AND exch = ANY($1::text[]);
                 `;
-                    const rows = yield client.query(query);
+                    const rows = yield client.query(query, [exchanges]);
                     resolve(rows.rows);
                 }
                 catch (err) {

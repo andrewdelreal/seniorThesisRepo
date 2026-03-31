@@ -14,12 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const skmeans_1 = __importDefault(require("skmeans"));
 const nodejs_polars_1 = __importDefault(require("nodejs-polars"));
-function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized) {
+function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized, exchanges) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
                 // get the quotes of the specified date
-                const quotes = yield db.getQuotes(date);
+                const quotes = yield db.getQuotes(date, exchanges);
                 if (!quotes) {
                     console.error('No quotes found for clustering');
                     reject(new Error('No quotes found for clustering'));

@@ -2,11 +2,10 @@
 // return the data  and send it to home, once the data changes, the Cluster Graph will handle the data
 // event change, grab the actual points, and then
 
-async function GetClusterData(date: string, numClusters: number, dimensionsCSV: string, isLog: string, isStandardized: string) {
-    console.log(date, numClusters, dimensionsCSV, isLog, isStandardized);
+async function GetClusterData(date: string, numClusters: number, dimensionsCSV: string, isLog: string, isStandardized: string, exchanges: string[]) {
+    console.log(date, numClusters, dimensionsCSV, isLog, isStandardized, exchanges);
     const boolIsLog = isLog === 'true';
     const boolIsStandardized = isStandardized === 'true';
-
 
     try {
         const res: Response = await fetch('http://localhost:3000/api/cluster', { // get market data from backend
@@ -15,7 +14,7 @@ async function GetClusterData(date: string, numClusters: number, dimensionsCSV: 
                 'Content-Type': 'application/json',
                 'authorization': '' + localStorage.getItem('token'),
             },
-            body: JSON.stringify({ date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized }),  // using all desired parameters
+            body: JSON.stringify({ date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges }),  // using all desired parameters
         });
 
         if (!res.ok) throw new Error('Could not fetch cluster data');

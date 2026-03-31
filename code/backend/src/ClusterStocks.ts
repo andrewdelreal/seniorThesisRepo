@@ -2,11 +2,11 @@ import DBAbstraction from './DBAbstraction';
 import skmeans from 'skmeans'
 import pl from 'nodejs-polars';
 
-async function ClusterStocks(db: DBAbstraction, date: string, numClusters: number, dimensions: string[], isLog: boolean, isStandardized: number): Promise<[pl.DataFrame, number[]] | null> {
+async function ClusterStocks(db: DBAbstraction, date: string, numClusters: number, dimensions: string[], isLog: boolean, isStandardized: number, exchanges: string[]): Promise<[pl.DataFrame, number[]] | null> {
     return new Promise(async (resolve, reject) => {
         try {
             // get the quotes of the specified date
-            const quotes = await db.getQuotes(date);
+            const quotes = await db.getQuotes(date, exchanges);
             
             if (!quotes) {
                 console.error('No quotes found for clustering');

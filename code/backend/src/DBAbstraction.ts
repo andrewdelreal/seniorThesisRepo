@@ -178,7 +178,7 @@ class DBAbstraction {
         });
     }
 
-    async getQuotes(date: string): Promise<any[] | null> {
+    async getQuotes(date: string, exchanges: string[]): Promise<any[] | null> {
         return new Promise(async (resolve, reject) => {
             let client: PoolClient | null = null;
 
@@ -188,10 +188,11 @@ class DBAbstraction {
                 // will not hard code this later
                 const query = `
                     SELECT * FROM public."DailyStockSnapshot"
-                    WHERE date = '2026-02-26';
-                `
+                    WHERE date = '2026-02-26'
+                    AND exch = ANY($1::text[]);
+                `;
 
-                const rows = await client.query(query);
+                const rows = await client.query(query, [exchanges]);
                 resolve(rows.rows);
             } catch (err) {
                 console.error('Error connecting to database to get quotes:', err);
