@@ -121,6 +121,8 @@ async function formatPoints(points: Point[], centroids: number[][], dimensions: 
         '#a9a9a960'  // Grey
     ];
 
+    const black = '#000000';
+
     const x = dimensions[0];
     const y = dimensions[1];
     // eventually, the name of the dimension in the database, if over 2 dimensions, needs to change from 'change','vol'
@@ -132,9 +134,17 @@ async function formatPoints(points: Point[], centroids: number[][], dimensions: 
         pointText.push(`(${point['symbol']}) ${point['exch']} ${point['description']} (${xVals.at(-1)}, ${yVals.at(-1)})`);
         colors.push(distinctColors[point['cluster']]);
     }
-    console.log(colors)
 
-    return { xVals, yVals, pointText, colors}
+    for (const [i, centroid] of centroids.entries()) {
+        xVals.push(centroid[0] as number);
+        yVals.push(centroid[1] as number);
+        pointText.push(`Centroid #${1 + i}`);
+        colors.push(black);
+    }
+    console.log(centroids);
+    console.log(colors);
+
+    return { xVals, yVals, pointText, colors};
 }
 
 export default ClusterGraph;
