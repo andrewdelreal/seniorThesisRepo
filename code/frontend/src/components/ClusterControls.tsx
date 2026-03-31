@@ -12,6 +12,8 @@ interface ClusterControlsProps {
     setIsStandardized: (value: boolean) => void; 
 }
 
+const numClustersLength = 18;
+
 // add multi dimensions
 // check to see the no data once doing log and standardized
 // fix graph labels
@@ -31,6 +33,8 @@ const dimensionOptions = [
     { label: 'Average Volume', value: 'average_volume'},
     { label: 'Last', value: 'last'},
 ];
+
+const numClustersOptions = Array.from({ length: numClustersLength}, (_, i) => i + 3).map(num => ({ label: num.toString(), value: num}));
 
 function ClusterControls({
     setData,
@@ -53,12 +57,13 @@ function ClusterControls({
 
         const form = event.currentTarget.elements;
 
-        const dimensions = selectedDimensions.map(d => d.value).join(',')
+        const dimensions = selectedDimensions.map(d => d.value).join(',');
         const date = (form.namedItem('Date') as HTMLInputElement).value;
-        const isLog = (form.namedItem('IsLog') as HTMLInputElement).value
-        const isStandardized = (form.namedItem('IsStandardized') as HTMLInputElement).value
+        const isLog = (form.namedItem('IsLog') as HTMLInputElement).value;
+        const isStandardized = (form.namedItem('IsStandardized') as HTMLInputElement).value;
+        const numClusters = (form.namedItem('NumClusters') as HTMLInputElement).value;
 
-        const data = await GetClusterData(date, 10, dimensions, isLog, isStandardized);
+        const data = await GetClusterData(date, parseInt(numClusters), dimensions, isLog, isStandardized);
         setData(data);
     }
 
@@ -116,6 +121,19 @@ function ClusterControls({
                         className={styles.select}
                         isSearchable={false}
                         defaultValue={trueFalseOptions[0]}
+                    />
+                </div>
+
+                <div className={styles.formGroup}>
+                    <label htmlFor={"NumClusters"}>Number of Clusters</label>
+                    <Select
+                        id='NumClusters'
+                        name='NumClusters'
+                        options={numClustersOptions}
+                        classNamePrefix='select'
+                        className={styles.select}
+                        isSearchable={false}
+                        defaultValue={numClustersOptions.find(option => option.value === 10)}
                     />
                 </div>
                 

@@ -24,7 +24,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
-const Clustering_1 = __importDefault(require("./Clustering"));
+const ClusterStocks_1 = __importDefault(require("./ClusterStocks"));
 // Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
@@ -111,7 +111,7 @@ app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, functio
     const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized } = req.body;
     const dimensions = dimensionsCSV.split(',');
     try {
-        const result = yield (0, Clustering_1.default)(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized);
+        const result = yield (0, ClusterStocks_1.default)(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized);
         if (!result) {
             console.error('Failed to cluster stocks');
             return res.status(500).json({ error: 'Failed to cluster stocks' });

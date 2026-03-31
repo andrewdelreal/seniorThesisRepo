@@ -87,7 +87,6 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
                         />
                     </div>
                 )}
-                
             </div>
         </div>
     );

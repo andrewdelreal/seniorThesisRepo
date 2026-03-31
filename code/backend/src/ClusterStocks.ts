@@ -33,7 +33,7 @@ async function ClusterStocks(db: DBAbstraction, date: string, numClusters: numbe
             const data = await reducedDataFrame.toRecords().map(row => Object.values(row).map(Number));
             
             // clustering results
-            const clusterData = await KMeans(data, 10); // cluster into 10 groups
+            const clusterData = await KMeans(data, numClusters); // cluster into k groups
 
             if (!clusterData) {
                 console.error('Clustering failed');

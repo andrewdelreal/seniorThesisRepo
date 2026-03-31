@@ -12,7 +12,7 @@ import fs from 'fs';
 import cron from 'node-cron';
 import pl from 'nodejs-polars';
 import DailyStockUpdate from './DailyStockUpdate';
-import ClusterStocks from './Clustering';
+import ClusterStocks from './ClusterStocks';
 
 // Add rest of stock exchanges
 
