@@ -24,6 +24,7 @@
     "pg-copy-streams": "^7.0.0",
     "skmeans": "^0.11.3",
     "sqlite3": "^5.1.7",
+    "tsne-js": "^1.0.3",
     "umap-js": "^1.4.0"
   },
   "devDependencies": {

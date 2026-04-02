@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "nodenext",
     "jsx": "react-jsx", // or "react" for older versions
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "noEmit": true,
@@ -12,7 +12,8 @@
     "allowJs": true,
     "paths": {
       "react": ["./node_modules/@types/react"]
-    }
+    },
+    "allowImportingTsExtensions": true
   },
   "include": ["src"]
 }

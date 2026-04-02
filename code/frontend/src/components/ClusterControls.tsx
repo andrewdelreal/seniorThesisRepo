@@ -2,7 +2,7 @@ import { JSX, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import Select from "react-select";
 import styles from '../css/ClusterControls.module.css';
-import GetClusterData from '../hooks/GetClusterData';
+import GetClusterData from '../hooks/GetClusterData.ts';
 
 interface ClusterControlsProps {
     setData: (value: any) => void;
@@ -34,6 +34,10 @@ const dimensionOptions = [
     { label: 'Last', value: 'last'},
 ];
 
+const dimensionReductionOptions = [
+    { label: 'PCA', value: 'PCA'},
+    { label: 'UMAP', value: 'UMAP'},
+];
 const numClustersOptions = Array.from({ length: numClustersLength}, (_, i) => i + 3).map(num => ({ label: num.toString(), value: num}));
 
 const exchangeOptions = [
@@ -71,8 +75,9 @@ function ClusterControls({
         const isLog = (form.namedItem('IsLog') as HTMLInputElement).value;
         const isStandardized = (form.namedItem('IsStandardized') as HTMLInputElement).value;
         const numClusters = (form.namedItem('NumClusters') as HTMLInputElement).value;
+        const dimensionReduction = (form.namedItem('DimensionReduction') as HTMLInputElement).value;
 
-        const data = await GetClusterData(date, parseInt(numClusters), dimensions, isLog, isStandardized, exchanges);
+        const data = await GetClusterData(date, parseInt(numClusters), dimensions, isLog, isStandardized, exchanges, dimensionReduction);
         setData(data);
     }
 
@@ -156,6 +161,19 @@ function ClusterControls({
                         isSearchable={false}
                         onChange={(value) => setSelectedExchanges(value as any[])}
                         defaultValue={exchangeOptions}
+                    />
+                </div>
+
+                <div className={styles.formGroup}>
+                    <label htmlFor={"Dimension Reduction"}>Dimension Reduction</label>
+                    <Select
+                        id='DimensionReduction'
+                        name='DimensionReduction'
+                        options={dimensionReductionOptions}
+                        classNamePrefix='select'
+                        className={styles.select}
+                        isSearchable={false}
+                        defaultValue={dimensionReductionOptions[0]}
                     />
                 </div>
                 

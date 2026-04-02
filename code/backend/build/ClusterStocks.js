@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const skmeans_1 = __importDefault(require("skmeans"));
 const nodejs_polars_1 = __importDefault(require("nodejs-polars"));
+const umap_js_1 = require("umap-js");
 const ml_pca_1 = require("ml-pca");
-function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized, exchanges) {
+function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized, exchanges, dimensionReduction) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
@@ -50,7 +51,7 @@ function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized,
                 reducedDataFrame = reducedDataFrame.withColumns(nodejs_polars_1.default.Series('cluster', clusterData.idxs));
                 reducedDataFrame = nodejs_polars_1.default.concat([reducedDataFrame, dataFrame.select(['symbol', 'description', 'exch'])], { how: 'horizontal' });
                 if (dimensions.length > 2) {
-                    reducedDataFrame = yield DimensionReduction(reducedDataFrame, dimensions);
+                    reducedDataFrame = yield DimensionReduction(reducedDataFrame, dimensions, dimensionReduction);
                 }
                 console.log(reducedDataFrame.head(10).toString());
                 resolve([reducedDataFrame, clusterData.centroids]);
@@ -80,18 +81,23 @@ function KMeans(data, k) {
         });
     });
 }
-function DimensionReduction(df, dimensions) {
+function DimensionReduction(df, dimensions, dimensionReduction) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
             try {
                 const subFrame = df.select(...dimensions);
                 // turn subFrame into only numeric values
                 const values = subFrame.toRecords().map(row => Object.values(row).map(Number));
-                // reduce dimensions to 2 using UMAP
-                // const umap: UMAP = new UMAP({ nComponents: 2, nNeighbors: 15, minDist: 0.1 });
-                // const reducedValues: number[][] = umap.fit(values);
-                const pca = new ml_pca_1.PCA(values);
-                const reducedValues = pca.predict(values, { nComponents: 2 }).to2DArray();
+                console.log('Starting dimension reduction');
+                let reducedValues;
+                if (dimensionReduction === 'PCA') { // reduce dimensions to 2 using PCA
+                    const pca = new ml_pca_1.PCA(values);
+                    reducedValues = pca.predict(values, { nComponents: 2 }).to2DArray();
+                }
+                else if (dimensionReduction === 'UMAP') { // reduce dimensions to 2 using UMAP
+                    const umap = new umap_js_1.UMAP({ nComponents: 2, nNeighbors: 15, minDist: 0.1 });
+                    reducedValues = umap.fit(values);
+                }
                 // remove the original dimensions and add the reduced dimensions under the alias 'x' and 'y'
                 const reducedDF = nodejs_polars_1.default.DataFrame(reducedValues, { columns: ['x', 'y'] });
                 const finalDF = nodejs_polars_1.default.concat([reducedDF, df.drop(dimensions)], { how: 'horizontal' });

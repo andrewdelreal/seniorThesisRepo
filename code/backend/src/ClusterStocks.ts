@@ -4,7 +4,8 @@ import pl from 'nodejs-polars';
 import { UMAP } from 'umap-js';
 import { PCA } from 'ml-pca';
 
-async function ClusterStocks(db: DBAbstraction, date: string, numClusters: number, dimensions: string[], isLog: boolean, isStandardized: number, exchanges: string[]): Promise<[pl.DataFrame, number[]] | null> {
+async function ClusterStocks(db: DBAbstraction, date: string, numClusters: number, dimensions: string[], isLog: boolean, 
+    isStandardized: number, exchanges: string[], dimensionReduction: string): Promise<[pl.DataFrame, number[]] | null> {
     return new Promise(async (resolve, reject) => {
         try {
             // get the quotes of the specified date
@@ -49,7 +50,7 @@ async function ClusterStocks(db: DBAbstraction, date: string, numClusters: numbe
             reducedDataFrame = pl.concat([reducedDataFrame, dataFrame.select(['symbol', 'description', 'exch'])], {how: 'horizontal'});
 
             if (dimensions.length > 2) {
-                reducedDataFrame = await DimensionReduction(reducedDataFrame, dimensions);
+                reducedDataFrame = await DimensionReduction(reducedDataFrame, dimensions, dimensionReduction);
             }
 
             console.log(reducedDataFrame.head(10).toString());
@@ -78,7 +79,7 @@ async function KMeans(data: any, k: number): Promise<any> {
     });
 }
 
-async function DimensionReduction(df: pl.DataFrame, dimensions: string[]): Promise<pl.DataFrame> {
+async function DimensionReduction(df: pl.DataFrame, dimensions: string[], dimensionReduction: string): Promise<pl.DataFrame> {
     return new Promise((resolve, reject) => {
         try {
             const subFrame: pl.DataFrame = df.select(...dimensions);
@@ -88,12 +89,15 @@ async function DimensionReduction(df: pl.DataFrame, dimensions: string[]): Promi
 
             console.log('Starting dimension reduction');
 
-            // reduce dimensions to 2 using UMAP
-            // const umap: UMAP = new UMAP({ nComponents: 2, nNeighbors: 15, minDist: 0.1 });
-            // const reducedValues: number[][] = umap.fit(values);
+            let reducedValues!: number[][];
 
-            const pca = new PCA(values);
-            const reducedValues: number[][] = pca.predict(values, { nComponents: 2 }).to2DArray();
+            if (dimensionReduction === 'PCA') { // reduce dimensions to 2 using PCA
+                const pca = new PCA(values);
+                reducedValues = pca.predict(values, { nComponents: 2 }).to2DArray();
+            } else if (dimensionReduction === 'UMAP') {// reduce dimensions to 2 using UMAP
+                const umap: UMAP = new UMAP({ nComponents: 2, nNeighbors: 15, minDist: 0.1 });
+                reducedValues = umap.fit(values);
+            }
 
             // remove the original dimensions and add the reduced dimensions under the alias 'x' and 'y'
             const reducedDF: pl.DataFrame = pl.DataFrame(reducedValues, { columns: ['x', 'y']});
