@@ -128,6 +128,7 @@ app.post('/api/cluster', async (req: Request, res: Response) => {
     const clusterDF: pl.DataFrame = result[0];
     const centroids: number[] = result[1];
 
+    // otherwise, just use the original dimension names for 2 dimensions.
     res.status(200).json({points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions});
   } catch (err) {
     console.error('Failed to cluster stocks');

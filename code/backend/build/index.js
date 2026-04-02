@@ -118,6 +118,7 @@ app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
         const clusterDF = result[0];
         const centroids = result[1];
+        // otherwise, just use the original dimension names for 2 dimensions.
         res.status(200).json({ points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions });
     }
     catch (err) {

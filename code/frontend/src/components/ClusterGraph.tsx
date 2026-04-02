@@ -123,10 +123,13 @@ async function formatPoints(points: Point[], centroids: number[][], dimensions: 
 
     const black = '#000000';
 
-    const x = dimensions[0];
-    const y = dimensions[1];
-    // eventually, the name of the dimension in the database, if over 2 dimensions, needs to change from 'change','vol'
-    // to 'x', 'y', because I will have to reduce dimensionality. Or maybe I do that right away
+    let x: string = dimensions[0];
+    let y: string = dimensions[1];
+    
+    if (dimensions.length > 2) {
+        x = 'x';
+        y = 'y';
+    }
 
     for (const point of points) {
         xVals.push(point[x] as number);
