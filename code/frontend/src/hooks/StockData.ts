@@ -37,12 +37,12 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
                     body: JSON.stringify({ symbol, interval, start, end }),  // using all desired parameters
                 });
 
-                if (!response.ok) {
+                const json = await response.json();
+                if (!json.success) {
                     throw new Error(`Error fetching stock data: ${response.statusText}`);
                 }
 
-                const json = await response.json();
-                setData(json);
+                setData(json.data);
             } catch (err: any) {
                 navigate('/login');
                 console.log(err.message || 'Failed to fetch stock data');

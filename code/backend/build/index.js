@@ -25,6 +25,8 @@ const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
 const ClusterStocks_1 = __importDefault(require("./ClusterStocks"));
+const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
+const errorHandler_1 = require("./middleware/errorHandler");
 // Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
@@ -35,6 +37,8 @@ app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.static('public'));
+app.use(tradierRoutes_1.default);
+app.use(errorHandler_1.errorHandler);
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
 const APP_JWT_SECRET = process.env.APP_JWT_SECRET;
@@ -72,27 +76,26 @@ app.post('/api/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(500).json({ error: 'Authentication failed' });
     }
 }));
-app.post('/api/tradier/markets/history', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const options = {
-        method: 'GET',
-        headers: { Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN }
-    };
-    const { symbol, interval, start, end } = req.body;
-    try {
-        const response = yield fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options);
-        if (!response.ok) {
-            const text = yield response.text();
-            console.error("Tradier error:", response.status, text);
-            return res.status(500).json({ error: 'Failed to fetch market history' });
-        }
-        const data = yield response.json();
-        res.status(200).json(data);
-    }
-    catch (err) {
-        console.error('Tradier API error:', err);
-        res.status(500).json({ error: 'Failed to fetch market history' });
-    }
-}));
+// app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
+//   const  options  = {
+//     method: 'GET',
+//     headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}
+//   };
+//   const { symbol, interval, start, end } = req.body;
+//   try {
+//     const response = await fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options );
+//      if (!response.ok) {
+//       const text = await response.text();
+//       console.error("Tradier error:", response.status, text);
+//       return res.status(500).json({ error: 'Failed to fetch market history' });
+//     }
+//     const data = await response.json();
+//     res.status(200).json(data);
+//   } catch (err) {
+//     console.error('Tradier API error:', err);
+//     res.status(500).json({ error: 'Failed to fetch market history' });  
+//   }
+// });
 app.post('/api/tickers', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { exchange } = req.body;
     let exchDBSymbol; // assign exchange value to correct db symbol for query
