@@ -1,32 +1,12 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const asyncHandler_1 = require("../middleware/asyncHandler");
-const ApiError_1 = __importDefault(require("../errors/ApiError"));
-const tradierService_1 = require("../services/tradierService");
 const authenticate_1 = __importDefault(require("../middleware/authenticate"));
+const tradierControllers_1 = require("../controllers/tradierControllers");
 const router = (0, express_1.Router)();
-router.post('/api/tradier/markets/history', authenticate_1.default, (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { symbol, interval, start, end } = req.body;
-    if (!symbol || !interval || !start || !end) {
-        throw new ApiError_1.default(400, "INVALID_REQUEST", "Missing required parameters");
-    }
-    const data = yield (0, tradierService_1.getMarketHistory)(symbol, interval, start, end);
-    res.status(200).json({
-        success: true,
-        data,
-    });
-})));
+router.post('/api/tradier/markets/history', authenticate_1.default, (0, asyncHandler_1.asyncHandler)(tradierControllers_1.getMarketHistoryController));
 exports.default = router;
