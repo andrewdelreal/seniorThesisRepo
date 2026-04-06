@@ -65,14 +65,14 @@ function StockControls({
                 body: JSON.stringify({exchange})
             });
 
-            if (!response.ok) {
+            const json = await response.json();
+
+            if (!response.ok || !json.success) {
                 navigate('/login');
-                throw new Error(`Error fetching ticker data: ${response.statusText}`);
+                throw new Error(`${json.code}: ${json.message}`);
             }
 
-            const tickerData = await response.json();
-
-            setTickers(tickerData);
+            setTickers(json.data);
         };
 
         getTickers();

@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Request, Response } from "express";
 import  ApiError  from "../errors/ApiError";
 import { getMarketHistory } from "../services/tradierService";
 

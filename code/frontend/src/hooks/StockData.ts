@@ -38,8 +38,10 @@ function StockData({ symbol, interval, start, end }: StockHistoryParams) {
                 });
 
                 const json = await response.json();
-                if (!json.success) {
-                    throw new Error(`Error fetching stock data: ${response.statusText}`);
+
+                if (!response.ok || !json.success) {
+                    navigate('/login');
+                    throw new Error(`${json.code}: ${json.message}`);
                 }
 
                 setData(json.data);

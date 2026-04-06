@@ -26,6 +26,7 @@ const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
 const ClusterStocks_1 = __importDefault(require("./ClusterStocks"));
 const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
+const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
 const errorHandler_1 = require("./middleware/errorHandler");
 // Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
@@ -38,6 +39,7 @@ app.use(express_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.static('public'));
 app.use(tradierRoutes_1.default);
+app.use(tickerRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
@@ -96,20 +98,16 @@ app.post('/api/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, fun
 //     res.status(500).json({ error: 'Failed to fetch market history' });  
 //   }
 // });
-app.post('/api/tickers', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { exchange } = req.body;
-    let exchDBSymbol; // assign exchange value to correct db symbol for query
-    if (exchange === 'nasdaq')
-        exchDBSymbol = 'Q';
-    else if (exchange === 'nyse')
-        exchDBSymbol = 'N';
-    else
-        exchDBSymbol = 'A';
-    const data = yield db.getTickers(exchDBSymbol); // get tickers from database
-    if (!data)
-        return res.status(500).json({ 'error': 'Failed to read from exchange cache' });
-    res.json(data);
-}));
+// app.post('/api/tickers', authenticate, async (req: Request, res: Response) => {
+//   const { exchange } = req.body;
+//   let exchDBSymbol: string; // assign exchange value to correct db symbol for query
+//   if (exchange === 'nasdaq') exchDBSymbol = 'Q';
+//   else if (exchange === 'nyse') exchDBSymbol = 'N';
+//   else exchDBSymbol = 'A';
+//   const data = await db.getTickers(exchDBSymbol); // get tickers from database
+//   if (!data) return res.status(500).json({'error': 'Failed to read from exchange cache'});
+//   res.json(data);
+// });
 app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction } = req.body;
     const dimensions = dimensionsCSV.split(',');

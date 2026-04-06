@@ -15,6 +15,7 @@ import DailyStockUpdate from './DailyStockUpdate';
 import ClusterStocks from './ClusterStocks';
 
 import tradierRoutes from './routes/tradierRoutes';
+import tickerRoutes from './routes/tickerRoutes';
 import { errorHandler } from './middleware/errorHandler';
 
 // Add rest of stock exchanges
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 app.use(tradierRoutes);
+app.use(tickerRoutes);
 app.use(errorHandler);
 
 const GOOGLE_CLIENT_ID: string = process.env.GOOGLE_CLIENT_ID!;
@@ -103,20 +105,20 @@ app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: 
 //   }
 // });
 
-app.post('/api/tickers', authenticate, async (req: Request, res: Response) => {
-  const { exchange } = req.body;
+// app.post('/api/tickers', authenticate, async (req: Request, res: Response) => {
+//   const { exchange } = req.body;
   
-  let exchDBSymbol: string; // assign exchange value to correct db symbol for query
-  if (exchange === 'nasdaq') exchDBSymbol = 'Q';
-  else if (exchange === 'nyse') exchDBSymbol = 'N';
-  else exchDBSymbol = 'A';
+//   let exchDBSymbol: string; // assign exchange value to correct db symbol for query
+//   if (exchange === 'nasdaq') exchDBSymbol = 'Q';
+//   else if (exchange === 'nyse') exchDBSymbol = 'N';
+//   else exchDBSymbol = 'A';
 
-  const data = await db.getTickers(exchDBSymbol); // get tickers from database
+//   const data = await db.getTickers(exchDBSymbol); // get tickers from database
 
-  if (!data) return res.status(500).json({'error': 'Failed to read from exchange cache'});
+//   if (!data) return res.status(500).json({'error': 'Failed to read from exchange cache'});
 
-  res.json(data);
-});
+//   res.json(data);
+// });
 
 app.post('/api/cluster', async (req: Request, res: Response) => {
   const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction } = req.body;
