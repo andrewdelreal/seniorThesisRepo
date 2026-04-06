@@ -2,11 +2,11 @@ import { Router, Request, Response } from "express";
 import { asyncHandler } from "../middleware/asyncHandler";
 import  ApiError  from "../errors/ApiError";
 import { getMarketHistory } from "../services/tradierService";
-// import authenticate from "../middleware/authenticate";
+import authenticate from "../middleware/authenticate";
 
 const router = Router();
 
-router.post('/api/tradier/markets/history', asyncHandler( async (req: Request, res: Response) => {
+router.post('/api/tradier/markets/history', authenticate, asyncHandler( async (req: Request, res: Response) => {
     const { symbol, interval, start, end } = req.body;
 
     if (!symbol || !interval || !start || !end) {

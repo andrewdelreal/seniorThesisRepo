@@ -16,9 +16,9 @@ const express_1 = require("express");
 const asyncHandler_1 = require("../middleware/asyncHandler");
 const ApiError_1 = __importDefault(require("../errors/ApiError"));
 const tradierService_1 = require("../services/tradierService");
-// import authenticate from "../middleware/authenticate";
+const authenticate_1 = __importDefault(require("../middleware/authenticate"));
 const router = (0, express_1.Router)();
-router.post('/api/tradier/markets/history', (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/api/tradier/markets/history', authenticate_1.default, (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { symbol, interval, start, end } = req.body;
     if (!symbol || !interval || !start || !end) {
         throw new ApiError_1.default(400, "INVALID_REQUEST", "Missing required parameters");
