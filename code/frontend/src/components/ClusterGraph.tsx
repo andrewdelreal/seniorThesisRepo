@@ -14,6 +14,8 @@ interface Point {
 function ClusterGraph({ data }: {data: any}): JSX.Element{
     const [x, setX] = useState<number[] | null>([0,1]);
     const [y, setY] = useState<number[] | null>([0,1]);
+    const [date, setDate] = useState<string>('');
+    const [numClusters, setNumClusters] = useState<number | null>(null);
     const [pointText, setPointText] = useState<string[] | null>(['']);
     const [dimensions, setDimensions] = useState<string[] | null>(null);
     const [colors, setColors] = useState<string[] | null>(['red']);
@@ -36,6 +38,8 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
 
             setX(xVals);
             setY(yVals);
+            setDate(new Date('2026-02-26'+'T00:00:00').toDateString()); // change this to be the date from the data
+            setNumClusters(centroids.length);
             setPointText(pointText);
             setColors(colors);
             setDimensions(dimensions);
@@ -62,9 +66,9 @@ function ClusterGraph({ data }: {data: any}): JSX.Element{
     
     // may need to add this to the useEffect and state to change the arrow annotations.
     const layout = {
-        title: {text: 'title'},
-        xaxis: { title: {text: '' }},
-        yaxis: { title: {text: '' }, tickprefix: '$', tickformat: ',.2f' },
+        title: {text: `Cluster graph from ${date} with dimensions ${dimensions ? dimensions.join(', ') : ''} with ${numClusters} clusters.`},
+        xaxis: { title: {text: `${dimensions && dimensions.length <= 2 ? dimensions[0].charAt(0).toUpperCase() + dimensions[0].slice(1) : 'X'}` }, tickformat: ',.2f'},
+        yaxis: { title: {text: `${dimensions && dimensions.length <= 2? dimensions[1].charAt(0).toUpperCase() + dimensions[1].slice(1) : 'Y'}` }, tickformat: ',.2f' },
         color: {text: 'blue'},
          annotations: [ // used for the arrow at the e
            
