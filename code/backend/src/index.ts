@@ -17,6 +17,7 @@ import ClusterStocks from './ClusterStocks';
 import tradierRoutes from './routes/tradierRoutes';
 import tickerRoutes from './routes/tickerRoutes';
 import loginRoutes from './routes/loginRoutes';
+import clusterRoutes from './routes/clusterRoutes';
 import { errorHandler } from './middleware/errorHandler';
 
 // Add rest of stock exchanges
@@ -38,6 +39,7 @@ app.use(express.static('public'))
 app.use(tradierRoutes);
 app.use(tickerRoutes);
 app.use(loginRoutes);
+app.use(clusterRoutes);
 app.use(errorHandler);
 
 const GOOGLE_CLIENT_ID: string = process.env.GOOGLE_CLIENT_ID!;
@@ -122,50 +124,50 @@ const ExchangeSources = {
 //   res.json(data);
 // });
 
-app.post('/api/cluster', async (req: Request, res: Response) => {
-  const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction } = req.body;
+// app.post('/api/cluster', async (req: Request, res: Response) => {
+//   const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction } = req.body;
 
-  const dimensions = dimensionsCSV.split(',');
+//   const dimensions = dimensionsCSV.split(',');
 
-  try {
-    const result = await ClusterStocks(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges, dimensionReduction);
+//   try {
+//     const result = await ClusterStocks(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges, dimensionReduction);
 
-    if (!result) {
-      console.error('Failed to cluster stocks');
-      return res.status(500).json({ error: 'Failed to cluster stocks' });
-    }
+//     if (!result) {
+//       console.error('Failed to cluster stocks');
+//       return res.status(500).json({ error: 'Failed to cluster stocks' });
+//     }
 
-    const clusterDF: pl.DataFrame = result[0];
-    const centroids: number[] = result[1];
+//     const clusterDF: pl.DataFrame = result[0];
+//     const centroids: number[] = result[1];
 
-    // otherwise, just use the original dimension names for 2 dimensions.
-    res.status(200).json({points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions});
-  } catch (err) {
-    console.error('Failed to cluster stocks');
-    res.status(500).json({ error: 'Failed to cluster stocks' });  
-  }
+//     // otherwise, just use the original dimension names for 2 dimensions.
+//     res.status(200).json({points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions});
+//   } catch (err) {
+//     console.error('Failed to cluster stocks');
+//     res.status(500).json({ error: 'Failed to cluster stocks' });  
+//   }
 
-});
+// });
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello World!');
 });
 
 //middleware for pretected routes
-function authenticate(req: Request, res: Response, next: NextFunction) {
-  const token: string | undefined = req.headers.authorization;
+// function authenticate(req: Request, res: Response, next: NextFunction) {
+//   const token: string | undefined = req.headers.authorization;
 
-  if (!token) return res.status(401).json({ error: 'Missing token' });
+//   if (!token) return res.status(401).json({ error: 'Missing token' });
 
-  // const token: string = authHeader.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, APP_JWT_SECRET) as { googleId: string };
-    (req as any).googleId = decoded.googleId;
-    next();
-  } catch {
-    return res.status(403).json({ error: 'Invalid token' });
-  }
-}
+//   // const token: string = authHeader.split(' ')[1];
+//   try {
+//     const decoded = jwt.verify(token, APP_JWT_SECRET) as { googleId: string };
+//     (req as any).googleId = decoded.googleId;
+//     next();
+//   } catch {
+//     return res.status(403).json({ error: 'Invalid token' });
+//   }
+// }
 
 const parseTickers = (data: any) => {
   return data.filter((item: ExchangeItems) => item.symbol.includes('^') === false).map((item: ExchangeItems) => ({

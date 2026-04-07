@@ -18,16 +18,15 @@ const DBAbstraction_1 = __importDefault(require("./DBAbstraction"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const google_auth_library_1 = require("google-auth-library");
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
-const ClusterStocks_1 = __importDefault(require("./ClusterStocks"));
 const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
 const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
 const loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
+const clusterRoutes_1 = __importDefault(require("./routes/clusterRoutes"));
 const errorHandler_1 = require("./middleware/errorHandler");
 // Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
@@ -42,6 +41,7 @@ app.use(express_1.default.static('public'));
 app.use(tradierRoutes_1.default);
 app.use(tickerRoutes_1.default);
 app.use(loginRoutes_1.default);
+app.use(clusterRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
@@ -105,43 +105,40 @@ const ExchangeSources = {
 //   if (!data) return res.status(500).json({'error': 'Failed to read from exchange cache'});
 //   res.json(data);
 // });
-app.post('/api/cluster', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction } = req.body;
-    const dimensions = dimensionsCSV.split(',');
-    try {
-        const result = yield (0, ClusterStocks_1.default)(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges, dimensionReduction);
-        if (!result) {
-            console.error('Failed to cluster stocks');
-            return res.status(500).json({ error: 'Failed to cluster stocks' });
-        }
-        const clusterDF = result[0];
-        const centroids = result[1];
-        // otherwise, just use the original dimension names for 2 dimensions.
-        res.status(200).json({ points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions });
-    }
-    catch (err) {
-        console.error('Failed to cluster stocks');
-        res.status(500).json({ error: 'Failed to cluster stocks' });
-    }
-}));
+// app.post('/api/cluster', async (req: Request, res: Response) => {
+//   const { date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction } = req.body;
+//   const dimensions = dimensionsCSV.split(',');
+//   try {
+//     const result = await ClusterStocks(db, date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges, dimensionReduction);
+//     if (!result) {
+//       console.error('Failed to cluster stocks');
+//       return res.status(500).json({ error: 'Failed to cluster stocks' });
+//     }
+//     const clusterDF: pl.DataFrame = result[0];
+//     const centroids: number[] = result[1];
+//     // otherwise, just use the original dimension names for 2 dimensions.
+//     res.status(200).json({points: clusterDF.toRecords(), centroids: centroids, dimensions: dimensions});
+//   } catch (err) {
+//     console.error('Failed to cluster stocks');
+//     res.status(500).json({ error: 'Failed to cluster stocks' });  
+//   }
+// });
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 //middleware for pretected routes
-function authenticate(req, res, next) {
-    const token = req.headers.authorization;
-    if (!token)
-        return res.status(401).json({ error: 'Missing token' });
-    // const token: string = authHeader.split(' ')[1];
-    try {
-        const decoded = jsonwebtoken_1.default.verify(token, APP_JWT_SECRET);
-        req.googleId = decoded.googleId;
-        next();
-    }
-    catch (_a) {
-        return res.status(403).json({ error: 'Invalid token' });
-    }
-}
+// function authenticate(req: Request, res: Response, next: NextFunction) {
+//   const token: string | undefined = req.headers.authorization;
+//   if (!token) return res.status(401).json({ error: 'Missing token' });
+//   // const token: string = authHeader.split(' ')[1];
+//   try {
+//     const decoded = jwt.verify(token, APP_JWT_SECRET) as { googleId: string };
+//     (req as any).googleId = decoded.googleId;
+//     next();
+//   } catch {
+//     return res.status(403).json({ error: 'Invalid token' });
+//   }
+// }
 const parseTickers = (data) => {
     return data.filter((item) => item.symbol.includes('^') === false).map((item) => ({
         name: `${item.name.slice(0, 50).trim()} (${item.symbol.trim()})`,

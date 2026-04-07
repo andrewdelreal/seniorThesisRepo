@@ -17,11 +17,15 @@ async function GetClusterData(date: string, numClusters: number, dimensionsCSV: 
             body: JSON.stringify({ date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction }),  // using all desired parameters
         });
 
-        if (!res.ok) throw new Error('Could not fetch cluster data');
-
         const json = await res.json();
 
-        return json;
+        if (!res.ok || !json.success) {
+            console.error('Failed to fetch cluster data:', res.status, json);
+            throw new Error('Failed to fetch cluster data');
+        }
+
+        // return data from the backend
+        return json.data; 
     } catch (err){
         console.log('Could not fetch cluster data');
     }
