@@ -928,11 +928,7 @@
     "symbol": "BBT"
   },
   {
-    "name": "Brookfield Business Partners L.P. Limited Partners (BBU)",
-    "symbol": "BBU"
-  },
-  {
-    "name": "Brookfield Business Corporation Class A Exchangeab (BBUC)",
+    "name": "Brookfield Business Corporation Class A Subordinat (BBUC)",
     "symbol": "BBUC"
   },
   {
@@ -1532,10 +1528,6 @@
     "symbol": "BXMT"
   },
   {
-    "name": "Nuveen S&P 500 Buy-Write Income Fund Common Shares (BXMX)",
-    "symbol": "BXMX"
-  },
-  {
     "name": "BXP Inc. Common Stock (BXP)",
     "symbol": "BXP"
   },
@@ -1860,7 +1852,7 @@
     "symbol": "CLB"
   },
   {
-    "name": "Colombier Acquisition Corp. III (CLBR)",
+    "name": "Colombier Acquisition Corp. III Class A Ordinary S (CLBR)",
     "symbol": "CLBR"
   },
   {
@@ -2500,10 +2492,6 @@
     "symbol": "DHX"
   },
   {
-    "name": "Nuveen Dow 30SM Dynamic Overwrite Fund Common Shar (DIAX)",
-    "symbol": "DIAX"
-  },
-  {
     "name": "Dine Brands Global Inc. Common Stock (DIN)",
     "symbol": "DIN"
   },
@@ -2832,10 +2820,6 @@
     "symbol": "EG"
   },
   {
-    "name": "EastGroup Properties Inc. Common Stock (EGP)",
-    "symbol": "EGP"
-  },
-  {
     "name": "VAALCO Energy Inc.  Common Stock (EGY)",
     "symbol": "EGY"
   },
@@ -2858,10 +2842,6 @@
   {
     "name": "Eagle Point Income Company Inc. 5.00% Series A Ter (EICA)",
     "symbol": "EICA"
-  },
-  {
-    "name": "Eagle Point Income Company Inc. 8.00% Series C Ter (EICC)",
-    "symbol": "EICC"
   },
   {
     "name": "Employers Holdings Inc Common Stock (EIG)",
@@ -3302,10 +3282,6 @@
   {
     "name": "Flaherty & Crumrine Preferred and Income Securitie (FFC)",
     "symbol": "FFC"
-  },
-  {
-    "name": "First Foundation Inc. Common Stock (FFWM)",
-    "symbol": "FFWM"
   },
   {
     "name": "F&G Annuities & Life Inc. Common Stock (FG)",
@@ -6304,10 +6280,6 @@
     "symbol": "ONON"
   },
   {
-    "name": "ON24 Inc. Common Stock (ONTF)",
-    "symbol": "ONTF"
-  },
-  {
     "name": "Onto Innovation Inc. Common Stock (ONTO)",
     "symbol": "ONTO"
   },
@@ -6988,10 +6960,6 @@
     "symbol": "RAC"
   },
   {
-    "name": "Rithm Acquisition Corp. (RAC/WS)",
-    "symbol": "RAC/WS"
-  },
-  {
     "name": "Ferrari N.V. Common Shares (RACE)",
     "symbol": "RACE"
   },
@@ -7372,6 +7340,10 @@
     "symbol": "SABA"
   },
   {
+    "name": "Safeguard Acquisition Corp. Class A Ordinary Share (SAC)",
+    "symbol": "SAC"
+  },
+  {
     "name": "Safehold Inc. New Common Stock (SAFE)",
     "symbol": "SAFE"
   },
@@ -7424,10 +7396,6 @@
     "symbol": "SB"
   },
   {
-    "name": "Solo Brands Inc. Class A Common Stock (SBDS)",
-    "symbol": "SBDS"
-  },
-  {
     "name": "Sally Beauty Holdings Inc. (Name to be changed fro (SBH)",
     "symbol": "SBH"
   },
@@ -7454,6 +7422,10 @@
   {
     "name": "SilverBox Corp IV Class A Ordinary Shares (SBXD)",
     "symbol": "SBXD"
+  },
+  {
+    "name": "SilverBox Corp V Class A Ordinary Shares (SBXE)",
+    "symbol": "SBXE"
   },
   {
     "name": "Southern Copper Corporation Common Stock (SCCO)",
@@ -8208,10 +8180,6 @@
     "symbol": "TFPM"
   },
   {
-    "name": "Terra Income Fund 6 LLC 7.00% Notes due 2026 (TFSA)",
-    "symbol": "TFSA"
-  },
-  {
     "name": "Teleflex Incorporated Common Stock (TFX)",
     "symbol": "TFX"
   },
@@ -8724,10 +8692,6 @@
     "symbol": "VAC"
   },
   {
-    "name": "Viking Acquisition Corp. I Class A Ordinary Shares (VACI)",
-    "symbol": "VACI"
-  },
-  {
     "name": "Valaris Limited Common Shares (VAL)",
     "symbol": "VAL"
   },
@@ -8778,6 +8742,10 @@
   {
     "name": "Invesco Trust for Investment Grade Municipals Comm (VGM)",
     "symbol": "VGM"
+  },
+  {
+    "name": "Versigent PLC Ordinary Shares (VGNT)",
+    "symbol": "VGNT"
   },
   {
     "name": "Valhi Inc. Common Stock (VHI)",

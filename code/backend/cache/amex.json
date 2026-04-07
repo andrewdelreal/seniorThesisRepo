@@ -684,10 +684,6 @@
     "symbol": "NBH"
   },
   {
-    "name": "NovaBay Pharmaceuticals Inc. Common Stock (NBY)",
-    "symbol": "NBY"
-  },
-  {
     "name": "Northann Corp. Common Stock (NCL)",
     "symbol": "NCL"
   },
@@ -714,6 +710,10 @@
   {
     "name": "Neuberger High Yield Strategies Fund Inc. Common S (NHS)",
     "symbol": "NHS"
+  },
+  {
+    "name": "Nine Energy Service Inc. Common Stock (NINE)",
+    "symbol": "NINE"
   },
   {
     "name": "Neuberger Energy Infrastructure and Income Fund In (NML)",
@@ -892,6 +892,10 @@
     "symbol": "SCCG"
   },
   {
+    "name": "Stablecoin Development Corporation (SDEV)",
+    "symbol": "SDEV"
+  },
+  {
     "name": "Seaboard Corporation Common Stock (SEB)",
     "symbol": "SEB"
   },
@@ -1002,10 +1006,6 @@
   {
     "name": "TRX Gold Corporation Common Stock (TRX)",
     "symbol": "TRX"
-  },
-  {
-    "name": "United Acquisition Corp. I Class A Ordinary Shares (UAC)",
-    "symbol": "UAC"
   },
   {
     "name": "AgEagle Aerial Systems Inc. Common Stock (UAVS)",

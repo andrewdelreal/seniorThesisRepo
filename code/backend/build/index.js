@@ -19,15 +19,12 @@ const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const fs_1 = __importDefault(require("fs"));
-const node_cron_1 = __importDefault(require("node-cron"));
-const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
+const tickerUpdate_job_1 = require("./jobs/tickerUpdate.job");
 const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
 const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
 const loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
 const clusterRoutes_1 = __importDefault(require("./routes/clusterRoutes"));
 const errorHandler_1 = require("./middleware/errorHandler");
-// Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
 const PORT = 3000;
@@ -42,48 +39,12 @@ app.use(tickerRoutes_1.default);
 app.use(loginRoutes_1.default);
 app.use(clusterRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
-;
-const ExchangeSources = {
-    nasdaq: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nasdaq/nasdaq_full_tickers.json',
-    nyse: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nyse/nyse_full_tickers.json',
-    amex: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/amex/amex_full_tickers.json'
-};
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-const parseTickers = (data) => {
-    return data.filter((item) => item.symbol.includes('^') === false).map((item) => ({
-        name: `${item.name.slice(0, 50).trim()} (${item.symbol.trim()})`,
-        symbol: item.symbol.trim()
-    }));
-};
-function updateTickers() {
-    return __awaiter(this, void 0, void 0, function* () {
-        for (const [exchange, url] of Object.entries(ExchangeSources)) {
-            try {
-                const response = yield fetch(url);
-                if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-                }
-                const data = yield response.json();
-                const parsed = parseTickers(data);
-                fs_1.default.writeFileSync(`./cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
-                console.log(`Cached ${exchange} successfully`);
-            }
-            catch (err) {
-                console.log(`Failed to cache ${exchange} data:`, err);
-            }
-        }
-    });
-}
-node_cron_1.default.schedule('0 0 * * *', () => updateTickers());
-node_cron_1.default.schedule('30 15 * * *', () => (0, DailyStockUpdate_1.default)(db));
+(0, tickerUpdate_job_1.startTickerJobs)();
+// cron.schedule('30 15 * * *', () => DailyStockUpdate(db));
 db.init()
     .then(() => {
     app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-        // await updateTickers();
         // await DailyStockUpdate(db);
-        // await ClusterStocks(db);
         console.log(`Server is running on http://localhost:${PORT}`);
     }));
 }).catch((err) => {
