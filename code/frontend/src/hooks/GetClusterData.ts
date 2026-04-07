@@ -1,7 +1,3 @@
-// this is what will call the db route, send the data, parse it to be something readable, then
-// return the data  and send it to home, once the data changes, the Cluster Graph will handle the data
-// event change, grab the actual points, and then
-
 async function GetClusterData(date: string, numClusters: number, dimensionsCSV: string, isLog: string, isStandardized: string, exchanges: string[], dimensionReduction: string) {
     console.log(date, numClusters, dimensionsCSV, isLog, isStandardized, exchanges, dimensionReduction);
     const boolIsLog = isLog === 'true';
