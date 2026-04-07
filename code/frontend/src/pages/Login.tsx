@@ -22,13 +22,20 @@ function Login(): JSX.Element {
     console.log("Google user:", decoded);
 
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/google", { // verify user with backend
+      const response = await axios.post("http://localhost:3000/api/auth/google", { // verify user with backend
         token: credentialResponse.credential,
       });
+      
+      const data = await response.data;
 
-      console.log("Server response:", res.data);
+      if (!response || !data.success) {
+        navigate('/login');
+        throw new Error('LOGIN_FAILED: Failed to login with Google');
+      }
 
-      localStorage.setItem("token", res.data.appToken); // Store your app token (valid for 7 days)
+      console.log("Server response:", data);
+
+      localStorage.setItem("token", data.data.appToken); // Store your app token (valid for 7 days)
       localStorage.setItem("googleId", decoded.sub); // store google user id (constant)
       localStorage.setItem("googleName", decoded.name?.split(" ")[0] || "User"); // store first name for UI
 

@@ -27,6 +27,7 @@ const DailyStockUpdate_1 = __importDefault(require("./DailyStockUpdate"));
 const ClusterStocks_1 = __importDefault(require("./ClusterStocks"));
 const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
 const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
+const loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
 const errorHandler_1 = require("./middleware/errorHandler");
 // Add rest of stock exchanges
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
@@ -40,6 +41,7 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.static('public'));
 app.use(tradierRoutes_1.default);
 app.use(tickerRoutes_1.default);
+app.use(loginRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
@@ -51,33 +53,28 @@ const ExchangeSources = {
     amex: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/amex/amex_full_tickers.json'
 };
 // Verify Google token
-function verifyGoogleToken(token) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const ticket = yield client.verifyIdToken({
-            idToken: token,
-            audience: GOOGLE_CLIENT_ID,
-        });
-        return ticket.getPayload();
-    });
-}
-app.post('/api/auth/google', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { token } = req.body;
-    try {
-        const payload = yield verifyGoogleToken(token); // Google verigies credentials
-        if (!payload)
-            return res.status(401).json({ error: 'Invalid token' });
-        const sub = payload.sub; // Google’s unique user ID
-        if (!sub)
-            return res.status(400).json({ error: 'Missing user ID' });
-        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' }); // create token valid for 7 days
-        // Send user token that is valid for 7days
-        res.json({ appToken });
-    }
-    catch (err) {
-        console.error('Login error:', err);
-        res.status(500).json({ error: 'Authentication failed' });
-    }
-}));
+// async function verifyGoogleToken(token: string) {
+//   const ticket: LoginTicket = await client.verifyIdToken({ // verify credentials with Google
+//     idToken: token,
+//     audience: GOOGLE_CLIENT_ID,
+//   });
+//   return ticket.getPayload();
+// }
+// app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: Response) => {
+//   const { token } = req.body;
+//   try {
+//     const payload: TokenPayload | undefined = await verifyGoogleToken(token); // Google verigies credentials
+//     if (!payload) return res.status(401).json({ error: 'Invalid token' });
+//     const sub: string = payload.sub; // Google’s unique user ID
+//     if (!sub) return res.status(400).json({ error: 'Missing user ID' });
+//     const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });  // create token valid for 7 days
+//     // Send user token that is valid for 7days
+//     res.json({ appToken });
+//   } catch (err) {
+//     console.error('Login error:', err);
+//     res.status(500).json({ error: 'Authentication failed' });
+//   }
+// });
 // app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
 //   const  options  = {
 //     method: 'GET',

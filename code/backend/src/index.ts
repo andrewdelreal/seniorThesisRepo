@@ -16,6 +16,7 @@ import ClusterStocks from './ClusterStocks';
 
 import tradierRoutes from './routes/tradierRoutes';
 import tickerRoutes from './routes/tickerRoutes';
+import loginRoutes from './routes/loginRoutes';
 import { errorHandler } from './middleware/errorHandler';
 
 // Add rest of stock exchanges
@@ -36,6 +37,7 @@ app.use(express.static('public'))
 
 app.use(tradierRoutes);
 app.use(tickerRoutes);
+app.use(loginRoutes);
 app.use(errorHandler);
 
 const GOOGLE_CLIENT_ID: string = process.env.GOOGLE_CLIENT_ID!;
@@ -54,33 +56,33 @@ const ExchangeSources = {
 };
 
 // Verify Google token
-async function verifyGoogleToken(token: string) {
-  const ticket: LoginTicket = await client.verifyIdToken({ // verify credentials with Google
-    idToken: token,
-    audience: GOOGLE_CLIENT_ID,
-  });
-  return ticket.getPayload();
-}
+// async function verifyGoogleToken(token: string) {
+//   const ticket: LoginTicket = await client.verifyIdToken({ // verify credentials with Google
+//     idToken: token,
+//     audience: GOOGLE_CLIENT_ID,
+//   });
+//   return ticket.getPayload();
+// }
 
-app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: Response) => {
-  const { token } = req.body;
+// app.post('/api/auth/google', async (req: Request<{}, {}, {token: string}>, res: Response) => {
+//   const { token } = req.body;
 
-  try {
-    const payload: TokenPayload | undefined = await verifyGoogleToken(token); // Google verigies credentials
-    if (!payload) return res.status(401).json({ error: 'Invalid token' });
+//   try {
+//     const payload: TokenPayload | undefined = await verifyGoogleToken(token); // Google verigies credentials
+//     if (!payload) return res.status(401).json({ error: 'Invalid token' });
 
-    const sub: string = payload.sub; // Google’s unique user ID
-    if (!sub) return res.status(400).json({ error: 'Missing user ID' });
+//     const sub: string = payload.sub; // Google’s unique user ID
+//     if (!sub) return res.status(400).json({ error: 'Missing user ID' });
 
-    const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });  // create token valid for 7 days
+//     const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });  // create token valid for 7 days
 
-    // Send user token that is valid for 7days
-    res.json({ appToken });
-  } catch (err) {
-    console.error('Login error:', err);
-    res.status(500).json({ error: 'Authentication failed' });
-  }
-});
+//     // Send user token that is valid for 7days
+//     res.json({ appToken });
+//   } catch (err) {
+//     console.error('Login error:', err);
+//     res.status(500).json({ error: 'Authentication failed' });
+//   }
+// });
 
 // app.post('/api/tradier/markets/history', authenticate, async (req: Request<{}, {}, {symbol: string, interval: string, start: string, end: string}>, res: Response) => {
 //   const  options  = {
