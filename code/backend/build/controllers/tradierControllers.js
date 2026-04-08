@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMarketHistoryController = void 0;
 const ApiError_1 = __importDefault(require("../errors/ApiError"));
 const tradierService_1 = require("../services/tradierService");
+;
+;
 const getMarketHistoryController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { symbol, interval, start, end } = req.body;
     if (!symbol || !interval || !start || !end) {

@@ -1,7 +1,6 @@
 import { JSX, useState, useEffect } from 'react';
 import styles from '../css/HistoryGraph.module.css';
 import Plot from 'react-plotly.js';
-import ParseStockData from '../hooks/ParseStockData';
 
 function HistoryGraph({ data, symbol, interval, start, end }: {data: any, symbol: string, interval: string, start: string, end: string}): JSX.Element {
     const [x, setX] = useState<number[]>([1, 2, 3, 4, 5]);
@@ -12,12 +11,11 @@ function HistoryGraph({ data, symbol, interval, start, end }: {data: any, symbol
          if (!data) return; // if no data, do nothing
 
         const updateXY = async () => {  // parse data in the right format for plotly
-            const parsedData = await ParseStockData(data);
-            setX(parsedData.xValues);
-            setY(parsedData.yValues);
+            setX(data.xValues);
+            setY(data.yValues);
 
-            if (parsedData.yValues.length >= 2) {
-                const trend = parsedData.yValues[parsedData.yValues.length - 1] - parsedData.yValues[0];
+            if (data.yValues.length >= 2) {
+                const trend = data.yValues[data.yValues.length - 1] - data.yValues[0];
                 setColor(trend >= 0 ? 'green' : 'red'); // green for uptrend, red for downtrend
                 // future: could add color for each up and down segment, make this an option as it will be slower.
             }

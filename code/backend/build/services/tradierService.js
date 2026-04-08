@@ -17,6 +17,8 @@ exports.getMarketQuotes = getMarketQuotes;
 const ApiError_1 = __importDefault(require("../errors/ApiError"));
 const fs_1 = __importDefault(require("fs"));
 const json_2_csv_1 = require("json-2-csv");
+;
+;
 function getMarketHistory(symbol, interval, start, end) {
     return __awaiter(this, void 0, void 0, function* () {
         const options = {
@@ -27,10 +29,12 @@ function getMarketHistory(symbol, interval, start, end) {
             }
         };
         const response = yield fetch(`https://api.tradier.com/v1/markets/history?symbol=${symbol}&interval=${interval}&start=${start}&end=${end}`, options);
-        if (!response.ok) {
+        const jsonData = yield response.json();
+        if (!response.ok || !jsonData || !jsonData.history || !jsonData.history.day) {
             throw new ApiError_1.default(502, "TRADIER_API_FAILED", "Failed to fetch market history");
         }
-        return response.json();
+        const parsedData = yield ParseStockData(jsonData);
+        return parsedData;
     });
 }
 function getMarketQuotes(symbols, db) {
@@ -90,5 +94,14 @@ function addVolatilityAndDateToQuotes(data) {
             const volatility = (quote.high - quote.low) / quote.last;
             return Object.assign(Object.assign({}, quote), { volatility, date: new Date().toLocaleDateString('en-CA') });
         });
+    });
+}
+function ParseStockData(data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // args: raw stock data
+        // returns: Promise of parsed x and y values for graphing
+        const xValues = data.history.day.map((d) => d.date); // get timestamps as x values
+        const yValues = data.history.day.map((d) => d.close); // use closing prices as y values
+        return Promise.resolve({ xValues, yValues });
     });
 }

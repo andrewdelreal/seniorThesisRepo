@@ -3,13 +3,34 @@ import DBAbstraction from '../DBAbstraction';
 import fs from 'fs';
 import { json2csv } from 'json-2-csv';
 
+interface RawHistoryData {
+    history: {
+        day: [
+            {
+                date: string,
+                open: number,
+                high: number,
+                low: number,
+                close: number,
+                volume: number
+            }
+        ],
+        symbol: string
+     }
+};
+
+interface MarketHistoryData {
+    xValues: number[], 
+    yValues: number[]
+};
+
 export async function getMarketHistory(
     symbol: string, 
     interval: string, 
     start: string, 
     end: string
 ) {
-    const  options  = {
+    const options = {
         method: 'GET',
         headers: {
             Accept: 'application/json', 
@@ -22,14 +43,18 @@ export async function getMarketHistory(
         options
     );
 
-    if (!response.ok) { 
+    const jsonData: RawHistoryData = await response.json();
+
+    if (!response.ok || !jsonData || !jsonData.history || !jsonData.history.day) { 
         throw new ApiError( 502, 
             "TRADIER_API_FAILED", 
             "Failed to fetch market history" 
         ); 
     }
+    
+    const parsedData: MarketHistoryData = await ParseStockData(jsonData);
 
-    return response.json();
+    return parsedData;
 }
 
 export async function getMarketQuotes(symbols: string, db: DBAbstraction) {
@@ -99,4 +124,14 @@ async function addVolatilityAndDateToQuotes(data: any) {
     const volatility = (quote.high - quote.low) / quote.last;
     return { ...quote, volatility, date: new Date().toLocaleDateString('en-CA') };
   });
+}
+
+async function ParseStockData(data: {history: {day: Object[]}}): Promise<{xValues: number[], yValues: number[]}> {
+    // args: raw stock data
+    // returns: Promise of parsed x and y values for graphing
+
+    const xValues: number[] = data.history.day.map((d: any) => d.date); // get timestamps as x values
+    const yValues: number[] = data.history.day.map((d: any) => d.close); // use closing prices as y values
+
+    return Promise.resolve({ xValues, yValues });
 }

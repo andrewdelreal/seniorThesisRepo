@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
-
 interface StockHistoryParams {
   symbol: string;
   interval: string;

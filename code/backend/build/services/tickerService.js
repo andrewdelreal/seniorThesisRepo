@@ -51,12 +51,15 @@ function updateTickers() {
         fs_1.default.writeFileSync(`./cache/lastupdate.json`, JSON.stringify({ lastUpdate: new Date().toLocaleDateString('en-CA') }, null, 2));
         console.log('Updating tickers...');
         for (const [exchange, url] of Object.entries(ExchangeSources)) {
+            // get raw ticker data from github
             const response = yield fetch(url);
             if (!response.ok) {
                 throw new ApiError_1.default(500, 'TICKER_UPDATE_FAILURE', `Failed to fetch tickers for ${exchange} from github`);
             }
+            // parse ticker data to {name, string} format
             const data = yield response.json();
             const parsed = parseTickers(data);
+            // cache parsed tickers
             fs_1.default.writeFileSync(`./cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
             console.log(`Cached ${exchange} successfully`);
         }
