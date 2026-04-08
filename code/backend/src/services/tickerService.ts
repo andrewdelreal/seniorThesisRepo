@@ -35,6 +35,16 @@ export async function getTickers(
 }
 
 export async function updateTickers() {
+    const lastTickerUpdatePath = './cache/lastUpdate.json';
+    const data = JSON.parse(fs.readFileSync(lastTickerUpdatePath, 'utf8'));
+
+    if (data.lastUpdate === new Date().toLocaleDateString('en-CA')) {
+        console.log('Tickers are already up to date, skipping update');
+        return;
+    }
+
+    fs.writeFileSync(`./cache/lastupdate.json`, JSON.stringify({lastUpdate: new Date().toLocaleDateString('en-CA')}, null, 2));
+
     console.log('Updating tickers...');
 
     for (const [exchange, url] of Object.entries(ExchangeSources)) {
