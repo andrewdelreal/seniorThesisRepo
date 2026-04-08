@@ -8,15 +8,13 @@ import { PCA } from 'ml-pca';
 export async function cluster(
     date: string, 
     numClusters: number, 
-    dimensionsCSV: string, 
+    dimensions: string[], 
     isLog: boolean, 
-    isStandardized: number, 
+    isStandardized: boolean, 
     exchanges: string[], 
     dimensionReduction: string
 ) {
     const db: DBAbstraction = new DBAbstraction();
-
-    const dimensions = dimensionsCSV.split(',');
 
     // get the cluster data
     const result = await ClusterStocks(
@@ -53,7 +51,7 @@ async function ClusterStocks(
     numClusters: number, 
     dimensions: string[], 
     isLog: boolean, 
-    isStandardized: number, 
+    isStandardized: boolean, 
     exchanges: string[], 
     dimensionReduction: string
 ) {
@@ -120,7 +118,7 @@ async function DimensionReduction(df: pl.DataFrame, dimensions: string[], dimens
     let reducedValues!: number[][];
 
     if (dimensionReduction === 'PCA') { // reduce dimensions to 2 using PCA
-        const pca = new PCA(values);
+        const pca: PCA = new PCA(values);
         reducedValues = pca.predict(values, { nComponents: 2 }).to2DArray();
 
         if (!reducedValues) {

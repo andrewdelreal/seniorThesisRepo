@@ -1,5 +1,5 @@
-async function GetClusterData(date: string, numClusters: number, dimensionsCSV: string, isLog: string, isStandardized: string, exchanges: string[], dimensionReduction: string) {
-    console.log(date, numClusters, dimensionsCSV, isLog, isStandardized, exchanges, dimensionReduction);
+async function GetClusterData(date: string, numClusters: number, dimensions: string[], isLog: string, isStandardized: string, exchanges: string[], dimensionReduction: string) {
+    console.log(date, numClusters, dimensions, isLog, isStandardized, exchanges, dimensionReduction);
     const boolIsLog = isLog === 'true';
     const boolIsStandardized = isStandardized === 'true';
 
@@ -10,7 +10,7 @@ async function GetClusterData(date: string, numClusters: number, dimensionsCSV: 
                 'Content-Type': 'application/json',
                 'authorization': '' + localStorage.getItem('token'),
             },
-            body: JSON.stringify({ date, numClusters, dimensionsCSV, boolIsLog, boolIsStandardized, exchanges, dimensionReduction }),  // using all desired parameters
+            body: JSON.stringify({ date, numClusters, dimensions, boolIsLog, boolIsStandardized, exchanges, dimensionReduction }),  // using all desired parameters
         });
 
         const json = await res.json();

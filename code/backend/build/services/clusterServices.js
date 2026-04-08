@@ -19,10 +19,9 @@ const skmeans_1 = __importDefault(require("skmeans"));
 const nodejs_polars_1 = __importDefault(require("nodejs-polars"));
 const umap_js_1 = require("umap-js");
 const ml_pca_1 = require("ml-pca");
-function cluster(date, numClusters, dimensionsCSV, isLog, isStandardized, exchanges, dimensionReduction) {
+function cluster(date, numClusters, dimensions, isLog, isStandardized, exchanges, dimensionReduction) {
     return __awaiter(this, void 0, void 0, function* () {
         const db = new DBAbstraction_1.default();
-        const dimensions = dimensionsCSV.split(',');
         // get the cluster data
         const result = yield ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized, exchanges, dimensionReduction);
         if (!result) {

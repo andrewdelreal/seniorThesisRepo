@@ -69,7 +69,7 @@ function ClusterControls({
 
         const form = event.currentTarget.elements;
 
-        const dimensions = selectedDimensions.map(d => d.value).join(',');
+        const dimensions = selectedDimensions.map(d => d.value);
         const exchanges = selectedExchanges.map(e => e.value);
         const date = (form.namedItem('Date') as HTMLInputElement).value;
         const isLog = (form.namedItem('IsLog') as HTMLInputElement).value;
