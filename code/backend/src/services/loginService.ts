@@ -9,7 +9,9 @@ const APP_JWT_SECRET: string = process.env.APP_JWT_SECRET!;
 export async function verifyLogin(
     token: string
 ) {
-    const payload: TokenPayload | undefined = await verifyGoogleToken(token); // Google verigies credentials
+    // Google verigies credentials
+    const payload: TokenPayload | undefined = await verifyGoogleToken(token); 
+
     if (!payload) {
         throw new ApiError(
             401,
@@ -18,7 +20,8 @@ export async function verifyLogin(
         );
     }
     
-    const sub: string = payload.sub; // Google’s unique user ID
+    // Google’s unique user ID
+    const sub: string = payload.sub; 
     if (!sub) {
         throw new ApiError(
             400,
@@ -27,7 +30,8 @@ export async function verifyLogin(
         );
     }
 
-    const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });  // create token valid for 7 days
+    // create token valid for 7 days
+    const appToken: string = jwt.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });  
 
     // Send user token that is valid for 7days
     return({ appToken });
