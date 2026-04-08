@@ -1,4 +1,7 @@
 import ApiError from "../errors/ApiError";
+import DBAbstraction from '../DBAbstraction';
+import fs from 'fs';
+import { json2csv } from 'json-2-csv';
 
 export async function getMarketHistory(
     symbol: string, 
@@ -8,7 +11,10 @@ export async function getMarketHistory(
 ) {
     const  options  = {
         method: 'GET',
-        headers: {Accept: 'application/json', Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN}
+        headers: {
+            Accept: 'application/json', 
+            Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN
+        }
     };
 
     const response = await fetch(
@@ -17,10 +23,6 @@ export async function getMarketHistory(
     );
 
     if (!response.ok) { 
-        const text = await response.text(); 
-        
-        console.error("Tradier API error:", response.status, text);
-
         throw new ApiError( 502, 
             "TRADIER_API_FAILED", 
             "Failed to fetch market history" 
@@ -28,4 +30,73 @@ export async function getMarketHistory(
     }
 
     return response.json();
+}
+
+export async function getMarketQuotes(symbols: string, db: DBAbstraction) {
+    const options  = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + process.env.TRADIER_BEARER_TOKEN,
+        },
+        body: new URLSearchParams({symbols: symbols}),
+    };
+
+    const response = await fetch('https://api.tradier.com/v1/markets/quotes', options );
+
+    if (!response.ok) {
+        throw new ApiError( 502, 
+            "TRADIER_API_FAILED", 
+            "Failed to fetch market quotes" 
+        ); 
+    }
+
+    let jsondata = await response.json();
+    jsondata = jsondata.quotes.quote; // Extract the array of quotes from the response
+    jsondata = await cleanQuotes(jsondata);
+    jsondata = await addVolatilityAndDateToQuotes(jsondata);
+    console.log(jsondata.length + ' quotes fetched from Tradier API');
+
+    const data = await json2csv(jsondata);
+    await fs.writeFileSync('./cache/dailyquotes.csv', data);
+    await db.addDailyStockSnapshot();
+}
+
+async function cleanQuotes(data: any) {
+  function isValidEquity(quote: any) {
+    return (
+      quote.type === "stock" &&
+      quote.close !== null &&
+      quote.high !== null &&
+      quote.low !== null &&
+      quote.last !== null &&
+      quote.change !== null &&
+      quote.average_volume !== null &&
+      quote.volume > 10000
+    );
+  }
+
+  data = data.filter(isValidEquity);
+
+  const keysToKeep = ["symbol", "description", "exch", "last", "volume", "change_percent", "high", "low", "close", "change", "average_volume"];
+
+  const filteredData = data.map((item: any) => {
+      const newItem: any = {};
+      keysToKeep.forEach(key => {
+          if (item.hasOwnProperty(key)) {
+              newItem[key] = item[key];
+          }
+      });
+      return newItem;
+  });
+
+  return filteredData;
+}
+
+async function addVolatilityAndDateToQuotes(data: any) {
+  return data.map((quote: any) => {
+    const volatility = (quote.high - quote.low) / quote.last;
+    return { ...quote, volatility, date: new Date().toLocaleDateString('en-CA') };
+  });
 }

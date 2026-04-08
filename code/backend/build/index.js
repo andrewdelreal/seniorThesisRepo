@@ -19,6 +19,7 @@ const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const dailyStockUpdate_job_1 = require("./jobs/dailyStockUpdate.job");
 const tickerUpdate_job_1 = require("./jobs/tickerUpdate.job");
 const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
 const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
@@ -40,11 +41,10 @@ app.use(loginRoutes_1.default);
 app.use(clusterRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 (0, tickerUpdate_job_1.startTickerJobs)();
-// cron.schedule('30 15 * * *', () => DailyStockUpdate(db));
+(0, dailyStockUpdate_job_1.startStockUpdateJobs)();
 db.init()
     .then(() => {
     app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-        // await DailyStockUpdate(db);
         console.log(`Server is running on http://localhost:${PORT}`);
     }));
 }).catch((err) => {

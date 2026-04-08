@@ -6,13 +6,14 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
-import DailyStockUpdate from './DailyStockUpdate';
+import { startStockUpdateJobs } from './jobs/dailyStockUpdate.job';
 import { startTickerJobs } from './jobs/tickerUpdate.job';
 
 import tradierRoutes from './routes/tradierRoutes';
 import tickerRoutes from './routes/tickerRoutes';
 import loginRoutes from './routes/loginRoutes';
 import clusterRoutes from './routes/clusterRoutes';
+
 import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -36,12 +37,11 @@ app.use(clusterRoutes);
 app.use(errorHandler);
 
 startTickerJobs();
-// cron.schedule('30 15 * * *', () => DailyStockUpdate(db));
+startStockUpdateJobs();
 
 db.init()
     .then(() => {
         app.listen(PORT, async () => {
-            // await DailyStockUpdate(db);
             console.log(`Server is running on http://localhost:${PORT}`);
         });
     }).catch((err) => {
