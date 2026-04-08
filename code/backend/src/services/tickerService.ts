@@ -6,6 +6,26 @@ interface ExchangeItems {
   [key: string]: string;
 };
 
+interface GitHubTicker {
+    symbol: string,
+    name: string,
+    lastsale: string,
+    netchange: string,
+    pctchange: string,
+    volume: string,
+    marketCap: string,
+    country: string,
+    ipoyear: string,
+    industry: string,
+    sector: string,
+    url: string
+}
+
+interface Ticker {
+    name: string,
+    symbol: string
+}
+
 const ExchangeSources = {
   nasdaq: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nasdaq/nasdaq_full_tickers.json',
   nyse: 'https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nyse/nyse_full_tickers.json',
@@ -15,14 +35,14 @@ const ExchangeSources = {
 export async function getTickers(
     exchange: string
 ) {
-    const db = new DBAbstraction();
+    const db: DBAbstraction = new DBAbstraction();
 
     let exchDBSymbol: string = '';
     if (exchange === 'nasdaq') exchDBSymbol = 'Q';
     else if (exchange === 'nyse') exchDBSymbol = 'N';
     else exchDBSymbol = 'A';
 
-    const data = await db.getTickers(exchDBSymbol);
+    const data: Ticker[] | null = await db.getTickers(exchDBSymbol);
 
     if (!data) {
         throw new ApiError( 502, 
@@ -35,8 +55,8 @@ export async function getTickers(
 }
 
 export async function updateTickers() {
-    const lastTickerUpdatePath = './cache/lastUpdate.json';
-    const data = JSON.parse(fs.readFileSync(lastTickerUpdatePath, 'utf8'));
+    const lastTickerUpdatePath: string = './cache/lastUpdate.json';
+    const data: {lastUpdate: string} = JSON.parse(fs.readFileSync(lastTickerUpdatePath, 'utf8'));
 
     if (data.lastUpdate === new Date().toLocaleDateString('en-CA')) {
         console.log('Tickers are already up to date, skipping update');
@@ -48,7 +68,8 @@ export async function updateTickers() {
     console.log('Updating tickers...');
 
     for (const [exchange, url] of Object.entries(ExchangeSources)) {
-        const response = await fetch(url);
+        // get raw ticker data from github
+        const response: Response = await fetch(url);
 
         if (!response.ok) {
             throw new ApiError(
@@ -58,9 +79,11 @@ export async function updateTickers() {
             )
         }
 
-        const data: any = await response.json();
-        const parsed = parseTickers(data);
+        // parse ticker data to {name, string} format
+        const data: GitHubTicker[] = await response.json();
+        const parsed: Ticker[] = parseTickers(data);
 
+        // cache parsed tickers
         fs.writeFileSync(`./cache/${exchange}.json`, JSON.stringify(parsed, null, 2));
         console.log(`Cached ${exchange} successfully`);
     }

@@ -1,4 +1,4 @@
-import { Connection, Pool, PoolClient, Client } from 'pg';
+import { Connection, Pool, PoolClient, Client, QueryResult } from 'pg';
 import dotenv from 'dotenv';
 import path, { resolve } from 'path';
 import fs from 'fs';
@@ -11,6 +11,11 @@ const POSTGRES_PASSWORD: string = process.env.POSTGRES_PASSWORD!;
 const POSTGRES_HOST: string = process.env.POSTGRES_HOST!;
 const POSTGRES_PORT: number = parseInt(process.env.POSTGRES_PORT!);
 const POSTGRES_DB: string = process.env.POSTGRES_DB!;
+
+interface Ticker {
+    name: string,
+    symbol: string
+}
 
 class DBAbstraction {
     pool!: Pool;
@@ -160,9 +165,9 @@ class DBAbstraction {
                     ORDER BY symbol ASC;
                 `;
 
-                const rows = await client.query(query, [exchDBSymbol]);
+                const rows: QueryResult = await client.query(query, [exchDBSymbol]);
                 // format rows into a list of { name: string, symbol: string } objects
-                const tickers = rows.rows.map((row: any) => {
+                const tickers: Ticker[] = rows.rows.map((row: any) => {
                     return { name: row.description.substring(0, 100), symbol: row.symbol}
                 });
 
@@ -192,7 +197,7 @@ class DBAbstraction {
                     AND exch = ANY($1::text[]);
                 `;
 
-                const rows = await client.query(query, [exchanges]);
+                const rows: QueryResult = await client.query(query, [exchanges]);
                 resolve(rows.rows);
             } catch (err) {
                 console.error('Error connecting to database to get quotes:', err);

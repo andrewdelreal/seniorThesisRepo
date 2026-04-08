@@ -21,15 +21,18 @@ const client = new google_auth_library_1.OAuth2Client(GOOGLE_CLIENT_ID);
 const APP_JWT_SECRET = process.env.APP_JWT_SECRET;
 function verifyLogin(token) {
     return __awaiter(this, void 0, void 0, function* () {
-        const payload = yield verifyGoogleToken(token); // Google verigies credentials
+        // Google verigies credentials
+        const payload = yield verifyGoogleToken(token);
         if (!payload) {
             throw new ApiError_1.default(401, "AUTH_INVALID_TOKEN", "Invalid token");
         }
-        const sub = payload.sub; // Google’s unique user ID
+        // Google’s unique user ID
+        const sub = payload.sub;
         if (!sub) {
             throw new ApiError_1.default(400, "AUTH_MISSING_USER_ID", "Missing user ID");
         }
-        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' }); // create token valid for 7 days
+        // create token valid for 7 days
+        const appToken = jsonwebtoken_1.default.sign({ googleId: sub }, APP_JWT_SECRET, { expiresIn: '7d' });
         // Send user token that is valid for 7days
         return ({ appToken });
     });

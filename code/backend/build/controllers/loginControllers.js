@@ -17,9 +17,11 @@ const ApiError_1 = __importDefault(require("../errors/ApiError"));
 const loginService_1 = require("../services/loginService");
 const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token } = req.body;
+    // If token is missing
     if (!token) {
         throw new ApiError_1.default(400, "INVALID_REQUEST", "Missing required parameters");
     }
+    // Verify and generate app token
     const data = yield (0, loginService_1.verifyLogin)(token);
     res.status(200).json({
         success: true,

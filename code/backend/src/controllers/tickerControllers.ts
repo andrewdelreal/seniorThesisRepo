@@ -2,8 +2,13 @@ import { Request, Response } from "express";
 import  ApiError  from "../errors/ApiError";
 import { getTickers } from "../services/tickerService";
 
+interface Ticker {
+    name: string,
+    symbol: string
+}
+
 export const tickerController = async (req: Request, res: Response) => {
-    const { exchange } = req.body;
+    const { exchange }: {exchange: string} = req.body;
 
     if (!exchange) {
         throw new ApiError(
@@ -13,7 +18,7 @@ export const tickerController = async (req: Request, res: Response) => {
         );
     }
 
-    const data = await getTickers(exchange);
+    const data: Ticker[] | null = await getTickers(exchange);
 
     res.status(200).json({
         success: true,

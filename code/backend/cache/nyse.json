@@ -2392,6 +2392,10 @@
     "symbol": "DBRG"
   },
   {
+    "name": "Dime Community Bancshares Inc. (DCBG)",
+    "symbol": "DCBG"
+  },
+  {
     "name": "Dauch Corporation Common Stock (DCH)",
     "symbol": "DCH"
   },
@@ -2402,6 +2406,10 @@
   {
     "name": "Ducommun Incorporated Common Stock (DCO)",
     "symbol": "DCO"
+  },
+  {
+    "name": "Dime Community Bancshares Inc. Common Stock (DCOM)",
+    "symbol": "DCOM"
   },
   {
     "name": "DuPont de Nemours Inc. Common Stock (DD)",
@@ -2870,6 +2878,10 @@
   {
     "name": "e.l.f. Beauty Inc. Common Stock (ELF)",
     "symbol": "ELF"
+  },
+  {
+    "name": "Ellington Credit Company (ELLA)",
+    "symbol": "ELLA"
   },
   {
     "name": "Elme Communities Common Stock (ELME)",
@@ -6212,6 +6224,10 @@
     "symbol": "OFRM"
   },
   {
+    "name": "OceanaGold Corporation (OGC)",
+    "symbol": "OGC"
+  },
+  {
     "name": "OGE Energy Corp Common Stock (OGE)",
     "symbol": "OGE"
   },
@@ -6958,6 +6974,10 @@
   {
     "name": "Rithm Acquisition Corp. Class A Ordinary Shares (RAC)",
     "symbol": "RAC"
+  },
+  {
+    "name": "Rithm Acquisition Corp. (RAC/WS)",
+    "symbol": "RAC/WS"
   },
   {
     "name": "Ferrari N.V. Common Shares (RACE)",
@@ -8692,6 +8712,10 @@
     "symbol": "VAC"
   },
   {
+    "name": "Viking Acquisition Corp. I Class A Ordinary Shares (VACI)",
+    "symbol": "VACI"
+  },
+  {
     "name": "Valaris Limited Common Shares (VAL)",
     "symbol": "VAL"
   },
@@ -9238,10 +9262,6 @@
   {
     "name": "Yalla Group Limited American Depositary Shares eac (YALA)",
     "symbol": "YALA"
-  },
-  {
-    "name": "AA Mission Acquisition Corp. II Class A Ordinary S (YCY)",
-    "symbol": "YCY"
   },
   {
     "name": "Yelp Inc. Common Stock (YELP)",
