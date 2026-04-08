@@ -3,7 +3,7 @@ import  ApiError  from "../errors/ApiError";
 import { verifyLogin } from "../services/loginService";
 
 export const loginController = async (req: Request, res: Response) => {
-    const { token } = req.body;
+    const { token }: { token: string } = req.body;
 
     if (!token) {
         throw new ApiError(
