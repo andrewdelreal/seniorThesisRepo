@@ -43,11 +43,32 @@ class SBAbstraction {
                     return { name: row.description.substring(0, 100), symbol: row.symbol}
                 });
 
-                console.log(tickers);
+                // console.log(tickers);
 
                 resolve(tickers);
             } catch (err) {
                 console.error('Error connecting to database to get tickers:', err);
+                reject(err);
+            } finally {
+                if (client) {
+                    client.release();
+                }
+            }
+        });
+    }
+
+    async areTodaysQuotesInDatabase(): Promise<boolean> {
+        return new Promise(async (resolve, reject) => {
+            let client: PoolClient | null = null;
+            try {
+                client = await this.pool.connect();
+                const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
+                const query = 'SELECT COUNT(*) FROM public."DailyStockSnapshot" WHERE date = $1';
+                const result = await client.query(query, [today]);
+                // console.log(result.rows[0].count > 0);
+                resolve(result.rows[0].count > 0);
+            } catch (err) {
+                console.error('Error checking if today\'s quotes are in database:', err);
                 reject(err);
             } finally {
                 if (client) {

@@ -41,7 +41,8 @@ app.use(clusterRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 // test connections for now
 const sb = new SBAbstraction_1.default();
-sb.getTickers('Q');
+// sb.getTickers('Q');
+sb.areTodaysQuotesInDatabase();
 // uncomment later
 // startTickerJobs();
 // startStockUpdateJobs();

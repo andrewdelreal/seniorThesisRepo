@@ -57,5 +57,29 @@ class SBAbstraction {
             }));
         });
     }
+    areTodaysQuotesInDatabase() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                let client = null;
+                try {
+                    client = yield this.pool.connect();
+                    const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
+                    const query = 'SELECT COUNT(*) FROM public."DailyStockSnapshot" WHERE date = $1';
+                    const result = yield client.query(query, [today]);
+                    console.log(result.rows[0].count > 0);
+                    resolve(result.rows[0].count > 0);
+                }
+                catch (err) {
+                    console.error('Error checking if today\'s quotes are in database:', err);
+                    reject(err);
+                }
+                finally {
+                    if (client) {
+                        client.release();
+                    }
+                }
+            }));
+        });
+    }
 }
 exports.default = SBAbstraction;

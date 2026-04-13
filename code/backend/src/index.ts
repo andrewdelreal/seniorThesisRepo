@@ -39,7 +39,8 @@ app.use(errorHandler);
 
 // test connections for now
 const sb = new SBAbstraction();
-sb.getTickers('Q');
+// sb.getTickers('Q');
+sb.areTodaysQuotesInDatabase();
 
 // uncomment later
 // startTickerJobs();
