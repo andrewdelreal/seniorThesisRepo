@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.0",
     "danfojs": "^1.2.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",

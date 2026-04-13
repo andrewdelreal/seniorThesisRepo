@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import path from 'path';
 import DBAbstraction from './DBAbstraction';
+import SBAbstraction from './SBAbstraction';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
@@ -36,8 +37,13 @@ app.use(loginRoutes);
 app.use(clusterRoutes);
 app.use(errorHandler);
 
-startTickerJobs();
-startStockUpdateJobs();
+// test connections for now
+const sb = new SBAbstraction();
+sb.getTickers('Q');
+
+// uncomment later
+// startTickerJobs();
+// startStockUpdateJobs();
 
 db.init()
     .then(() => {

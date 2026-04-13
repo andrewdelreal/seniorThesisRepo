@@ -1,0 +1,60 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const pg_1 = require("pg");
+const SB_USER = process.env.SB_USER;
+const SB_PASSWORD = process.env.SB_PASSWORD;
+const SB_HOST = process.env.SB_HOST;
+const SB_PORT = parseInt(process.env.SB_PORT);
+const SB_DATABASE = process.env.SB_DATABASE;
+class SBAbstraction {
+    constructor() {
+        this.client = new pg_1.Client({
+            host: SB_HOST,
+            port: SB_PORT, // 5432 for session/direct, 6543 for transaction pooling
+            user: SB_USER,
+            password: SB_PASSWORD,
+            database: SB_DATABASE,
+        });
+    }
+    getTickers(exchDBSymbol) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    yield this.client.connect();
+                    const query = ` 
+                    SELECT DISTINCT symbol, description
+                    FROM public."DailyStockSnapshot"
+                    WHERE exch = $1
+                    ORDER BY symbol ASC;
+                `;
+                    const rows = yield this.client.query(query, [exchDBSymbol]);
+                    // format rows into a list of { name: string, symbol: string } objects
+                    const tickers = rows.rows.map((row) => {
+                        return { name: row.description.substring(0, 100), symbol: row.symbol };
+                    });
+                    console.log(tickers);
+                    resolve(tickers);
+                }
+                catch (err) {
+                    console.error('Error connecting to database to get tickers:', err);
+                    reject(err);
+                }
+                finally {
+                    if (this.client) {
+                        this.client.end();
+                    }
+                }
+            }));
+        });
+    }
+}
+exports.default = SBAbstraction;
