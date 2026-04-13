@@ -1,0 +1,35 @@
+name: Run Supabase Stock Update Job
+
+on:
+  schedule:
+    # Runs at 4 PM CST (which is 22:00 UTC during standard time, 21:00 UTC during daylight savings)
+    - cron: '0 22 * * *'
+  workflow_dispatch: # allows manual trigger too
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: code/backend
+        run: npm install
+      
+      - name: Run stock update job
+        working-directory: code/backend
+        run: node build/supabaseStockUpdate.job.js
+        env:
+          SB_HOST: ${{ secrets.SB_HOST }}
+          SB_PORT: ${{ secrets.SB_PORT }}
+          SB_DATABASE: ${{ secrets.SB_DATABASE }}
+          SB_USER: ${{ secrets.SB_USER }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          TRADIER_BEARER_TOKEN: ${{ secrets.TRADIER_BEARER_TOKEN }}
