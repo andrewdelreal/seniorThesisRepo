@@ -1,5 +1,4 @@
 import ApiError from "../errors/ApiError";
-import DBAbstraction from '../DBAbstraction';
 import fs from 'fs';
 import { json2csv } from 'json-2-csv';
 
@@ -57,7 +56,7 @@ export async function getMarketHistory(
     return parsedData;
 }
 
-export async function getMarketQuotes(symbols: string, db: DBAbstraction) {
+export async function getMarketQuotes(symbols: string) {
     const options  = {
         method: 'POST',
         headers: {
@@ -85,7 +84,6 @@ export async function getMarketQuotes(symbols: string, db: DBAbstraction) {
 
     const data = await json2csv(jsondata);
     await fs.writeFileSync('./cache/dailyquotes.csv', data);
-    await db.addDailyStockSnapshot();
 }
 
 async function cleanQuotes(data: any) {

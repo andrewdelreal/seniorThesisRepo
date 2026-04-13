@@ -1,13 +1,13 @@
-import DBAbstraction from '../DBAbstraction';
+import SBAbstraction from '../SBAbstraction';
 import fs from 'fs';
 import { getMarketQuotes } from '../services/tradierService';
 import ApiError from '../errors/ApiError';
 
-export async function DailyStockUpdate() {
+export async function SupabaseDailyStockUpdate() {
     // check if today is already in the database
-    const db = new DBAbstraction();
+    const sb = new SBAbstraction();
 
-    if (await db.areTodaysQuotesInDatabase()) {
+    if (await sb.areTodaysQuotesInDatabase()) {
         console.log('Today\'s stock data is already in the database, skipping update');
         return;
     }
@@ -32,7 +32,7 @@ export async function DailyStockUpdate() {
             const tickers = data.map((item: any) => item.symbol).join(',');
         
             await getMarketQuotes(tickers);
-            await db.addDailyStockSnapshot();
+            await sb.addDailyStockSnapshot();
             // add quotes to database or process as needed
             console.log(data.length + ' tickers found for daily stock update');
         }
@@ -47,4 +47,4 @@ export async function DailyStockUpdate() {
       console.log('Daily stock update executed');
 }
 
-export default DailyStockUpdate;
+export default SupabaseDailyStockUpdate;

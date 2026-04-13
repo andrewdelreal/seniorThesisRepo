@@ -38,13 +38,13 @@ app.use(clusterRoutes);
 app.use(errorHandler);
 
 // test connections for now
-const sb = new SBAbstraction();
-// sb.getTickers('Q');
-sb.areTodaysQuotesInDatabase();
+// const sb = new SBAbstraction();
+// // sb.getTickers('Q');
+// sb.areTodaysQuotesInDatabase();
 
 // uncomment later
-// startTickerJobs();
-// startStockUpdateJobs();
+startTickerJobs();
+startStockUpdateJobs();
 
 db.init()
     .then(() => {

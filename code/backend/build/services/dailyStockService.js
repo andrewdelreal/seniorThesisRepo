@@ -41,6 +41,7 @@ function DailyStockUpdate() {
                 const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
                 const tickers = data.map((item) => item.symbol).join(',');
                 yield (0, tradierService_1.getMarketQuotes)(tickers, db);
+                yield db.addDailyStockSnapshot();
                 // add quotes to database or process as needed
                 console.log(data.length + ' tickers found for daily stock update');
             }

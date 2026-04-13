@@ -1,6 +1,6 @@
 import { Pool, PoolClient, QueryResult } from 'pg';
 import dotenv from 'dotenv';
-import path, { resolve } from 'path';
+import path from 'path';
 import fs from 'fs';
 import { from as copyFrom} from 'pg-copy-streams';
 

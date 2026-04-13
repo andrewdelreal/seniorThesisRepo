@@ -59,7 +59,6 @@ function getMarketQuotes(symbols, db) {
         console.log(jsondata.length + ' quotes fetched from Tradier API');
         const data = yield (0, json_2_csv_1.json2csv)(jsondata);
         yield fs_1.default.writeFileSync('./cache/dailyquotes.csv', data);
-        yield db.addDailyStockSnapshot();
     });
 }
 function cleanQuotes(data) {
