@@ -39,8 +39,10 @@ app.use(tickerRoutes_1.default);
 app.use(loginRoutes_1.default);
 app.use(clusterRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
+// test connections for now
 const sb = new SBAbstraction_1.default();
 sb.getTickers('Q');
+// uncomment later
 // startTickerJobs();
 // startStockUpdateJobs();
 db.init()

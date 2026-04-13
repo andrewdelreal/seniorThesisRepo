@@ -17,9 +17,9 @@ const SB_PORT = parseInt(process.env.SB_PORT);
 const SB_DATABASE = process.env.SB_DATABASE;
 class SBAbstraction {
     constructor() {
-        this.client = new pg_1.Client({
+        this.pool = new pg_1.Pool({
             host: SB_HOST,
-            port: SB_PORT, // 5432 for session/direct, 6543 for transaction pooling
+            port: SB_PORT,
             user: SB_USER,
             password: SB_PASSWORD,
             database: SB_DATABASE,
@@ -28,15 +28,16 @@ class SBAbstraction {
     getTickers(exchDBSymbol) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                let client = null;
                 try {
-                    yield this.client.connect();
+                    client = yield this.pool.connect();
                     const query = ` 
                     SELECT DISTINCT symbol, description
                     FROM public."DailyStockSnapshot"
                     WHERE exch = $1
                     ORDER BY symbol ASC;
                 `;
-                    const rows = yield this.client.query(query, [exchDBSymbol]);
+                    const rows = yield client.query(query, [exchDBSymbol]);
                     // format rows into a list of { name: string, symbol: string } objects
                     const tickers = rows.rows.map((row) => {
                         return { name: row.description.substring(0, 100), symbol: row.symbol };
@@ -49,8 +50,8 @@ class SBAbstraction {
                     reject(err);
                 }
                 finally {
-                    if (this.client) {
-                        this.client.end();
+                    if (client) {
+                        client.release();
                     }
                 }
             }));

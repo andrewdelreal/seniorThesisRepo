@@ -1,4 +1,4 @@
-import { Client, QueryResult } from "pg";
+import { Pool, PoolClient, QueryResult } from "pg";
 
 const SB_USER: string = process.env.SB_USER!;
 const SB_PASSWORD: string = process.env.SB_PASSWORD!;
@@ -12,10 +12,10 @@ interface Ticker {
 }
 
 class SBAbstraction {
-    client!: Client;
+    pool!: Pool;
 
     constructor() {
-        this.client = new Client({
+        this.pool = new Pool({
             host: SB_HOST,
             port: SB_PORT,
             user: SB_USER,
@@ -26,8 +26,9 @@ class SBAbstraction {
 
     async getTickers(exchDBSymbol: string): Promise<Ticker[]> {
         return new Promise(async (resolve, reject) => {
+            let client: PoolClient | null = null;
             try {
-                await this.client.connect();
+                client = await this.pool.connect();
 
                 const query = ` 
                     SELECT DISTINCT symbol, description
@@ -36,7 +37,7 @@ class SBAbstraction {
                     ORDER BY symbol ASC;
                 `;
 
-                const rows: QueryResult = await this.client.query(query, [exchDBSymbol]);
+                const rows: QueryResult = await client.query(query, [exchDBSymbol]);
                 // format rows into a list of { name: string, symbol: string } objects
                 const tickers: Ticker[] = rows.rows.map((row: any) => {
                     return { name: row.description.substring(0, 100), symbol: row.symbol}
@@ -49,8 +50,8 @@ class SBAbstraction {
                 console.error('Error connecting to database to get tickers:', err);
                 reject(err);
             } finally {
-                if (this.client) {
-                    this.client.end();
+                if (client) {
+                    client.release();
                 }
             }
         });

@@ -1,4 +1,4 @@
-import { Connection, Pool, PoolClient, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, QueryResult } from 'pg';
 import dotenv from 'dotenv';
 import path, { resolve } from 'path';
 import fs from 'fs';
