@@ -27,6 +27,7 @@ jobs:
         working-directory: code/backend
         run: node build/supabaseStockUpdate.job.js
         env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
           SB_HOST: ${{ secrets.SB_HOST }}
           SB_PORT: ${{ secrets.SB_PORT }}
           SB_DATABASE: ${{ secrets.SB_DATABASE }}
