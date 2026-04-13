@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DailyStockUpdate = DailyStockUpdate;
-const DBAbstraction_1 = __importDefault(require("../DBAbstraction"));
+exports.SupabaseDailyStockUpdate = SupabaseDailyStockUpdate;
+const SBAbstraction_1 = __importDefault(require("../SBAbstraction"));
 const fs_1 = __importDefault(require("fs"));
 const tradierService_1 = require("../services/tradierService");
 const ApiError_1 = __importDefault(require("../errors/ApiError"));
-function DailyStockUpdate() {
+function SupabaseDailyStockUpdate() {
     return __awaiter(this, void 0, void 0, function* () {
         // check if today is already in the database
-        const db = new DBAbstraction_1.default();
-        if (yield db.areTodaysQuotesInDatabase()) {
+        const sb = new SBAbstraction_1.default();
+        if (yield sb.areTodaysQuotesInDatabase()) {
             console.log('Today\'s stock data is already in the database, skipping update');
             return;
         }
@@ -41,7 +41,7 @@ function DailyStockUpdate() {
                 const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
                 const tickers = data.map((item) => item.symbol).join(',');
                 yield (0, tradierService_1.getMarketQuotes)(tickers);
-                yield db.addDailyStockSnapshot();
+                yield sb.addDailyStockSnapshot();
                 // add quotes to database or process as needed
                 console.log(data.length + ' tickers found for daily stock update');
             }
@@ -57,4 +57,4 @@ function DailyStockUpdate() {
         console.log('Daily stock update executed');
     });
 }
-exports.default = DailyStockUpdate;
+exports.default = SupabaseDailyStockUpdate;

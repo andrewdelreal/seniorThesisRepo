@@ -1,7 +1,10 @@
 import {SupabaseDailyStockUpdate} from '../services/supabaseStockUpdate';
 
-async function startSupabaseStockUpdateJob() {
-    await SupabaseDailyStockUpdate();
-}
-
-startSupabaseStockUpdateJob();
+SupabaseDailyStockUpdate().then(() => {
+    console.log('Job completed');
+    process.exit(0);
+})
+.catch((err) => {
+    console.error(err);
+    process.exit(1);
+});

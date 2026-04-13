@@ -37,7 +37,7 @@ function getMarketHistory(symbol, interval, start, end) {
         return parsedData;
     });
 }
-function getMarketQuotes(symbols, db) {
+function getMarketQuotes(symbols) {
     return __awaiter(this, void 0, void 0, function* () {
         const options = {
             method: 'POST',

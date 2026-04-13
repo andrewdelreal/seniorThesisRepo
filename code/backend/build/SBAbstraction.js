@@ -14,7 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const fs_1 = __importDefault(require("fs"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const path_1 = __importDefault(require("path"));
 const pg_copy_streams_1 = require("pg-copy-streams");
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const SB_USER = process.env.SB_USER;
 const SB_PASSWORD = process.env.SB_PASSWORD;
 const SB_HOST = process.env.SB_HOST;
