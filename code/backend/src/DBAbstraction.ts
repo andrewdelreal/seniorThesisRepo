@@ -192,9 +192,11 @@ class DBAbstraction {
 
                 // will not hard code this later
                 const query = `
-                    SELECT * FROM public."DailyStockSnapshot"
-                    WHERE date = '2026-02-26'
-                    AND exch = ANY($1::text[]);
+                    SELECT s.id, t.symbol, t.description, t.exch, s.date, s.last, s.volume, s.high, s.low, s.volatility, s.close, s.change, s.average_volume
+                    FROM public."DailyStockSnapshot" s, public."Ticker" t
+                    WHERE s.ticker_id = t.id
+                    AND s.date = '2026-02-26'
+                    AND t.exch = ANY($1::text[]);
                 `;
 
                 const rows: QueryResult = await client.query(query, [exchanges]);
