@@ -43,8 +43,8 @@ app.use(errorHandler);
 // sb.areTodaysQuotesInDatabase();
 
 // uncomment later
-startTickerJobs();
-startStockUpdateJobs();
+// startTickerJobs();
+// startStockUpdateJobs();
 
 db.init()
     .then(() => {

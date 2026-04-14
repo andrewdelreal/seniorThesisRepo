@@ -160,8 +160,8 @@ class DBAbstraction {
                 try {
                     client = yield this.pool.connect();
                     const query = ` 
-                    SELECT DISTINCT symbol, description
-                    FROM public."DailyStockSnapshot"
+                    SELECT DISTINCT symbol, description 
+                    FROM public."Ticker"
                     WHERE exch = $1
                     ORDER BY symbol ASC;
                 `;
