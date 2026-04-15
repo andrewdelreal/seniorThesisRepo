@@ -26,11 +26,10 @@ function SupabaseDailyStockUpdate() {
         }
         // if the time is before 3:00 pm local time, don't run this
         const now = new Date();
-        // Market close = 21:00 UTC (4 PM EST) or 20:00 UTC (DST)
-        const marketCloseHourUTC = 21; // adjust if needed
-        const marketCloseTime = new Date();
-        marketCloseTime.setUTCHours(marketCloseHourUTC, 0, 0, 0);
-        if (now < marketCloseTime) {
+        const estNow = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+        const marketCloseTime = new Date(estNow);
+        marketCloseTime.setHours(16, 0, 0, 0); // 4:00 PM EST/EDT
+        if (estNow < marketCloseTime) {
             console.log('Market is not yet closed, skipping daily stock update');
             return;
         }
