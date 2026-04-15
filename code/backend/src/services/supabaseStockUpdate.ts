@@ -20,7 +20,7 @@ export async function SupabaseDailyStockUpdate() {
     const now = new Date();
 
     const estNow = new Date(
-        now.toLocaleString("en-US", { timeZone: "America/New_York" })
+        now.toLocaleString("en-CA", { timeZone: "America/New_York" })
     );
 
     const marketCloseTime = new Date(estNow);

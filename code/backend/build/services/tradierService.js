@@ -91,7 +91,7 @@ function addVolatilityAndDateToQuotes(data) {
     return __awaiter(this, void 0, void 0, function* () {
         return data.map((quote) => {
             const volatility = (quote.high - quote.low) / quote.last;
-            return Object.assign(Object.assign({}, quote), { volatility, date: new Date().toLocaleDateString('en-CA') });
+            return Object.assign(Object.assign({}, quote), { volatility, date: new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }) });
         });
     });
 }

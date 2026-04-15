@@ -120,7 +120,7 @@ async function cleanQuotes(data: any) {
 async function addVolatilityAndDateToQuotes(data: any) {
   return data.map((quote: any) => {
     const volatility = (quote.high - quote.low) / quote.last;
-    return { ...quote, volatility, date: new Date().toLocaleDateString('en-CA') };
+    return { ...quote, volatility, date: new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }) };
   });
 }
 

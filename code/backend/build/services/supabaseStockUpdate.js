@@ -26,7 +26,7 @@ function SupabaseDailyStockUpdate() {
         }
         // if the time is before 3:00 pm local time, don't run this
         const now = new Date();
-        const estNow = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+        const estNow = new Date(now.toLocaleString("en-CA", { timeZone: "America/New_York" }));
         const marketCloseTime = new Date(estNow);
         marketCloseTime.setHours(16, 0, 0, 0); // 4:00 PM EST/EDT
         if (estNow < marketCloseTime) {
