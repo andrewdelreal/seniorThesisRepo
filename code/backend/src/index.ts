@@ -44,7 +44,7 @@ app.use(errorHandler);
 
 // uncomment later
 // startTickerJobs();
-// startStockUpdateJobs();
+startStockUpdateJobs();
 
 db.init()
     .then(() => {

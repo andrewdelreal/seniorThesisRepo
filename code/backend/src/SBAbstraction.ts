@@ -39,8 +39,28 @@ class SBAbstraction {
 
                 await client.query("BEGIN");
 
+                console.log("Creating temp table...");
+                await client.query(`
+                    CREATE TABLE IF NOT EXISTS public."daily_snapshot_staging" (
+                        symbol TEXT,
+                        description TEXT,
+                        exch TEXT,
+                        last NUMERIC,
+                        volume BIGINT,
+                        high NUMERIC,
+                        low NUMERIC,
+                        close NUMERIC,
+                        change NUMERIC,
+                        average_volume BIGINT,
+                        volatility NUMERIC,
+                        date DATE
+                    );
+                `);
+
+                // need to change this for it to work
+                console.log("Starting COPY...");
                 const copyQuery = `
-                    COPY public."DailyStockSnapshot"
+                    COPY public."daily_snapshot_staging"
                     (symbol, description, exch, last, volume, high, low, close, change, average_volume, volatility, date)
                     FROM STDIN WITH (FORMAT CSV, HEADER true);
                 `;
@@ -56,12 +76,52 @@ class SBAbstraction {
                         .on("error", reject);
                 });
 
+                console.log("Running INSERT...");
+                await client.query(`
+                    INSERT INTO public."DailyStockSnapshot" (
+                        ticker_id,
+                        last,
+                        volume,
+                        high,
+                        low,
+                        close,
+                        change,
+                        average_volume,
+                        volatility,
+                        date
+                    )
+                    SELECT 
+                        t.id,
+                        s.last,
+                        s.volume,
+                        s.high,
+                        s.low,
+                        s.close,
+                        s.change,
+                        s.average_volume,
+                        s.volatility,
+                        s.date
+                    FROM public."daily_snapshot_staging" s
+                    JOIN public."Ticker" t
+                    ON s.symbol = t.symbol
+                    AND s.exch = t.exch
+                    AND s.description = t.description;
+                `);
+
+                console.log('Clearing temp table...');
+                await client.query(`DELETE FROM public."daily_snapshot_staging";`);
+
                 await client.query("COMMIT");
 
                 console.log('Inserted daily stock snapshot into database');
                 resolve();
             } catch (err) {
-                console.error('Error adding daily stock snapshot to database:', err);
+                try {
+                    await client?.query("ROLLBACK");
+                    console.log("Transaction rolled back");
+                } catch (rollbackErr) {
+                    console.error("Rollback failed:", rollbackErr);
+                }
                 reject(err); // Resolve even on error to prevent blocking future updates
             } finally {
                 if (client) {

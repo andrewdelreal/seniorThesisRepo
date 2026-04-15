@@ -19,6 +19,7 @@ const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const dailyStockUpdate_job_1 = require("./jobs/dailyStockUpdate.job");
 const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
 const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
 const loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
@@ -44,7 +45,7 @@ app.use(errorHandler_1.errorHandler);
 // sb.areTodaysQuotesInDatabase();
 // uncomment later
 // startTickerJobs();
-// startStockUpdateJobs();
+(0, dailyStockUpdate_job_1.startStockUpdateJobs)();
 db.init()
     .then(() => {
     app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {

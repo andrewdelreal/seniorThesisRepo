@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SupabaseDailyStockUpdate = SupabaseDailyStockUpdate;
 const SBAbstraction_1 = __importDefault(require("../SBAbstraction"));
-const fs_1 = __importDefault(require("fs"));
 const tradierService_1 = require("../services/tradierService");
 const ApiError_1 = __importDefault(require("../errors/ApiError"));
 function SupabaseDailyStockUpdate() {
@@ -34,23 +33,28 @@ function SupabaseDailyStockUpdate() {
             return;
         }
         console.log('Running daily stock update...');
-        const exchanges = ['nasdaq', 'nyse', 'amex'];
+        const exchanges = ['Q', 'N', 'A'];
         for (const exchange of exchanges) {
             try {
-                const filePath = `./cache/${exchange}.json`;
-                const data = JSON.parse(fs_1.default.readFileSync(filePath, 'utf8'));
-                const tickers = data.map((item) => item.symbol).join(',');
+                // get ticker from database
+                const tickerData = yield sb.getTickers(exchange);
+                if (!tickerData || tickerData.length === 0) {
+                    console.log(`No tickers found for exchange ${exchange}, skipping...`);
+                    continue;
+                }
+                // get tickers into a string for the API call
+                const tickers = tickerData.map((item) => item.symbol).join(',');
                 yield (0, tradierService_1.getMarketQuotes)(tickers);
                 yield sb.addDailyStockSnapshot();
                 // add quotes to database or process as needed
-                console.log(data.length + ' tickers found for daily stock update');
+                console.log(tickerData.length + ' tickers found for daily stock update');
             }
             catch (err) {
                 if (err instanceof ApiError_1.default) {
-                    console.error(`[Ticker Job] API Error: ${err.message}`);
+                    console.error(`[Stock Update Job] API Error: ${err.message}`);
                 }
                 else {
-                    console.error('[Ticker Job] Unknown Error:', err);
+                    console.error('[Stock Update Job] Unknown Error:', err);
                 }
             }
         }
