@@ -18,8 +18,12 @@ export async function SupabaseDailyStockUpdate() {
 
     // if the time is before 3:00 pm local time, don't run this
     const now = new Date();
+
+    // Market close = 21:00 UTC (4 PM EST) or 20:00 UTC (DST)
+    const marketCloseHourUTC = 21; // adjust if needed
+
     const marketCloseTime = new Date();
-    marketCloseTime.setHours(15, 0, 0, 0); // Set to 3:00 PM local time
+    marketCloseTime.setUTCHours(marketCloseHourUTC, 0, 0, 0);
 
     if (now < marketCloseTime) {
         console.log('Market is not yet closed, skipping daily stock update');
