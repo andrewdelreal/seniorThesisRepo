@@ -1,14 +1,12 @@
 import express, { Application } from 'express';
 import path from 'path';
 import DBAbstraction from './DBAbstraction';
-import SBAbstraction from './SBAbstraction';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import { startStockUpdateJobs } from './jobs/dailyStockUpdate.job';
-import { startTickerJobs } from './jobs/tickerUpdate.job';
 
 import tradierRoutes from './routes/tradierRoutes';
 import tickerRoutes from './routes/tickerRoutes';
@@ -37,13 +35,6 @@ app.use(loginRoutes);
 app.use(clusterRoutes);
 app.use(errorHandler);
 
-// test connections for now
-// const sb = new SBAbstraction();
-// // sb.getTickers('Q');
-// sb.areTodaysQuotesInDatabase();
-
-// uncomment later
-// startTickerJobs();
 startStockUpdateJobs();
 
 db.init()
