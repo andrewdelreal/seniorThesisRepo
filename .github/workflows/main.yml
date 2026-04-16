@@ -34,4 +34,5 @@ jobs:
           SB_DATABASE: ${{ secrets.SB_DATABASE }}
           SB_USER: ${{ secrets.SB_USER }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          USE_SUPABASE: ${{ secrets.USE_SUPABASE }}
           TRADIER_BEARER_TOKEN: ${{ secrets.TRADIER_BEARER_TOKEN }}
