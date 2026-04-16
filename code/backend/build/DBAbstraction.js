@@ -23,7 +23,7 @@ let POSTGRES_PASSWORD;
 let POSTGRES_HOST;
 let POSTGRES_PORT;
 let POSTGRES_DB;
-if (process.env.USE_SUPABASE === 'true') {
+if (String(process.env.USE_SUPABASE).trim() === 'true') {
     POSTGRES_USER = process.env.SB_USER;
     POSTGRES_PASSWORD = process.env.SB_PASSWORD;
     POSTGRES_HOST = process.env.SB_HOST;
