@@ -39,12 +39,6 @@ app.use(tickerRoutes_1.default);
 app.use(loginRoutes_1.default);
 app.use(clusterRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
-// test connections for now
-// const sb = new SBAbstraction();
-// // sb.getTickers('Q');
-// sb.areTodaysQuotesInDatabase();
-// uncomment later
-// startTickerJobs();
 (0, dailyStockUpdate_job_1.startStockUpdateJobs)();
 db.init()
     .then(() => {

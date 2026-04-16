@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const supabaseStockUpdate_1 = require("../services/supabaseStockUpdate");
-(0, supabaseStockUpdate_1.SupabaseDailyStockUpdate)().then(() => {
+const dailyStockService_1 = require("../services/dailyStockService");
+(0, dailyStockService_1.DailyStockUpdate)().then(() => {
     console.log('Job completed');
     process.exit(0);
 })

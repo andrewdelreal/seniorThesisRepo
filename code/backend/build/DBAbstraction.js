@@ -18,11 +18,25 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const pg_copy_streams_1 = require("pg-copy-streams");
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
-const POSTGRES_USER = process.env.POSTGRES_USER;
-const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD;
-const POSTGRES_HOST = process.env.POSTGRES_HOST;
-const POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT);
-const POSTGRES_DB = process.env.POSTGRES_DB;
+let POSTGRES_USER;
+let POSTGRES_PASSWORD;
+let POSTGRES_HOST;
+let POSTGRES_PORT;
+let POSTGRES_DB;
+if (process.env.USE_SUPABASE === 'true') {
+    POSTGRES_USER = process.env.SB_USER;
+    POSTGRES_PASSWORD = process.env.SB_PASSWORD;
+    POSTGRES_HOST = process.env.SB_HOST;
+    POSTGRES_PORT = parseInt(process.env.SB_PORT);
+    POSTGRES_DB = process.env.SB_DATABASE;
+}
+else {
+    POSTGRES_USER = process.env.POSTGRES_USER;
+    POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD;
+    POSTGRES_HOST = process.env.POSTGRES_HOST;
+    POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT);
+    POSTGRES_DB = process.env.POSTGRES_DB;
+}
 class DBAbstraction {
     constructor() {
         this.pool = new pg_1.Pool({
@@ -209,12 +223,6 @@ class DBAbstraction {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
                 let client = null;
-                // const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
-                // const cutoffDate = new Date();
-                // cutoffDate.setDate(cutoffDate.getDate() - 1); // Set cutoff date to 1 day ago
-                // can be used once the backend is online and we have daily snapshots in the database to ensure 
-                // we only pull tickers for stocks that have data for the current day 
-                // (prevents stale tickers from showing up if a stock was delisted or something)
                 try {
                     client = yield this.pool.connect();
                     const query = ` 

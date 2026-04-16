@@ -6,11 +6,25 @@ import { from as copyFrom} from 'pg-copy-streams';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const POSTGRES_USER: string = process.env.POSTGRES_USER!;
-const POSTGRES_PASSWORD: string = process.env.POSTGRES_PASSWORD!;
-const POSTGRES_HOST: string = process.env.POSTGRES_HOST!;
-const POSTGRES_PORT: number = parseInt(process.env.POSTGRES_PORT!);
-const POSTGRES_DB: string = process.env.POSTGRES_DB!;
+let POSTGRES_USER: string;
+let POSTGRES_PASSWORD: string;
+let POSTGRES_HOST: string;
+let POSTGRES_PORT: number;
+let POSTGRES_DB: string;
+
+if (process.env.USE_SUPABASE === 'true') {
+    POSTGRES_USER = process.env.SB_USER!;
+    POSTGRES_PASSWORD = process.env.SB_PASSWORD!;
+    POSTGRES_HOST = process.env.SB_HOST!;
+    POSTGRES_PORT = parseInt(process.env.SB_PORT!);
+    POSTGRES_DB = process.env.SB_DATABASE!;
+} else {
+    POSTGRES_USER = process.env.POSTGRES_USER!;
+    POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD!;
+    POSTGRES_HOST = process.env.POSTGRES_HOST!;
+    POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT!);
+    POSTGRES_DB = process.env.POSTGRES_DB!;
+}
 
 interface Ticker {
     name: string,
@@ -33,6 +47,7 @@ class DBAbstraction {
     async init(): Promise<void> {
         return new Promise(async (resolve, reject) => {
             let client: PoolClient | null = null;
+
             try {
                 client = await this.pool.connect();
                 console.log('Connected to PostgreSQL database');
@@ -86,6 +101,7 @@ class DBAbstraction {
     async addDailyStockSnapshot(): Promise<void> {
         return new Promise(async (resolve, reject) => {
             let client: PoolClient | null = null;
+
             try { 
                 client = await this.pool.connect();
                 console.log("Connected to PostgreSQL");
@@ -188,6 +204,7 @@ class DBAbstraction {
     async areTodaysQuotesInDatabase(): Promise<boolean> {
         return new Promise(async (resolve, reject) => {
             let client: PoolClient | null = null;
+
             try {
                 client = await this.pool.connect();
                 const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
@@ -208,12 +225,6 @@ class DBAbstraction {
     async getTickers(exchDBSymbol: string): Promise<{ name: string, symbol: string }[] | null> {
         return new Promise(async (resolve, reject) => {
             let client: PoolClient | null = null;
-            // const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
-            // const cutoffDate = new Date();
-            // cutoffDate.setDate(cutoffDate.getDate() - 1); // Set cutoff date to 1 day ago
-            // can be used once the backend is online and we have daily snapshots in the database to ensure 
-            // we only pull tickers for stocks that have data for the current day 
-            // (prevents stale tickers from showing up if a stock was delisted or something)
 
             try {
                 client = await this.pool.connect();

@@ -1,6 +1,6 @@
-import {SupabaseDailyStockUpdate} from '../services/supabaseStockUpdate';
+import { DailyStockUpdate } from '../services/dailyStockService';
 
-SupabaseDailyStockUpdate().then(() => {
+DailyStockUpdate().then(() => {
     console.log('Job completed');
     process.exit(0);
 })

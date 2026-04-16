@@ -26,9 +26,10 @@ function DailyStockUpdate() {
         }
         // if the time is before 3:00 pm local time, don't run this
         const now = new Date();
-        const marketCloseTime = new Date();
-        marketCloseTime.setHours(15, 0, 0, 0); // Set to 3:00 PM local time
-        if (now < marketCloseTime) {
+        const estNow = new Date(now.toLocaleString("en-CA", { timeZone: "America/New_York" }));
+        const marketCloseTime = new Date(estNow);
+        marketCloseTime.setHours(16, 0, 0, 0); // 4:00 PM EST/EDT
+        if (estNow < marketCloseTime) {
             console.log('Market is not yet closed, skipping daily stock update');
             return;
         }
@@ -61,4 +62,3 @@ function DailyStockUpdate() {
         console.log('Daily stock update executed');
     });
 }
-exports.default = DailyStockUpdate;
