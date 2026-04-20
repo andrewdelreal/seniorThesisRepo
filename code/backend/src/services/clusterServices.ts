@@ -77,17 +77,22 @@ async function ClusterStocks(
     console.log(quotes.length + ' quotes found for clustering');
 
     // make a df for easy data manipulation
-    const dataFrame: pl.DataFrame = pl.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
-    let reducedDataFrame: pl.DataFrame = dataFrame.select(...dimensions);
+    let dataFrame: pl.DataFrame = pl.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
     
     // apply transformations if necessary
     if (isLog) {
-        reducedDataFrame = await applyLogTransformation(reducedDataFrame);
+        dataFrame = await applyLogTransformation(dataFrame);
     }
 
+    console.log(dataFrame.head());
+
     if (isStandardized) {
-        reducedDataFrame = await applyStandardization(reducedDataFrame);
+        dataFrame = await applyStandardization(dataFrame);
     }
+
+    console.log(dataFrame.head());
+
+    let reducedDataFrame: pl.DataFrame = dataFrame.select(...dimensions);
     
     // convert the df to a format suitable for clustering
     const data = await reducedDataFrame.toRecords().map(row => Object.values(row).map(Number));
@@ -158,13 +163,34 @@ async function DimensionReduction(df: pl.DataFrame, dimensions: string[], dimens
 }
 
 async function applyLogTransformation(df: pl.DataFrame) {
-    return df.withColumns(
-        pl.all().add(1).log()
-    );
+    return df.withColumns(...[
+        pl.col('volume').add(1).log(),
+        pl.col('average_volume').add(1).log(),
+        pl.col('last').add(1).log(),
+        pl.col('close').add(1).log(),
+        pl.col('high').add(1).log(),
+        pl.col('low').add(1).log(),
+    ]);
 }
 
 async function applyStandardization(df: pl.DataFrame) {
-    return df.withColumns(
-        pl.all().sub(pl.all().mean()).div(pl.all().std())
+    const numericCols = [
+        'volume',
+        'average_volume',
+        'last',
+        'close',
+        'high',
+        'low',
+        'volatility',
+        'change'
+    ].filter(col => df.columns.includes(col));
+
+    return df.withColumns(...
+        numericCols.map(col =>
+            pl.col(col)
+              .sub(pl.col(col).mean())
+              .div(pl.col(col).std())
+              .alias(col)
+        )
     );
 }

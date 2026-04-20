@@ -142,12 +142,12 @@ async function formatPoints(points: Point[], centroids: number[][], dimensions: 
         colors.push(distinctColors[point['cluster']]);
     }
 
-    for (const [i, centroid] of centroids.entries()) {
-        xVals.push(centroid[0] as number);
-        yVals.push(centroid[1] as number);
-        pointText.push(`Centroid #${1 + i}`);
-        colors.push(black);
-    }
+    // for (const [i, centroid] of centroids.entries()) {
+    //     xVals.push(centroid[0] as number);
+    //     yVals.push(centroid[1] as number);
+    //     pointText.push(`Centroid #${1 + i}`);
+    //     colors.push(black);
+    // }
     console.log(centroids);
     console.log(colors);
 

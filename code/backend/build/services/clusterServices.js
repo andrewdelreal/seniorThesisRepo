@@ -47,15 +47,17 @@ function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized,
         }
         console.log(quotes.length + ' quotes found for clustering');
         // make a df for easy data manipulation
-        const dataFrame = nodejs_polars_1.default.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
-        let reducedDataFrame = dataFrame.select(...dimensions);
+        let dataFrame = nodejs_polars_1.default.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });
         // apply transformations if necessary
         if (isLog) {
-            reducedDataFrame = yield applyLogTransformation(reducedDataFrame);
+            dataFrame = yield applyLogTransformation(dataFrame);
         }
+        console.log(dataFrame.head());
         if (isStandardized) {
-            reducedDataFrame = yield applyStandardization(reducedDataFrame);
+            dataFrame = yield applyStandardization(dataFrame);
         }
+        console.log(dataFrame.head());
+        let reducedDataFrame = dataFrame.select(...dimensions);
         // convert the df to a format suitable for clustering
         const data = yield reducedDataFrame.toRecords().map(row => Object.values(row).map(Number));
         // clustering results
@@ -104,11 +106,31 @@ function DimensionReduction(df, dimensions, dimensionReduction) {
 }
 function applyLogTransformation(df) {
     return __awaiter(this, void 0, void 0, function* () {
-        return df.withColumns(nodejs_polars_1.default.all().add(1).log());
+        return df.withColumns(...[
+            nodejs_polars_1.default.col('volume').add(1).log(),
+            nodejs_polars_1.default.col('average_volume').add(1).log(),
+            nodejs_polars_1.default.col('last').add(1).log(),
+            nodejs_polars_1.default.col('close').add(1).log(),
+            nodejs_polars_1.default.col('high').add(1).log(),
+            nodejs_polars_1.default.col('low').add(1).log(),
+        ]);
     });
 }
 function applyStandardization(df) {
     return __awaiter(this, void 0, void 0, function* () {
-        return df.withColumns(nodejs_polars_1.default.all().sub(nodejs_polars_1.default.all().mean()).div(nodejs_polars_1.default.all().std()));
+        const numericCols = [
+            'volume',
+            'average_volume',
+            'last',
+            'close',
+            'high',
+            'low',
+            'volatility',
+            'change'
+        ].filter(col => df.columns.includes(col));
+        return df.withColumns(...numericCols.map(col => nodejs_polars_1.default.col(col)
+            .sub(nodejs_polars_1.default.col(col).mean())
+            .div(nodejs_polars_1.default.col(col).std())
+            .alias(col)));
     });
 }
