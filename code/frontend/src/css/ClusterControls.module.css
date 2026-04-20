@@ -8,60 +8,61 @@
 }
 
 .formInline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'Roboto', sans-serif;
-    animation: fadeIn 0.8s ease-out;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  animation: fadeIn 0.8s ease-out;
+  margin-bottom: 1rem;
 }
 
 .formInline label {
-    margin-right: 0.5rem;
-    font-size: 1.2rem;
-    color: #2b2d42;
-    display: block;
-    text-align: center;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  color: #2b2d42;
+  display: block;
+  text-align: center;
 }
 
 .formInline input {
-    padding: 0.6rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f7f7f7;
-    font-size: 1.2rem;
-    transition: border 0.3s ease;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  font-size: 1.2rem;
+  transition: border 0.3s ease;
 }
 
 .formInline button {
-    padding: 0.6rem 1rem;
-    margin-top: 25px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(0deg, #5b2db1, #5b2db1);
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+  padding: 0.6rem 1rem;
+  margin-top: 25px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(0deg, #5b2db1, #5b2db1);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .formInline button:hover {
-    background: linear-gradient(90deg, #5b2db1, #5b2db1);
-    transform: translateY(-2px);
+  background: linear-gradient(90deg, #5b2db1, #5b2db1);
+  transform: translateY(-2px);
 }
 
 
 .formInline input:focus {
-    border-color: #ff6b6b;
-    outline: none;
-    background-color: #fff;
+  border-color: #ff6b6b;
+  outline: none;
+  background-color: #fff;
 }
 
 .formGroup {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 150px;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
 }
 
 /* === React Select Styles === */
