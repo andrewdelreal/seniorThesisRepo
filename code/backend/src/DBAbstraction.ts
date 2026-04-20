@@ -266,11 +266,11 @@ class DBAbstraction {
                     SELECT s.id, t.symbol, t.description, t.exch, s.date, s.last, s.volume, s.high, s.low, s.volatility, s.close, s.change, s.average_volume
                     FROM public."DailyStockSnapshot" s, public."Ticker" t
                     WHERE s.ticker_id = t.id
-                    AND s.date = '2026-02-26'
-                    AND t.exch = ANY($1::text[]);
+                    AND s.date = $1
+                    AND t.exch = ANY($2::text[]);
                 `;
 
-                const rows: QueryResult = await client.query(query, [exchanges]);
+                const rows: QueryResult = await client.query(query, [date, exchanges]);
                 resolve(rows.rows);
             } catch (err) {
                 console.error('Error connecting to database to get quotes:', err);

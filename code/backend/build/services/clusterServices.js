@@ -42,6 +42,9 @@ function ClusterStocks(db, date, numClusters, dimensions, isLog, isStandardized,
         if (!quotes) {
             throw new ApiError_1.default(500, 'DATABASE_FAILURE', 'Failed to fetch quotes from database for clustering');
         }
+        if (quotes.length === 0) {
+            throw new ApiError_1.default(404, 'NO_DATA', 'No stock data found for the specified date and exchanges');
+        }
         console.log(quotes.length + ' quotes found for clustering');
         // make a df for easy data manipulation
         const dataFrame = nodejs_polars_1.default.DataFrame(quotes, { columns: ['id', 'symbol', 'description', 'exch', 'date', 'last', 'volume', 'high', 'low', 'volatility', 'close', 'change', 'average_volume'] });

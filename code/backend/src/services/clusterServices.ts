@@ -66,6 +66,14 @@ async function ClusterStocks(
         );
     }
 
+    if (quotes.length === 0) {
+        throw new ApiError(
+            404,
+            'NO_DATA',
+            'No stock data found for the specified date and exchanges'
+        );
+    }
+
     console.log(quotes.length + ' quotes found for clustering');
 
     // make a df for easy data manipulation
