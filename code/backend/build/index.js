@@ -24,6 +24,7 @@ const tradierRoutes_1 = __importDefault(require("./routes/tradierRoutes"));
 const tickerRoutes_1 = __importDefault(require("./routes/tickerRoutes"));
 const loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
 const clusterRoutes_1 = __importDefault(require("./routes/clusterRoutes"));
+const databaseRoutes_1 = __importDefault(require("./routes/databaseRoutes"));
 const errorHandler_1 = require("./middleware/errorHandler");
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
@@ -38,6 +39,7 @@ app.use(tradierRoutes_1.default);
 app.use(tickerRoutes_1.default);
 app.use(loginRoutes_1.default);
 app.use(clusterRoutes_1.default);
+app.use(databaseRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 (0, dailyStockUpdate_job_1.startStockUpdateJobs)();
 db.init()

@@ -207,7 +207,7 @@ class DBAbstraction {
 
             try {
                 client = await this.pool.connect();
-                const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
+                const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); // Get today's date in YYYY-MM-DD format
                 const query = 'SELECT COUNT(*) FROM public."DailyStockSnapshot" WHERE date = $1';
                 const result = await client.query(query, [today]);
                 resolve(result.rows[0].count > 0);
@@ -271,6 +271,34 @@ class DBAbstraction {
                 `;
 
                 const rows: QueryResult = await client.query(query, [date, exchanges]);
+                resolve(rows.rows);
+            } catch (err) {
+                console.error('Error connecting to database to get quotes:', err);
+                reject(err);
+                return;
+            } finally {
+                if (client) {
+                    client.release();
+                }       
+            }
+        });
+    }
+
+    async getQuotesForTable(date: string): Promise<any[] | null> {
+        return new Promise(async (resolve, reject) => {
+            let client: PoolClient | null = null;
+
+            try { 
+                client = await this.pool.connect();
+
+                // will not hard code this later
+                const query = `
+                    SELECT t.symbol, t.exch, s.last, s.volume, s.high, s.low, s.volatility, s.change, s.average_volume, s.close FROM public."DailyStockSnapshot" s, public."Ticker" t
+                    WHERE s.ticker_id = t.id
+                    AND date = $1;
+                `;
+
+                const rows: QueryResult = await client.query(query, [date]);
                 resolve(rows.rows);
             } catch (err) {
                 console.error('Error connecting to database to get quotes:', err);

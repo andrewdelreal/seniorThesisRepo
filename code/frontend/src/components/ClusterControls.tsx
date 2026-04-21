@@ -14,10 +14,6 @@ interface ClusterControlsProps {
 
 const numClustersLength = 18;
 
-// add multi dimensions
-// check to see the no data once doing log and standardized
-// fix graph labels
-
 const trueFalseOptions = [
     { label: 'True', value: 'true'},
     { label: 'False', value: 'false'}

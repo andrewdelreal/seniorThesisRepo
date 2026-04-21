@@ -12,12 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.startStockUpdateJobs = startStockUpdateJobs;
-const dailyStockService_1 = require("../services/dailyStockService");
-const node_cron_1 = __importDefault(require("node-cron"));
-function startStockUpdateJobs() {
+exports.getStockTableData = getStockTableData;
+const DBAbstraction_1 = __importDefault(require("../DBAbstraction"));
+const ApiError_1 = __importDefault(require("../errors/ApiError"));
+;
+function getStockTableData(date) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, dailyStockService_1.DailyStockUpdate)();
-        node_cron_1.default.schedule('30 16 * * *', () => (0, dailyStockService_1.DailyStockUpdate)(), { timezone: 'America/New_York' });
+        const db = new DBAbstraction_1.default();
+        const tableData = yield db.getQuotesForTable(date);
+        if (!tableData) {
+            throw new ApiError_1.default(500, 'DATABASE_FAILURE', 'Failed to fetch stock table data from database');
+        }
+        const rows = tableData;
+        return rows;
     });
 }

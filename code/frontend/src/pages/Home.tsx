@@ -2,8 +2,10 @@ import '../css/Home.module.css';
 import { JSX } from 'react';
 import { useEffect, useState } from 'react';
 import Graph from '../components/HistoryGraph';
+import StockTable from '../components/StockTable';
 import StockData from '../hooks/StockData';
 import StockControls from '../components/StockControls';
+import StockTableControls from '../components/StockTableControls';
 
 function getTodayAndWeekBefore() {
     const today = new Date();
@@ -29,6 +31,9 @@ function Home(): JSX.Element {
   const [start, setStart] = useState(lastWeek);
   const [end, setEnd] = useState(today);
   const [exchange, setExchange] = useState('nasdaq')
+
+  const [stockTableColumns, setStockTableColumns] = useState<{ label: string; value: string }[]>([]);
+  const [tableDate, setTableDate] = useState<string>(today);
 
   const { data, loading, error } = StockData({ symbol, interval, start, end });
 
@@ -74,8 +79,17 @@ function Home(): JSX.Element {
           <div/>
         ): (
           <div>
-            <Graph data={data} symbol={symbol} interval={interval} start={start} end={end}/>
+            <div>
+              <Graph data={data} symbol={symbol} interval={interval} start={start} end={end}/>
+            </div>
+            <div>
+              <StockTableControls handleColumnsChange={setStockTableColumns} setTableDate={setTableDate} />
+            </div>
+            <div>
+              <StockTable date={tableDate} columnOptions={stockTableColumns}/>
+            </div>
           </div>
+          
         )}
       </div>
     </div>

@@ -1,0 +1,127 @@
+.clusterControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.formInline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  animation: fadeIn 0.8s ease-out;
+  margin-bottom: 1rem;
+}
+
+.formInline label {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  color: #2b2d42;
+  display: block;
+  text-align: center;
+}
+
+.formInline input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  font-size: 1.2rem;
+  transition: border 0.3s ease;
+}
+
+.formInline button {
+  padding: 0.6rem 1rem;
+  margin-top: 50px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(0deg, #5b2db1, #5b2db1);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.formInline button:hover {
+  background: linear-gradient(90deg, #5b2db1, #5b2db1);
+  transform: translateY(-2px);
+}
+
+
+.formInline input:focus {
+  border-color: #ff6b6b;
+  outline: none;
+  background-color: #fff;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+/* === React Select Styles === */
+.select {
+  width: 600px;
+  font-size: 0.95rem;
+}
+
+/* Prefix styles to target react-select internal elements */
+.select__control {
+  border-radius: 12px !important;
+  border: 1px solid #ccc !important;
+  min-height: 40px !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.select__control:hover {
+  border-color: var(--purple-main) !important;
+}
+
+.select__menu {
+  border-radius: 10px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+  z-index: 9999 !important;
+}
+
+.select__option {
+  cursor: pointer !important;
+  color: var(--text-color) !important;
+}
+
+.select__option--is-focused {
+  background-color: var(--purple-light) !important;
+}
+
+.select__option--is-selected {
+  background-color: var(--purple-main) !important;
+  color: #fff !important;
+}
+
+.select__single-value {
+  color: var(--text-color) !important;
+}
+
+/* === Date Inputs === */
+.input {
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background-color: white;
+  transition: border-color 0.2s ease;
+}
+
+.input:hover,
+.input:focus {
+  border-color: var(--purple-main);
+  outline: none;
+}

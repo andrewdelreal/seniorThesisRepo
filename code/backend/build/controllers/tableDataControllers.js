@@ -12,12 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.startStockUpdateJobs = startStockUpdateJobs;
-const dailyStockService_1 = require("../services/dailyStockService");
-const node_cron_1 = __importDefault(require("node-cron"));
-function startStockUpdateJobs() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield (0, dailyStockService_1.DailyStockUpdate)();
-        node_cron_1.default.schedule('30 16 * * *', () => (0, dailyStockService_1.DailyStockUpdate)(), { timezone: 'America/New_York' });
+exports.tableDataController = void 0;
+const ApiError_1 = __importDefault(require("../errors/ApiError"));
+const tableDataServices_1 = require("../services/tableDataServices");
+const tableDataController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { date } = req.body;
+    if (!date) {
+        throw new ApiError_1.default(400, "INVALID_REQUEST", "Missing required parameters");
+    }
+    const data = yield (0, tableDataServices_1.getStockTableData)(date);
+    res.status(200).json({
+        success: true,
+        data,
     });
-}
+});
+exports.tableDataController = tableDataController;

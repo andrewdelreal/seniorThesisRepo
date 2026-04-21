@@ -12,6 +12,7 @@ import tradierRoutes from './routes/tradierRoutes';
 import tickerRoutes from './routes/tickerRoutes';
 import loginRoutes from './routes/loginRoutes';
 import clusterRoutes from './routes/clusterRoutes';
+import databaseRoutes from './routes/databaseRoutes';
 
 import { errorHandler } from './middleware/errorHandler';
 
@@ -33,6 +34,7 @@ app.use(tradierRoutes);
 app.use(tickerRoutes);
 app.use(loginRoutes);
 app.use(clusterRoutes);
+app.use(databaseRoutes);
 app.use(errorHandler);
 
 startStockUpdateJobs();

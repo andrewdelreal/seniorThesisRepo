@@ -202,7 +202,7 @@ class DBAbstraction {
                 let client = null;
                 try {
                     client = yield this.pool.connect();
-                    const today = new Date().toLocaleDateString('en-CA'); // Get today's date in YYYY-MM-DD format
+                    const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); // Get today's date in YYYY-MM-DD format
                     const query = 'SELECT COUNT(*) FROM public."DailyStockSnapshot" WHERE date = $1';
                     const result = yield client.query(query, [today]);
                     resolve(result.rows[0].count > 0);
@@ -265,6 +265,34 @@ class DBAbstraction {
                     AND t.exch = ANY($2::text[]);
                 `;
                     const rows = yield client.query(query, [date, exchanges]);
+                    resolve(rows.rows);
+                }
+                catch (err) {
+                    console.error('Error connecting to database to get quotes:', err);
+                    reject(err);
+                    return;
+                }
+                finally {
+                    if (client) {
+                        client.release();
+                    }
+                }
+            }));
+        });
+    }
+    getQuotesForTable(date) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                let client = null;
+                try {
+                    client = yield this.pool.connect();
+                    // will not hard code this later
+                    const query = `
+                    SELECT t.symbol, t.exch, s.last, s.volume, s.high, s.low, s.volatility, s.change, s.average_volume, s.close FROM public."DailyStockSnapshot" s, public."Ticker" t
+                    WHERE s.ticker_id = t.id
+                    AND date = $1;
+                `;
+                    const rows = yield client.query(query, [date]);
                     resolve(rows.rows);
                 }
                 catch (err) {

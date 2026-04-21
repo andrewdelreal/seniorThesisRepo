@@ -16,6 +16,7 @@
     "jwt-decode": "^4.0.0",
     "plotly.js": "^3.5.0",
     "react": "^19.1.1",
+    "react-data-table-component": "^7.7.1",
     "react-dom": "^19.1.1",
     "react-plotly.js": "^2.6.0",
     "react-select": "^5.10.2",
